@@ -1,0 +1,16 @@
+.dividingLineAtom, .vertivalOrientation {
+    display: block;
+    height: auto;
+    transform: scale(.9);
+    width: 1px;
+    background: #A3ABB0;
+    position: relative;
+    opacity: .7;
+}
+
+.dividingLineAtom.horizontalOrientation {
+    height: 1px;
+    width: 100%;
+    transform: scale(1);
+    opacity: .5;
+}

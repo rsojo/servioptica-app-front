@@ -1,0 +1,20 @@
+.LabelAtom {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #1D2029;
+    margin-bottom: 8px;
+}
+
+.LabelAtom span {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1em;
+  color: #D82F39;
+  margin-left: 4px;
+}
+
+.LabelAtom.disabled {
+    opacity: .7;
+}

@@ -1,0 +1,38 @@
+.titleAtom {
+    font-family: "Roboto", sans-serif;
+    color: #171F23;
+    font-style: normal;
+    line-height: 1.2;
+    text-align: left;
+}
+.styleH1 {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.styleH2 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.styleH3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #31424C;
+}
+
+.styleH4 {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.styleH5 {
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.styleH6 {
+    font-weight: 400;
+    font-size: 12px;
+    color: #364954;
+}

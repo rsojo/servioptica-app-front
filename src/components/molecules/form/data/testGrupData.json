@@ -1,0 +1,57 @@
+{
+  "tax": [
+    {
+      "information": {
+        "tax_information": true
+      },
+      "name": "testData",
+      "last_name": "testData",
+      "company": "testData",
+      "nif": "123456",
+      "country": "AO",
+      "address": "testData",
+      "city": "testData",
+      "zip_code": "123"
+    }
+  ],
+  "agency": [
+    {
+      "ref": "testData",
+      "name": "testData",
+      "phone": "testData",
+      "clientPhone": "testData"
+    }
+  ],
+  "person": [
+    {
+      "name": "testData",
+      "last_name": "testData",
+      "company": "testData",
+      "birthday": "2024-06-02",
+      "email": "testData@asd.com",
+      "phone": "123123",
+      "zip_code": "4445-242"
+    }
+  ],
+  "guest": [
+    {
+      "name": "testData",
+      "last_name": "testData",
+      "title": "sr",
+      "insurance": "masculine",
+      "nationality": "AO",
+      "birthday": "2024-06-01",
+      "company": "123456",
+      "email": "testData@asd.com"
+    },
+    {
+      "name": "testData",
+      "last_name": "testData",
+      "insurance": "masculine",
+      "nationality": "AG",
+      "birthday": "2024-06-01",
+      "company": "testData",
+      "email": "testData@qwe.q"
+    }
+  ]
+}

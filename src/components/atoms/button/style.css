@@ -1,0 +1,166 @@
+.MuiButtonBase-root.generalBtn {
+  border-radius: 0px;
+  padding: 16px 24px;
+  box-shadow: none;
+  text-transform: initial;
+  font-weight: 400;
+  line-height: 1;
+  min-height: 36px;
+  font-size: 16px;
+  background-color: var(--mainBtnColor);
+  color: #ffffff;
+  border: 1px solid var(--mainBtnColor);
+}
+
+.MuiButtonBase-root.generalBtn.outlined {
+  background-color: #ffffff;
+  color: #424242;
+}
+.MuiButtonBase-root.generalBtn.outlined.focus {
+  background-color: #f0fafe;
+  color: var(--mainBtnColor);
+}
+
+.MuiButtonBase-root.generalBtn.outlined.Mui-disabled {
+  border: 1px solid #c7c7ca;
+  color: #c7c7ca;
+}
+
+.MuiButtonBase-root.generalBtn:hover,
+.MuiButtonBase-root.generalBtn.focus:hover,
+.MuiButtonBase-root.generalBtn.focus {
+  color: #ffffff;
+  background-color: var(--hoverBtnColor);
+  border-color: var(--hoverBtnColor);
+  box-shadow: none;
+}
+
+/* warning_color */
+.MuiButtonBase-root.generalBtn.warning_color:not(.Mui-disabled) {
+  background-color: #d82f39;
+  border: 1px solid #d82f39;
+}
+
+.MuiButtonBase-root.generalBtn.warning_color:hover {
+  background-color: #bb2b34;
+  border-color: #bb2b34;
+}
+
+.generalBtn:not(.linkStyle) .MuiButton-startIcon {
+  margin-right: 8px;
+}
+
+.generalBtn:not(.linkStyle) .MuiButton-endIcon {
+  margin: 0;
+  position: absolute;
+  right: 7px;
+  color: #78858b;
+}
+
+.generalBtn .MuiButton-endIcon svg {
+  width: 21px;
+  flex: 21px;
+  height: 100%;
+}
+
+.MuiButtonBase-root.generalBtn.linkStyle,
+.MuiButtonBase-root.generalBtn.linkStyle:hover {
+  border: 0px;
+  color: var(--hoverBtnColor);
+  text-decoration: underline;
+  background-color: transparent;
+  font-weight: 400;
+  text-transform: initial;
+  padding: 0;
+}
+.MuiButtonBase-root.generalBtn.linkStyle.warning_color {
+  background-color: transparent;
+  border: 0px solid transparent;
+  color: #d82f39;
+}
+.MuiButtonBase-root.generalBtn.linkStyle.warning_color:hover {
+  color: #bb2b34;
+}
+.generalBtn.linkStyle.warning_color svg,
+.generalBtn.linkStyle.warning_color svg * {
+  fill: #bb2b34;
+}
+.generalBtn.linkStyle.Mui-disabled svg,
+.generalBtn.linkStyle.Mui-disabled svg * {
+  fill: #c7c7ca;
+}
+.generalBtn.linkStyle svg {
+  transform: translateX(0px);
+}
+
+.MuiButtonBase-root.generalBtn.linkStyle.Mui-disabled,
+.MuiButtonBase-root.generalBtn.linkStyle.Mui-disabled:hover {
+  color: #c7c7ca;
+}
+
+.MuiButtonBase-root.generalBtn.linkStyle.Mui-disabled {
+  border: 0px
+}
+
+.resetStyles.MuiButtonBase-root {
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  width: auto;
+  min-width: initial;
+  max-width: initial;
+  height: 0;
+  min-height: initial;
+}
+
+.MuiButtonBase-root.generalBtn.Mui-disabled {
+  border: 1px solid transparent;
+}
+/* selectStyle */
+.MuiButtonBase-root.generalBtn.selectStyle {
+  background-color: #ffffff;
+  width: 100%;
+  height: 40px;
+  border-radius: 8px;
+  margin: 0;
+  color: #6a6c72;
+  border: 1px solid #a3abb0;
+  font-weight: 400;
+  padding: 4px 12px 3px;
+  justify-content: flex-start;
+}
+
+/* ghostStyle */
+.MuiButtonBase-root.generalBtn.ghostStyle {
+  background-color: transparent;
+  color: #6a6c72;
+  border: none;
+  transition: 0.3s ease;
+  padding: 4px 4px;
+  min-width: initial;
+}
+
+.MuiButtonBase-root.generalBtn.ghostStyle:hover {
+  background-color: #f0fafe;
+}
+
+/* listStyle */
+.MuiButtonBase-root.generalBtn.listStyle {
+  background-color: transparent;
+  border-radius: 0;
+  border: 0;
+  border-left: 3px solid transparent;
+  color: #171f23;
+  font-weight: 400;
+}
+
+.MuiButtonBase-root.generalBtn.listStyle:hover {
+  border-left: 3px solid #4992b1;
+  color: #4992b1;
+}
+
+.MuiButtonBase-root.generalBtn.selectStyle.Mui-disabled {
+  background-color: transparent;
+}

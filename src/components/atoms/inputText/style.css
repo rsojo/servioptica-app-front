@@ -1,0 +1,74 @@
+.customTextField .MuiInputBase-root input:-internal-autofill-selected {
+  appearance: none;
+  background-image: none;
+  background-color: #ffffff;
+  color: var(--fieldColorText);
+  color-scheme: none;
+}
+.customTextField {
+  border-radius: 0;
+  width: 100%;
+}
+
+.customTextField .MuiInputBase-root {
+  height: 40px;
+  border-radius: 8px;
+  background: #ffffff;
+  box-sizing: border-box;
+  border: none;
+}
+
+.customTextField.ghost .MuiInputBase-root {
+  height: auto;
+  padding: 0;
+  background: transparent;
+  flex: 1;
+  align-items: flex-start;
+}
+
+input:focus,
+input:focus-visible {
+  box-shadow: none;
+  outline-offset: initial;
+  outline: none;
+}
+.customTextField .MuiInputBase-root input,
+.customTextField .MuiInputBase-root textarea,
+.customTextField .MuiInputBase-root input:focus,
+.customTextField .MuiInputBase-root textarea:focus,
+.customTextField .MuiInputBase-root input:focus-visible,
+.customTextField .MuiInputBase-root textarea:focus-visible {
+  border: 1px solid #a3abb0;
+  background-color: #ffffff;
+  color: var(--fieldColorText);
+  opacity: 1;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 8px;
+  padding: 0 16px;
+  box-shadow: none;
+  outline-offset: initial;
+  outline: none;
+}
+.customTextField.ghost .MuiInputBase-root input,
+.customTextField.ghost .MuiInputBase-root textarea,
+.customTextField.ghost .MuiInputBase-root input:focus,
+.customTextField.ghost .MuiInputBase-root textarea:focus,
+.customTextField.ghost .MuiInputBase-root input:focus-visible,
+.customTextField.ghost .MuiInputBase-root textarea:focus-visible {
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+}
+.MuiOutlinedInput-notchedOutline {
+  border: none !important;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
