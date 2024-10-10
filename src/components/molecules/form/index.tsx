@@ -47,18 +47,19 @@ export const FormModule = ({
       sx={{
         "& .MuiTextField-root": { m: 0, width: "100%" },
       }}
+      style={{width: '100%'}}
       noValidate={false}
       autoComplete="on"
       onKeyDown={(e) => {
         if (e.key === "Enter") {
           e.preventDefault();
           validateFields(visibleGroups, preData).then((response) => {
-            setError(response);
+            // setError(response);
           });
         }
       }}
     >
-      <GridAtom gap={8}>
+      <GridAtom gap={8} style={{width: '100%'}}>
         <GroupConstructor
           errorForm={error ? error[0] : null}
           setPreData={setPreData}
@@ -73,7 +74,7 @@ export const FormModule = ({
           onCallBack={handleFormActions}
           actionBtnLabel={actionBtnLabel}
           actionBackBtnLabel={actionBackBtnLabel}
-          externalApproval={externalApproval ?? false}
+          externalApproval={externalApproval ?? true}
           goBack={onGoBackCallBack}
           loading={loading!}
         />

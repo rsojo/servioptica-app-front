@@ -31,14 +31,14 @@ export const TitleAtom = ({
   if (startIcon || endIcon) {
     return (
       <RowAtom gap={1} alignItems="center">
-        {startIcon && (
+        {startIcon && 
           <ColumnAtom
             style={{ flex: "none", width: "auto" }}
             className="TitleIcon"
           >
             {startIcon}
           </ColumnAtom>
-        )}
+        }
         <ColumnAtom style={{ flex: "none", width: "auto" }}>
           <TypeTitle
             className={`${className ?? ""} text-gray-100`}

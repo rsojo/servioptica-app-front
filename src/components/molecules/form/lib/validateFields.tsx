@@ -37,26 +37,42 @@ export const validateField = async ({
   field: Partial<FieldsStructure>;
   value: FieldsValueType;
 }): Promise<ErrorFrormType | null> => {
-  const minlength = field.minlength ?? 1;
+  const minlength = field.minlength ?? 3;
   const maxlength = field.maxlength ?? 60;
   if (field.important) {
     if (value === undefined || value === null) {
       return {
         groupId: groupId!,
         fieldId: field.id!,
-        errorMessage: `${field.label} é obrigatório.`,
+        errorMessage: `Este campo es requerido!`,
       };
     }
 
     switch (field.type) {
       case "text":
-        if (minlength || maxlength) {
+        if (String(value).length! < minlength) {
+          return {
+            groupId: groupId!,
+            fieldId: field.id!,
+            errorMessage:'',
+          };
+        }
+        if (String(value).length! > maxlength) {
           return {
             groupId: groupId!,
             fieldId: field.id!,
             errorMessage:
               field.textError ??
-              `Deve ter entre ${minlength} e ${maxlength} caracteres.`,
+              `Minimo ${minlength} caracteres.`,
+          };
+        }
+        return null;
+        case 'select':
+        if (String(value).length === 0 || value === 'NA') {
+          return {
+            groupId: groupId!,
+            fieldId: field.id!,
+            errorMessage:'',
           };
         }
         return null;

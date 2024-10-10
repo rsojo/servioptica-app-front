@@ -87,12 +87,7 @@ export const InputTextAtom = ({
           validationAction(e.target.value);
         }
       }}
-      // onBlur={(e) => {
-      //    validationAction(e.target.value);
-      // }}
-      value={
-        type === "number" && maxlength && value > maxlength ? maxlength : value
-      }
+      value={value}
       disabled={disabled ?? false}
       placeholder={placeholder ?? ""}
     />

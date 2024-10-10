@@ -6,16 +6,20 @@
 
 p.MuiFormHelperText-root.Mui-error {
     font-size: 12px;
-    margin-left: 2px;
+    margin: 0;
+    margin-left: 0px;
     position: absolute;
-    bottom: -20px;
+    bottom: -26px;
     left: 0;
+    width: 100%;
+    text-align: center;
 }
 
 li.MuiButtonBase-root.MuiMenuItem-root {
     font-size: 14px;
 }
 :root {
+  --mainColor: #024F8F;
   --mainBtnColor: #024F8F;
   --hoverBtnColor: #006ec9;
   --fieldColorText: #6A6C72;

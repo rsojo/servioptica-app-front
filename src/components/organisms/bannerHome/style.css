@@ -1,5 +1,4 @@
 .BigCtaHome {
-  background-color: #691db6;
   text-decoration: none;
   height: 100%;
   width: 100%;
@@ -11,7 +10,6 @@
   filter: grayscale(1);
 }
 .BigCtaHome:hover {
-  background-color: #222426;
   text-decoration: none;
   height: 100%;
   width: 100%;

@@ -17,7 +17,7 @@ interface ActionsFormProps {
   formData: PreDataType;
   groupsFields: GroupFields[];
   externalApproval: boolean;
-  actionBtnLabel: string;
+  actionBtnLabel?: string;
   actionBackBtnLabel?: string;
   loading: boolean;
 }
@@ -38,14 +38,13 @@ export const FormActions = ({
   const [error, setError] = useState<ErrorFrormType[] | null>(null);
 
   const handleValidateFields = async () => {
-    const response = await validateFields(
-      groupsFields,
-      formData
-    ).then((validate) => {
-      const isError = validate?.length! > 0;
-      const value = externalApproval && !isError;
-      return value;
-    });
+    const response = await validateFields(groupsFields, formData).then(
+      (validate) => {
+        const isError = validate?.length! > 0;
+        const value = externalApproval && !isError;
+        return value;
+      }
+    );
     setCanContinue(response);
     if (response) {
       setError(externalError ?? null);
@@ -64,10 +63,15 @@ export const FormActions = ({
   }, [externalError]);
 
   return (
-    <GridAtom>
-      <RowAtom justifyContent="space-between" alignItems="center" gap={2}>
-        <ColumnAtom flex={2}>
-          {error && externalError && (
+    <GridAtom style={{ width: "100%" }}>
+      <RowAtom
+        style={{ width: "100%" }}
+        justifyContent="center"
+        alignItems="center"
+        gap={2}
+      >
+        {(error || externalError) && (
+          <ColumnAtom flex={2}>
             <Alert
               severity="error"
               style={{
@@ -75,13 +79,12 @@ export const FormActions = ({
                 pointerEvents: "none",
               }}
             >
-              {error.length > 0
-                ? error[0]?.errorMessage
-                : " ** Os campos marcados com um asterisco vermelho (*) são obrigatórios para continuar."}
+              {error![0]?.errorMessage ??
+                " ** Os campos marcados com um asterisco vermelho (*) são obrigatórios para continuar."}
             </Alert>
-          )}
-        </ColumnAtom>
-        <ColumnAtom flex={1}>
+          </ColumnAtom>
+        )}
+        <ColumnAtom flex={1} alignItems="center">
           <RowAtom justifyContent="flex-end" gap={2}>
             {goBack && (
               <ButtonAtom
@@ -110,17 +113,21 @@ export const FormActions = ({
             )}
             <ButtonAtom
               disabled={!canContinue || loading}
+              style={{minWidth: 200}}
               onClick={() => {
-                handleValidateFields()
-                  .then((response) => {
-                    if (response) {
-                      onCallBack();
-                    }
-                    // scrollToTop();
-                  })
+                handleValidateFields().then((response) => {
+                  if (response) {
+                    onCallBack();
+                  }
+                  // scrollToTop();
+                });
               }}
             >
-              {loading ? <CircularProgress size={24} /> : actionBtnLabel}
+              {loading ? (
+                <CircularProgress size={24} />
+              ) : (
+                actionBtnLabel ?? "Continual"
+              )}
             </ButtonAtom>
           </RowAtom>
         </ColumnAtom>

@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "groupName": "login",
+    "fields": [
+      {
+        "id": 1,
+        "label": "",
+        "name": "login_nit",
+        "type": "text",
+        "columnSize": 12,
+        "important": true,
+        "options": null,
+        "default": "",
+        "placeholder": "Nit",
+        "textError": "Campo requerido",
+        "minlength": 3,
+        "maxlength": 60
+      }
+    ]
+  }
+]

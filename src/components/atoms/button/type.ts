@@ -25,6 +25,6 @@ export type ButtonAtomProps = {
   style?: React.CSSProperties;
   adVariant?: BtnAditionalsVariant;
   onClick: MouseEventHandler<HTMLButtonElement>;
-  className?: BtnAditionalsVariant;
+  className?: string;
   type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
 };

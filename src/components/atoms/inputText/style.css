@@ -2,7 +2,7 @@
   appearance: none;
   background-image: none;
   background-color: #ffffff;
-  color: var(--fieldColorText);
+  color: var(--mainColor);
   color-scheme: none;
 }
 .customTextField {
@@ -38,7 +38,7 @@ input:focus-visible {
 .customTextField .MuiInputBase-root textarea:focus,
 .customTextField .MuiInputBase-root input:focus-visible,
 .customTextField .MuiInputBase-root textarea:focus-visible {
-  border: 1px solid #a3abb0;
+  border: 1px solid var(--mainColor);
   background-color: #ffffff;
   color: var(--fieldColorText);
   opacity: 1;
@@ -47,13 +47,14 @@ input:focus-visible {
   font-style: normal;
   font-weight: 400;
   line-height: 24px;
-  height: 100%;
+  height: 48px;
   box-sizing: border-box;
-  border-radius: 8px;
-  padding: 0 16px;
+  border-radius: 0px;
+  padding: 0px 16px;
   box-shadow: none;
   outline-offset: initial;
   outline: none;
+  color: var(--mainColor);
 }
 .customTextField.ghost .MuiInputBase-root input,
 .customTextField.ghost .MuiInputBase-root textarea,

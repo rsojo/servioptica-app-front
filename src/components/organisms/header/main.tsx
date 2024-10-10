@@ -1,24 +1,24 @@
-import ContainerAtom from "../../../atoms/container";
-import ColumnAtom from "../../../atoms/column";
-import RowAtom from "../../../atoms/row";
-import LogoServioptica from "../../../../assets/img/logo_servioptica@2x.webp";
-import BkGeneral from "../../../../assets/img/bkGeneral.webp";
-import bkGeneralVideo from "../../../../assets/videos/bkGeneral.mp4";
-import BackgroundVideo from "../../../atoms/video";
-import GridAtom from "../../../atoms/grid";
-import TextAtom from "../../../atoms/text";
-import PersonIcon from "@mui/icons-material/Person";
-import './style.css'
-// import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom"
+import ColumnAtom from "../../atoms/column"
+import ContainerAtom from "../../atoms/container"
+import GridAtom from "../../atoms/grid"
+import RowAtom from "../../atoms/row"
+import TextAtom from "../../atoms/text"
+import BackgroundVideo from "../../atoms/video"
 
-const Header = () => {
-  return (
-    <header style={{ position: "relative", display: "flex" }}>
+import LogoServioptica from "../../../assets/img/logo_servioptica@2x.webp";
+import BkGeneral from "../../../assets/img/bkGeneral.webp";
+import bkGeneralVideo from "../../../assets/videos/bkGeneral.mp4";
+
+import PersonIcon from "@mui/icons-material/Person";
+
+export const MainHeader = () => {
+    return (
+        <header style={{ position: "relative", display: "flex" }}>
       <GridAtom
         alignItems="center"
         justifyContent="center"
         style={{
-          overflow: "hidden",
           position: "absolute",
           top: 0,
           left: 0,
@@ -28,8 +28,17 @@ const Header = () => {
         }}
       >
         <BackgroundVideo poster={BkGeneral} videoUrl={bkGeneralVideo} />
+        <span
+          style={{
+            width: "100%",
+            height: 120,
+            background: "linear-gradient(0deg, #ffffff, #ffffff00)",
+            position: 'absolute',
+            bottom: 0
+          }}
+        />
       </GridAtom>
-      <ContainerAtom style={{ zIndex: 2 }}>
+      <ContainerAtom style={{ zIndex: 2, marginBottom: 10 }}>
         <RowAtom className="HeaderRow">
           <ColumnAtom flex={3} style={{ minWidth: 0 }}></ColumnAtom>
           <ColumnAtom
@@ -39,12 +48,13 @@ const Header = () => {
             gap={3}
             style={{ minWidth: 300 }}
           >
+            <Link to={'/'} >
             <img
               src={LogoServioptica}
               alt={"Logo Servioptica"}
               width={294}
               height={124}
-            />
+            /></Link>
             <TextAtom
               type="small"
               style={{ color: "var(--mainBtnColor)", textAlign: "center" }}
@@ -80,7 +90,5 @@ const Header = () => {
         </RowAtom>
       </ContainerAtom>
     </header>
-  );
-};
-
-export default Header;
+    )
+}

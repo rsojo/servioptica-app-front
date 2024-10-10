@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   FormHelperText,
   MenuItem,
@@ -50,21 +51,13 @@ export const SelectAtom = ({
   );
 
   useEffect(() => {
-    console.log(
-      "[name]",
-      name,
-      "\n [otionList]",
-      otionList,
-      "\n [defaultValue]",
-      defaultValue
-    );
     setOtionList(!defaultValue || defaultValue === "" ? "NA" : defaultValue);
   }, [defaultValue]);
 
   const handleChange = (event: SelectChangeEvent) => {
     setOtionList(event.target.value);
     onChangeCallback(
-      event.target.value === "NA" || Number(event.target.value) == 0
+      event.target.value === "NA" || Number(event.target.value) === 0
         ? ""
         : event.target.value
     );
@@ -79,8 +72,9 @@ export const SelectAtom = ({
 
   return (
     <GridAtom
+      style={{ width: "100%" }}
       justifyContent="center"
-      className={`${variant + "_box" ?? ""} ${
+      className={`${variant ? variant + "_box" : ""} ${
         IconComponent ? "baxSelectWithIcon" : ""
       }`}
     >
@@ -88,7 +82,7 @@ export const SelectAtom = ({
       <Select
         className={`customSelect ${variant ?? ""} ${
           IconComponent ? "withIcon" : ""
-        } ${error ? "erro" : ""} ${variant + "_list" ?? ""}`}
+        } ${error ? "erro" : ""} ${variant ? variant + "_list" : ""}`}
         error={error}
         id={id}
         name={name ?? id}
@@ -107,13 +101,13 @@ export const SelectAtom = ({
           <MenuItem
             key={option.option}
             value={option.value}
-            className={`${variant + "_item" ?? ""}`}
+            className={`${variant ? variant + "_item" : ""}`}
           >
             {option.option}
           </MenuItem>
         ))}
       </Select>
-      {error && otionList == "NA" && (
+      {error && otionList === "NA" && (
         <FormHelperText style={{ color: "rgb(211, 47, 47)" }}>
           Error
         </FormHelperText>

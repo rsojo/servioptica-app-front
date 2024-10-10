@@ -31,22 +31,25 @@ const FieldConstructor = ({
 }) => {
   return (
     <GridAtom
+      className="FieldConstructor"
       gap={1}
       style={{
         flex: `${field.columnSize} 0 calc(${sizeWidth(
           field.columnSize!
         )} - 16px)`,
-        width: `auto`,
+        width: "100%",
         minWidth: 220,
         maxWidth: 768,
       }}
     >
-      <LabelAtom
-        htmlFor={`${field.id}_${field.name}_${index + 1}`}
-        important={field.important}
-      >
-        {field.label}
-      </LabelAtom>
+      {field.label && field.label.length > 0 && (
+        <LabelAtom
+          htmlFor={`${field.id}_${field.name}_${index + 1}`}
+          important={field.important}
+        >
+          {field.label}
+        </LabelAtom>
+      )}
       {children}
     </GridAtom>
   );
@@ -80,7 +83,7 @@ export const FieldsConstructor = ({
   }, [fields, setPreData]);
 
   return (
-    <RowAtom gap={2} style={{ flexFlow: "wrap" }}>
+    <RowAtom gap={2} style={{ flexFlow: "wrap", width: "100%" }}>
       {fields.map((field: Partial<FieldsStructure>, index: number) => {
         const type = field.type as FieldsTypes;
         const defaultTextValue = field.default as string;
@@ -205,6 +208,7 @@ export const FieldsConstructor = ({
                 <SelectAtom
                   id={`${field.id}_${field.name}_${index + 1}`}
                   name={field.name}
+                  variant='general'
                   disabled={false}
                   important={field.important}
                   defaultValue={field.default}

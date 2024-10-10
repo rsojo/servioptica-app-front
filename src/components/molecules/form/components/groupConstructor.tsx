@@ -15,7 +15,7 @@ export const GroupConstructor = ({
   setPreData: React.Dispatch<any>;
 }) => {
   return (
-    <GridAtom gap={6}>
+    <GridAtom gap={6}  style={{width: '100%'}}>
       {groupsFields.map((groupFields: GroupFields, index: number) => {
         const isOwnError = errorForm?.fieldId === groupFields.id;
 
@@ -24,11 +24,12 @@ export const GroupConstructor = ({
             key={index + 1}
             gap={5}
             className={groupFields.className ?? ""}
+            style={{width: '100%'}}
           >
             {groupFields.title?.length! > 0 && index !== 0 && (
               <DividingLineAtom orientation="h" />
             )}
-            <GridAtom key={`${groupFields.id}_${index + 1}`} gap={4}>
+            <GridAtom key={`${groupFields.id}_${index + 1}`} gap={4} style={{width: '100%'}}>
               {groupFields.title?.length! > 0 && (
                 <GridAtom>
                   <TitleAtom type="h1">{groupFields.title}</TitleAtom>

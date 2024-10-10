@@ -26,11 +26,11 @@ export interface FieldsStructure {
   name: string;
   type: FieldsTypes | string;
   columnSize: FieldsColumn | number;
-  options: OptionsTypes[] | null;
   important: boolean;
+  options: OptionsTypes[] | null;
   default: any;
-  textError: string;
   placeholder: string;
+  textError: string;
   minlength: number;
   maxlength: number;
 }
@@ -69,10 +69,10 @@ export type ErrorFrormType = null | ErrorStructure;
 
 export interface FormModuleProps {
   error?: ErrorFrormType[] | null
-  actionBtnLabel: string;
+  actionBtnLabel?: string;
   actionBackBtnLabel?: string;
   onCallBack: (data: PreDataType) => void;
-  onGoBackCallBack: () => void;
+  onGoBackCallBack?: () => void;
   groupsFields: GroupFields[];
   info?: React.ReactNode;
   keysList?: string[];
