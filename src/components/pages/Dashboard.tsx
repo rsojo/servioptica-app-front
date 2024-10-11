@@ -1,6 +1,6 @@
 // src/components/Dashboard.tsx
 import React from "react";
-//import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import {
   ColumnAtom,
   ContainerAtom,
@@ -17,9 +17,9 @@ import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import testImg from "../../assets/img/testBannerImg.webp";
 import "swiper/css";
 const Dashboard: React.FC = () => {
-  //const location = useLocation();
-  //const searchParams = new URLSearchParams(location.search);
-  // const id = searchParams.get("id"); // Obtener el parámetro "id" si está presente
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const id = searchParams.get("id"); // Obtener el parámetro "id" si está presente
 
   return (
     <ContainerAtom style={{alignItems: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column'}}>

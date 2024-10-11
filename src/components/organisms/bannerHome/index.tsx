@@ -11,13 +11,19 @@ export const BannerHome = () => {
   return (
     <RowAtom
       style={{
-        minHeight: 400,
+        minHeight: 500,
         flexFlow: "wrap",
+        alignItems: "center",
       }}
     >
       <ColumnAtom
         flex={1}
-        style={{ minWidth: 310, position: "relative", overflow: "hidden" }}
+        style={{
+          minWidth: 300,
+          minHeight: 500,
+          position: "relative",
+          overflow: "hidden",
+        }}
         alignItems="center"
         justifyContent="center"
       >
@@ -52,7 +58,17 @@ export const BannerHome = () => {
           </GridAtom>
         </Link>
       </ColumnAtom>
-      <ColumnAtom flex={1} style={{ minWidth: 310 }}>
+      <ColumnAtom
+        flex={1}
+        style={{
+          minWidth: 300,
+          minHeight: 500,
+          position: "relative",
+          overflow: "hidden",
+        }}
+        alignItems="center"
+        justifyContent="center"
+      >
         <Link to={"/login-opt"} className="BigCtaHome">
           <GridAtom
             style={{ position: "absolute", width: "100%", height: "100%" }}
