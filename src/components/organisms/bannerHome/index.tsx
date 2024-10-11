@@ -54,7 +54,7 @@ export const BannerHome = () => {
         </Link>
       </ColumnAtom>
       <ColumnAtom flex={1} style={{ minWidth: 310 }}>
-        <Link to={"/login"} className="BigCtaHome">
+        <Link to={"/login-opt"} className="BigCtaHome">
           <GridAtom
             style={{ position: "absolute", width: "100%", height: "100%" }}
           >

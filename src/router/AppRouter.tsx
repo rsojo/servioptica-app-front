@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Dashboard, Home, Login } from "../components/pages";
 import Layout from "../components/layout";
 import NotFound from "../components/pages/NotFound";
+import LoginOpt from "../components/pages/LoginOpt";
 
 const AppRouter: React.FC = () => {
   return (
@@ -12,6 +13,7 @@ const AppRouter: React.FC = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/login-opt" element={<LoginOpt />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<NotFound />} />
         </Route>
