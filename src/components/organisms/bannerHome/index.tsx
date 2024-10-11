@@ -11,7 +11,6 @@ export const BannerHome = () => {
   return (
     <RowAtom
       style={{
-        height: "calc(100vh - 240px)",
         minHeight: 400,
         flexFlow: "wrap",
       }}

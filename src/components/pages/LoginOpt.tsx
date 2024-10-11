@@ -3,10 +3,12 @@ import React, { useEffect, useState } from "react";
 import ContainerAtom from "../atoms/container";
 import { OtpCodeLightBox } from "../organisms/formLogin/otp";
 import { LoginOptForm } from "../organisms/formLogin/optics";
+import { useNavigate } from "react-router-dom";
 
 const LoginOpt: React.FC = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<any>('');
+  const navetgate = useNavigate()
 
   useEffect(()=>{console.log(formData)}, [formData])
 
@@ -30,6 +32,7 @@ const LoginOpt: React.FC = () => {
           onCallBack={(value) => {
             console.log("onCallBack", value);
             if (value.length > 0) {
+              navetgate('/dashboard-opt?id=987')
               setStep(1);
             }
           }}

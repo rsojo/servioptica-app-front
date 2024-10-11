@@ -11,10 +11,12 @@ import FieldBuiltData from "../organisms/formLogin/data/fieldBuiltDataNit.json";
 import FieldBuiltDataSede from "../organisms/formLogin/data/fieldBuiltDataNitSede.json";
 import { GroupFields } from "../molecules/form/type";
 import { OtpCodeLightBox } from "../organisms/formLogin/otp";
+import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
   const [step, setStep] = useState(1);
   const [nit, setNit] = useState<string>("");
+  const navetgate = useNavigate()
 
   const updateDefaultValues = (
     data: GroupFields[],
@@ -118,6 +120,7 @@ const Login: React.FC = () => {
           onCallBack={(value) => {
             console.log("onCallBack", value);
             if (value.length > 0) {
+              navetgate('/dashboard?id=123')
               setStep(1);
             }
           }}
