@@ -9,11 +9,9 @@ import BackgroundVideo from "../../atoms/video";
 import LogoServioptica from "../../../assets/img/logo_servioptica@2x.webp";
 import BkGeneral from "../../../assets/img/bkGeneral.webp";
 import bkGeneralVideo from "../../../assets/videos/bkGeneral.mp4";
-
-import PersonIcon from "@mui/icons-material/Person";
 import { BASE_COLORS } from "../../../style/constants";
 
-export const MainHeader = () => {
+export const LoginHeader = () => {
   return (
     <header style={{ position: "relative", display: "flex" }}>
       <GridAtom
@@ -41,7 +39,6 @@ export const MainHeader = () => {
       </GridAtom>
       <ContainerAtom style={{ zIndex: 2, marginBottom: 10 }}>
         <RowAtom className="HeaderRow">
-          <ColumnAtom flex={3} style={{ minWidth: 0 }}></ColumnAtom>
           <ColumnAtom
             flex={1}
             alignItems="center"
@@ -63,38 +60,6 @@ export const MainHeader = () => {
             >
               UN LABORATORIO DEL GRUPO ESSILORLUXOTTICA
             </TextAtom>
-          </ColumnAtom>
-          <ColumnAtom
-            flex={3}
-            alignItems="flex-end"
-            style={{ color: BASE_COLORS.blue, minWidth: 300 }}
-          >
-            <Link
-              to={"/login-opt"}
-              style={{ textAlign: "center", textDecoration: "none" }}
-            >
-              <RowAtom
-                alignItems="center"
-                gap={2}
-                style={{ width: 280, justifyContent: "center" }}
-              >
-                <TextAtom
-                  style={{ textAlign: "center", textDecoration: "none", color: BASE_COLORS.blue }}
-                >
-                  Acceso de Administrador
-                </TextAtom>
-                <GridAtom
-                  p={1}
-                  style={{
-                    backgroundColor: "#fff",
-                    borderRadius: 120,
-                    border: `1px solid ${BASE_COLORS.blue}`,
-                  }}
-                >
-                  <PersonIcon style={{ color: BASE_COLORS.blue }} />
-                </GridAtom>
-              </RowAtom>
-            </Link>
           </ColumnAtom>
         </RowAtom>
       </ContainerAtom>

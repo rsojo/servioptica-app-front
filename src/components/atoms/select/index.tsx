@@ -12,7 +12,7 @@ import GridAtom from "../grid";
 
 export interface OptionsSelectAtomIt {
   option: string;
-  value: string | number;
+  value: string;
 }
 
 export type SelectAtomType = {
@@ -24,10 +24,10 @@ export type SelectAtomType = {
   important?: boolean;
   cleanValue?: boolean;
   placeholder?: string;
-  defaultValue?: string | number;
+  defaultValue?: string;
   options: OptionsSelectAtomIt[];
-  variant?: "general" | "linkStyle" | "listStyle";
-  onChangeCallback: (value: string | number) => void;
+  variant?: "general" | "linkStyle" | "listStyle" | "small";
+  onChangeCallback: (value: string) => void;
 };
 
 export const SelectAtom = ({

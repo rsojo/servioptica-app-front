@@ -5,7 +5,7 @@
   text-transform: initial;
   font-weight: 400;
   line-height: 1;
-  min-height: 36px;
+  min-height: 64px;
   font-size: 16px;
   background-color: var(--mainBtnColor);
   color: #ffffff;
@@ -18,7 +18,9 @@
 
 .MuiButtonBase-root.generalBtn.outlined {
   background-color: #ffffff;
+  border: 1px solid var(--mainBtnColor);
   color: #424242;
+  box-shadow: none;
 }
 .MuiButtonBase-root.generalBtn.outlined.focus {
   background-color: #f0fafe;
@@ -50,15 +52,15 @@
   border-color: #bb2b34;
 }
 
-.generalBtn:not(.linkStyle) .MuiButton-startIcon {
-  margin-right: 8px;
-}
 
-.generalBtn:not(.linkStyle) .MuiButton-endIcon {
+.MuiButtonBase-root.generalBtn .MuiButton-endIcon {
   margin: 0;
   position: absolute;
-  right: 7px;
+  right: 16px;
   color: #78858b;
+}
+.MuiButtonBase-root.generalBtn.small .MuiButton-endIcon {
+  right: 8px;
 }
 
 .generalBtn .MuiButton-endIcon svg {
@@ -78,6 +80,11 @@
   box-shadow: none;
   text-decoration: underline;
   font-size: 16px;
+}
+.MuiButtonBase-root.generalBtn.small,
+.MuiButtonBase-root.generalBtn.small:hover {
+  min-height: 32px;
+  padding: 0px 8px;
 }
 .MuiButtonBase-root.generalBtn.linkStyle:hover {
   color: #cfcfcf;

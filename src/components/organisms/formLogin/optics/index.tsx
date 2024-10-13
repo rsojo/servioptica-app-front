@@ -22,8 +22,8 @@ export const LoginOptForm = ({
         style={{
           position: "absolute",
           top: 0,
-          left: "-5%",
-          width: "105%",
+          left: 0,
+          width: "100%",
           height: "100%",
           zIndex: -1,
         }}
@@ -35,8 +35,8 @@ export const LoginOptForm = ({
           height={1080}
           style={{
             objectFit: "cover",
-            objectPosition: "center bottom",
-            width: "100%",
+            objectPosition: "center top",
+            width: "102%",
             height: "100%",
             position: "absolute",
             bottom: 0,
@@ -44,12 +44,13 @@ export const LoginOptForm = ({
         />
       </GridAtom>
       <GridAtom alignItems="center">
-        <GridAtom gap={5} style={{ width: "100%", maxWidth: 320 }}>
+        <GridAtom gap={5} style={{ width: "100%", maxWidth: 447 }}>
           <TextAtom
             style={{
               color: BASE_COLORS.blue,
               textAlign: "center",
               width: "100%",
+              fontWeight: 600,
             }}
           >
             Inicio de sesión ópticas

@@ -18,7 +18,7 @@ const LoginOpt: React.FC = () => {
         position: "relative",
         overflow: "hidden",
         minHeight: 500,
-        height: "calc(100vh - 347px)",
+        height: "calc(100vh - 260px)",
       }}
     >
       <LoginOptForm
@@ -32,7 +32,7 @@ const LoginOpt: React.FC = () => {
           onCallBack={(value) => {
             console.log("onCallBack", value);
             if (value.length > 0) {
-              navetgate('/dashboard-opt?id=987')
+              navetgate('/home-admin')
               setStep(1);
             }
           }}

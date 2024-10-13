@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes, MouseEventHandler } from "react";
 
 type BtnVariant = "text" | "contained" | "outlined";
-type BtnAditionalsVariant = "linkStyle" | "ghostStyle" | "selectStyle" | 'listStyle';
+type BtnAditionalsVariant = "linkStyle" | "ghostStyle" | "selectStyle" | 'listStyle' | 'small';
 type BtnSize = "small" | "large" | "medium";
 export type BtnColor =
   | "inherit"

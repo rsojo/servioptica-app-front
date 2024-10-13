@@ -12,8 +12,9 @@ import bkGeneralVideo from "../../../assets/videos/bkGeneral.mp4";
 
 import PersonIcon from "@mui/icons-material/Person";
 import { BASE_COLORS } from "../../../style/constants";
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 
-export const MainHeader = () => {
+export const MainAdminHeader = () => {
   return (
     <header style={{ position: "relative", display: "flex" }}>
       <GridAtom
@@ -49,7 +50,7 @@ export const MainHeader = () => {
             gap={3}
             style={{ minWidth: 300 }}
           >
-            <Link to={"/"}>
+            <Link to={"/home-admin"}>
               <img
                 src={LogoServioptica}
                 alt={"Logo Servioptica"}
@@ -69,20 +70,30 @@ export const MainHeader = () => {
             alignItems="flex-end"
             style={{ color: BASE_COLORS.blue, minWidth: 300 }}
           >
-            <Link
-              to={"/login-opt"}
-              style={{ textAlign: "center", textDecoration: "none" }}
+            <RowAtom
+              alignItems="center"
+              gap={2}
+              style={{ width: 280, justifyContent: "center" }}
             >
-              <RowAtom
-                alignItems="center"
-                gap={2}
-                style={{ width: 280, justifyContent: "center" }}
+              <Link
+                to={"/login-opt"}
+                style={{ textAlign: "center", textDecoration: "none" }}
               >
-                <TextAtom
-                  style={{ textAlign: "center", textDecoration: "none", color: BASE_COLORS.blue }}
+                <GridAtom
+                  p={1}
+                  style={{
+                    backgroundColor: "#fff",
+                    borderRadius: 120,
+                    border: `1px solid ${BASE_COLORS.blue}`,
+                  }}
                 >
-                  Acceso de Administrador
-                </TextAtom>
+                  <HomeRoundedIcon style={{ color: BASE_COLORS.blue }} />
+                </GridAtom>
+              </Link>
+              <Link
+                to={"/login-opt"}
+                style={{ textAlign: "center", textDecoration: "none" }}
+              >
                 <GridAtom
                   p={1}
                   style={{
@@ -93,8 +104,17 @@ export const MainHeader = () => {
                 >
                   <PersonIcon style={{ color: BASE_COLORS.blue }} />
                 </GridAtom>
-              </RowAtom>
-            </Link>
+              </Link>
+              <TextAtom
+                style={{
+                  textAlign: "center",
+                  textDecoration: "none",
+                  color: BASE_COLORS.blue,
+                }}
+              >
+                Super Admin
+              </TextAtom>
+            </RowAtom>
           </ColumnAtom>
         </RowAtom>
       </ContainerAtom>

@@ -1,22 +1,53 @@
 // src/components/Dashboard.tsx
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-import GridAtom from '../atoms/grid';
+import React from "react";
+import {
+  ColumnAtom,
+  ContainerAtom,
+  GridAtom,
+  RowAtom,
+  SpaceAtom,
+} from "../atoms";
+import DataTable from "../atoms/table";
+import { Link } from "react-router-dom";
+import imgBtnGoFAQ from "../../assets/img/imgBtnGoFAQ.webp";
+import imgBtnGoUserAdmin from "../../assets/img/imgBtnGoUserAdmin.webp";
 
 const DashboardOpt: React.FC = () => {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const id = searchParams.get('id'); // Obtener el parámetro "id" si está presente
-
   return (
-    <GridAtom style={{zIndex: 9}}>
-      <h1>Dashboard Page Opt</h1>
-      {id ? (
-        <p>Showing data for ID: {id}</p>
-      ) : (
-        <p>No ID provided. Showing default dashboard.</p>
-      )}
-    </GridAtom>
+    <ContainerAtom
+      style={{
+        alignItems: "center",
+        justifyContent: "center",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <SpaceAtom v={40} />
+      <RowAtom
+        gap={10}
+        style={{
+          minHeight: 400,
+          flexFlow: "wrap",
+          maxWidth: 1440,
+          width: "100%",
+        }}
+        p={3}
+      >
+        <ColumnAtom flex={8} style={{ minWidth: 300 }}>
+          <GridAtom style={{ width: "100%" }}>
+            <DataTable />
+          </GridAtom>
+        </ColumnAtom>
+        <ColumnAtom flex={4} style={{ minWidth: 300 }} gap={2}>
+          <Link to={"/dashboard-opt"} style={{width: '100%', maxWidth: 420}}>
+            <img src={imgBtnGoFAQ} alt="Imágen btn FAQ" width={651} style={{width: '100%'}}/>
+          </Link>
+          <Link to={"/dashboard-opt"} style={{width: '100%', maxWidth: 420}}>
+            <img src={imgBtnGoUserAdmin} alt="Imágen btn FAQ" width={651} style={{width: '100%'}}/>
+          </Link>
+        </ColumnAtom>
+      </RowAtom>
+    </ContainerAtom>
   );
 };
 

@@ -1,6 +1,6 @@
 // src/components/Dashboard.tsx
 import React from "react";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import {
   ColumnAtom,
   ContainerAtom,
@@ -12,7 +12,7 @@ import DataTable from "../atoms/table";
 import testImg from "../../assets/img/testBannerImg.webp";
 import { SliderDash } from "../organisms/sliderDash";
 
-const Dashboard: React.FC = () => {
+const DashboardPromp: React.FC = () => {
   // const location = useLocation();
   // const searchParams = new URLSearchParams(location.search);
   // const id = searchParams.get("id"); // Obtener el parámetro "id" si está presente
@@ -65,4 +65,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardPromp;

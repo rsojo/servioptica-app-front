@@ -11,11 +11,14 @@
 }
 
 .customTextField .MuiInputBase-root {
-  height: 40px;
+  height: 64px;
   border-radius: 8px;
   background: #ffffff;
   box-sizing: border-box;
   border: none;
+}
+.customTextField.small .MuiInputBase-root {
+  height: 32px;
 }
 
 .customTextField.ghost .MuiInputBase-root {
@@ -47,7 +50,7 @@ input:focus-visible {
   font-style: normal;
   font-weight: 400;
   line-height: 24px;
-  height: 48px;
+  height: 100%;
   box-sizing: border-box;
   border-radius: 0px;
   padding: 0px 16px;
@@ -55,6 +58,14 @@ input:focus-visible {
   outline-offset: initial;
   outline: none;
   color: var(--mainColor);
+}
+.customTextField.small .MuiInputBase-root input,
+.customTextField.small .MuiInputBase-root textarea,
+.customTextField.small .MuiInputBase-root input:focus,
+.customTextField.small .MuiInputBase-root textarea:focus,
+.customTextField.small .MuiInputBase-root input:focus-visible,
+.customTextField.small .MuiInputBase-root textarea:focus-visible {
+  padding: 0px 8px;
 }
 .customTextField.ghost .MuiInputBase-root input,
 .customTextField.ghost .MuiInputBase-root textarea,

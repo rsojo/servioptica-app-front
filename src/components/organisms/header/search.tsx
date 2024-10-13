@@ -1,26 +1,23 @@
 import { Link, useNavigate } from "react-router-dom";
-import {
-  ButtonAtom,
-  ColumnAtom,
-  ContainerAtom,
-  GridAtom,
-  InputTextAtom,
-  RowAtom,
-  SpaceAtom,
-  TextAtom,
-  TitleAtom,
-} from "../../atoms/";
+import ColumnAtom from "../../atoms/column";
+import ContainerAtom from "../../atoms/container";
+import GridAtom from "../../atoms/grid";
+import RowAtom from "../../atoms/row";
+import TextAtom from "../../atoms/text";
+import BackgroundVideo from "../../atoms/video";
 
 import LogoServioptica from "../../../assets/img/logo_servioptica@2x.webp";
-import bkDash from "../../../assets/img/bkDash-01.webp";
+import BkGeneral from "../../../assets/img/bkGeneral.webp";
+import bkGeneralVideo from "../../../assets/videos/bkGeneral.mp4";
+
 import PersonIcon from "@mui/icons-material/Person";
+import { ButtonAtom, InputTextAtom, SpaceAtom, TitleAtom } from "../../atoms";
 import { BASE_COLORS } from "../../../style/constants";
 
-export const DashHeader = () => {
-  const navetgate = useNavigate()
-  
+export const SearchHeader = () => {
+  const navetgate = useNavigate();
   return (
-    <header style={{ position: "relative", display: "flex"}}>
+    <header style={{ position: "relative", display: "flex" }}>
       <GridAtom
         alignItems="center"
         justifyContent="center"
@@ -31,50 +28,48 @@ export const DashHeader = () => {
           height: "100%",
           width: "100%",
           zIndex: 1,
-           overflow: 'hidden',
         }}
       >
-        <img
-          src={bkDash}
-          style={{ objectFit: "cover", height: "100%", width: "105%" }}
-          width={1920}
-          height={300}
-          alt="imagen del banner"
+        <BackgroundVideo poster={BkGeneral} videoUrl={bkGeneralVideo} />
+        <span
+          style={{
+            width: "100%",
+            height: 120,
+            background: "linear-gradient(0deg, #ffffff, #ffffff00)",
+            position: "absolute",
+            bottom: 0,
+          }}
         />
       </GridAtom>
       <ContainerAtom style={{ zIndex: 2, marginBottom: 10 }}>
-        <RowAtom className="HeaderRow" style={{flexFlow: 'wrap'}}>
+        <RowAtom className="HeaderRow">
+          <ColumnAtom flex={3} style={{ minWidth: 0 }}></ColumnAtom>
           <ColumnAtom
-            flex={3}
+            flex={1}
             alignItems="center"
             justifyContent="center"
-            gap={2}
+            gap={3}
             style={{ minWidth: 300 }}
           >
             <Link to={"/"}>
               <img
-                style={{ objectFit: "contain" }}
                 src={LogoServioptica}
                 alt={"Logo Servioptica"}
-                width={215}
-                height={91}
+                width={294}
+                height={124}
               />
             </Link>
             <TextAtom
               type="small"
-              style={{
-                color: "var(--mainBtnColor)",
-                textAlign: "center",
-                fontSize: 10,
-              }}
+              style={{ color: BASE_COLORS.blue, textAlign: "center" }}
             >
               UN LABORATORIO DEL GRUPO ESSILORLUXOTTICA
             </TextAtom>
           </ColumnAtom>
           <ColumnAtom
-            flex={9}
+            flex={3}
             alignItems="flex-end"
-            style={{ color: "var(--mainBtnColor)", minWidth: 300 }}
+            style={{ color: BASE_COLORS.blue, minWidth: 300 }}
           >
             <RowAtom
               alignItems="center"
@@ -86,21 +81,24 @@ export const DashHeader = () => {
                 style={{
                   backgroundColor: "#fff",
                   borderRadius: 120,
-                  border: "1px solid var(--mainBtnColor)",
+                  border: `1px solid ${BASE_COLORS.blue}`,
                 }}
               >
-                <PersonIcon style={{ color: "var(--mainBtnColor)" }} />
+                <PersonIcon style={{ color: BASE_COLORS.blue }} />
               </GridAtom>
-              <TextAtom style={{ textAlign: "center" }}>Óptica TXT 01</TextAtom>
             </RowAtom>
           </ColumnAtom>
         </RowAtom>
         <SpaceAtom v={48} />
-        <GridAtom style={{ width: "100%", marginBottom: -50 }} alignItems="center" gap={2}>
+        <GridAtom
+          style={{ width: "100%", marginBottom: -50 }}
+          alignItems="center"
+          gap={4}
+        >
           <TitleAtom
             style={{
               color: BASE_COLORS.blue,
-              fontSize: 30,
+              fontSize: 20,
               textAlign: "center",
               textShadow: "0px 3px 6px #FFFFFF",
               fontWeight: 900,
@@ -121,10 +119,10 @@ export const DashHeader = () => {
                 }}
               />
             </ColumnAtom>
-            <ColumnAtom style={{flex: 'none'}}>
+            <ColumnAtom style={{ flex: "none" }}>
               <ButtonAtom
                 onClick={() => {
-                  navetgate('/order-tracking')
+                  navetgate("/order-tracking");
                   console.log("Buscar");
                 }}
                 style={{ minWidth: 173 }}
@@ -134,6 +132,8 @@ export const DashHeader = () => {
             </ColumnAtom>
           </RowAtom>
         </GridAtom>
+        <SpaceAtom v={88} />
+
       </ContainerAtom>
     </header>
   );

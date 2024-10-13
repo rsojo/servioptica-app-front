@@ -83,7 +83,7 @@ export const FieldsConstructor = ({
   }, [fields, setPreData]);
 
   return (
-    <RowAtom gap={2} style={{ flexFlow: "wrap", width: "100%" }}>
+    <RowAtom gap={4} style={{ flexFlow: "wrap", width: "100%" }}>
       {fields.map((field: Partial<FieldsStructure>, index: number) => {
         const type = field.type as FieldsTypes;
         const defaultTextValue = field.default as string;

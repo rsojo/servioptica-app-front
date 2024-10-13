@@ -19,11 +19,32 @@ const Layout: React.FC = () => {
     currentLink,
   } = useLayout();
 
-  const { isDashboard } = currentLink;
+  function getPageType(currentLink: any) {
+    switch (true) {
+      case currentLink.isHomePage:
+        return "main";
+      case currentLink.isHomeAdminPage:
+        return "main-admin";
+      case currentLink.isLoginPage:
+        return "login";
+      case currentLink.isLoginOptPage:
+        return "login";
+      case currentLink.isDashboard:
+        return "dash";
+      case currentLink.isDashboardOpt:
+        return "dash-admin";
+      case currentLink.isOrderTracking:
+        return "dash";
+      case currentLink.isSearchOrderTracking:
+        return "search";
+      default:
+        return "main";
+    }
+  }
 
   return (
     <div>
-      <Header variant={isDashboard ? "dash" : "main"} />
+      <Header variant={getPageType(currentLink)} />
       <main style={{ position: "relative" }}>
         <div>
           {messageContext?.messages.map((message, index) =>

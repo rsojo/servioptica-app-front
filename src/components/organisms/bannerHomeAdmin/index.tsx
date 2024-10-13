@@ -7,7 +7,7 @@ import BgHomeL from "../../../assets/img/bgHomeL.webp";
 import BgHomeR from "../../../assets/img/bgHomeR.webp";
 import "./style.css";
 
-export const BannerHome = () => {
+export const BannerHomeAdmin = () => {
   return (
     <RowAtom
       style={{
@@ -27,7 +27,7 @@ export const BannerHome = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Link to={"/login"} className="BigCtaHome">
+        <Link to={"/dashboard-opt"} className="BigCtaHome">
           <GridAtom
             style={{ position: "absolute", width: "100%", height: "100%" }}
           >
@@ -53,7 +53,7 @@ export const BannerHome = () => {
               style={{ pointerEvents: "none" }}
               onClick={() => {}}
             >
-              Inicio de sesión Óptica
+              Dashboard
             </ButtonAtom>
           </GridAtom>
         </Link>
@@ -69,7 +69,7 @@ export const BannerHome = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Link to={"/search-order-tracking"} className="BigCtaHome">
+        <Link to={"/dashboard-promo"} className="BigCtaHome">
           <GridAtom
             style={{ position: "absolute", width: "100%", height: "100%" }}
           >
@@ -95,7 +95,7 @@ export const BannerHome = () => {
               variant="outlined"
               style={{ pointerEvents: "none" }}
             >
-              Seguimiento de pedidos
+              Administración Promociones
             </ButtonAtom>
           </GridAtom>
         </Link>

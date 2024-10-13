@@ -1,7 +1,7 @@
 .MuiInputBase-root.customSelect {
   border-radius: 0px;
   width: 100%;
-  height: 48px;
+  height: 64px;
   position: relative;
   display: flex;
   justify-self: center;
@@ -10,12 +10,14 @@
   background-color: #fff;
   border: 1px solid var(--mainColor);
 }
-
+.MuiInputBase-root.customSelect.small {
+  height: 32px;
+}
 .MuiInputBase-root.customSelect:not(.linkStyle):not(.Mui-disabled)::before {
   content: "";
   position: absolute;
   right: 1px;
-  width: 70px;
+  width: 40px;
   height: calc(100% - 3px);
   background: linear-gradient(
     -90deg,
@@ -44,6 +46,10 @@
   color: var(--fieldColorText);
   border-radius: 8px;
   border: 1px solid #a3abb0;
+}
+
+.customSelect.small .MuiSelect-select {
+  padding: 0 8px;
 }
 
 .MuiGrid-container .customSelect.withIcon .MuiSelect-select {

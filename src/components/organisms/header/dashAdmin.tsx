@@ -9,14 +9,14 @@ import {
   SpaceAtom,
   TextAtom,
   TitleAtom,
-} from "../../atoms/";
+} from "../../atoms";
 
 import LogoServioptica from "../../../assets/img/logo_servioptica@2x.webp";
 import bkDash from "../../../assets/img/bkDash-01.webp";
 import PersonIcon from "@mui/icons-material/Person";
 import { BASE_COLORS } from "../../../style/constants";
 
-export const DashHeader = () => {
+export const DashHeaderAdmin = () => {
   const navetgate = useNavigate()
   
   return (
@@ -51,7 +51,7 @@ export const DashHeader = () => {
             gap={2}
             style={{ minWidth: 300 }}
           >
-            <Link to={"/"}>
+            <Link to={"/home-admin"}>
               <img
                 style={{ objectFit: "contain" }}
                 src={LogoServioptica}
@@ -63,7 +63,7 @@ export const DashHeader = () => {
             <TextAtom
               type="small"
               style={{
-                color: "var(--mainBtnColor)",
+                color: BASE_COLORS.blue,
                 textAlign: "center",
                 fontSize: 10,
               }}
@@ -91,7 +91,7 @@ export const DashHeader = () => {
               >
                 <PersonIcon style={{ color: "var(--mainBtnColor)" }} />
               </GridAtom>
-              <TextAtom style={{ textAlign: "center" }}>Óptica TXT 01</TextAtom>
+              <TextAtom style={{ textAlign: "center" }}>Óptica TXT 02</TextAtom>
             </RowAtom>
           </ColumnAtom>
         </RowAtom>

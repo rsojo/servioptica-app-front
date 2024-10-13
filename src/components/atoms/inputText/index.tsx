@@ -21,7 +21,7 @@ export type InputAtomProps = {
   style?: React.CSSProperties;
   multiline?: boolean;
   rows?: number;
-  variant?: "main" | "ghost";
+  variant?: "main" | "ghost" | "small";
 };
 export const InputTextAtom = ({
   field,

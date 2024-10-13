@@ -13,13 +13,21 @@ export const useLayout = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogContent, setDialogContent] = useState<Message | null>(null);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const currentLink = {
-    isHomePage: location.pathname === "/isHomePage",
+    isHomePage: location.pathname === "/",
+    isHomeAdminPage: location.pathname === "/home-admin",
     isLoginPage: location.pathname === "/login",
     isLoginOptPage: location.pathname === "/login-opt",
-    isDashboard: location.pathname.startsWith("/dashboard"),
-    isDashboardOpt: location.pathname.startsWith("/dashboard-opt"),
+    isDashboard: location.pathname === "/dashboard",
+    isDashboardOpt: location.pathname === "/dashboard-opt",
+    isOrderTracking: location.pathname === "/order-tracking",
+    isSearchOrderTracking: location.pathname === "/search-order-tracking",
   };
+
+  useEffect(() => {
+    console.log(currentLink);
+  }, [currentLink]);
 
   useEffect(() => {
     const lastMessage =
@@ -28,9 +36,9 @@ export const useLayout = () => {
     if (lastMessage?.messageType === "dialog") {
       setDialogContent(lastMessage);
       setDialogOpen(true);
-      messageContext?.clearMessages(); // Limpiar mensajes después de abrir el diálogo
+      messageContext?.clearMessages();
     }
-  }, [messageContext]); // Ejecutar efecto cuando cambien los mensajes
+  }, [messageContext]);
 
   // Función para renderizar mensajes según su tipo
   const renderMessage = (message: Message, index: number) => {

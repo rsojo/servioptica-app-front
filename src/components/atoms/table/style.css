@@ -1,0 +1,17 @@
+.alternate-row {
+  background-color: #ebf6ff;
+}
+.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-regular.MuiTablePagination-toolbar
+  .MuiTablePagination-spacer {
+  flex: none;
+}
+.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-regular.MuiTablePagination-toolbar,
+.MuiTablePagination-root {
+  width: 100%;
+}
+.MuiTablePagination-actions {
+  flex: 1;
+  justify-content: flex-end;
+  display: flex;
+  padding-right: 30px;
+}

@@ -26,6 +26,7 @@ export const OtpCodeLightBox = ({
           adVariant="ghostStyle"
           className="CloseIconBox"
           onClick={onCancelBack}
+          style={{width: 55, minHeight: 55}}
         >
           <span className="CloseIcon"></span>
         </ButtonAtom>
@@ -40,7 +41,7 @@ export const OtpCodeLightBox = ({
           El código de validación se envía al correo registrado en nuestra
           plataforma se*****g**@tx**co y tiene un valides de 5 min.
         </TextAtom>
-        <GridAtom style={{ marginBottom: -70 }} alignItems="center" gap={1}>
+        <GridAtom style={{ marginBottom: -105 }} alignItems="center" gap={1}>
           <ButtonAtom onClick={() => onCallBack(otp)}>
             Validar código
           </ButtonAtom>

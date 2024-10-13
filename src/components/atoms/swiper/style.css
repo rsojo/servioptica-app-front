@@ -1,0 +1,21 @@
+.swiper.swiper-initialized.swiper-horizontal.swiper-backface-hidden {
+  padding-bottom: 16px;
+}
+
+.swiper .swiper-pagination {
+  bottom: 0px;
+  width: auto;
+  padding: 0 4px;
+}
+.swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    border-radius: 20px;
+    transition: .3s;
+}
+.swiper-pagination-bullet-active {
+    opacity: var(--swiper-pagination-bullet-opacity, 1);
+    background: var(--mainColor);
+    width: 16px;
+    border-radius: 20px;
+}
