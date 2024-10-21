@@ -27,6 +27,8 @@ export async function loginUser(data: LoginRequest): Promise<LoginResponse> {
     // }
 
     const responseData: LoginResponse = await response.json();
+    console.log("[loginUser] [response]", responseData);
+
     return responseData;
   } catch (error: any) {
     return error as LoginResponse;
@@ -48,11 +50,12 @@ export async function checkClient(
       body: JSON.stringify(data),
       redirect: "manual",
     });
-
-    console.log("[checkClient] [response]", response);
-
+    
+    
     const responseData: CheckClientResponse = await response.json();
-    return {...responseData, code: response.status};
+    console.log("[checkClient] [response]", responseData);
+
+    return { ...responseData, code: response.status };
   } catch (error: any) {
     return error as CheckClientResponse;
   }
@@ -71,14 +74,16 @@ export async function register(
         Accept: "application/json",
       },
       body: JSON.stringify(data),
-      redirect: "manual",
+      // redirect: "manual",
     });
 
-    if (!response.ok) {
-      throw new Error(`Error ${response.status}: ${response.statusText}`);
-    }
-
+    // if (!response.ok) {
+    //   throw new Error(`Error ${response.status}: ${response.statusText}`);
+    // }
+    
     const responseData: RegisterResponse = await response.json();
+    console.log("[register] [response]", responseData);
+
     return responseData;
   } catch (error: any) {
     return error as RegisterResponse;
@@ -86,7 +91,7 @@ export async function register(
 }
 export async function sendOtp(data: {
   email: string;
-}): Promise<CheckClientResponse> {
+}): Promise<any> {
   const url = `${devUrl}/api/auth/otp/send`;
 
   try {
@@ -99,16 +104,18 @@ export async function sendOtp(data: {
       body: JSON.stringify(data),
       redirect: "manual",
     });
-    const responseData: CheckClientResponse = await response.json();
+    const responseData = await response.json();
+    console.log("[sendOtp] [response]", responseData);
+
     return responseData;
   } catch (error: any) {
-    return error as CheckClientResponse;
+    return error;
   }
 }
 export async function verifyOtp(data: {
   email: string;
   otp: string;
-}): Promise<CheckClientResponse> {
+}): Promise<any> {
   const url = `${devUrl}/api/auth/otp/send`;
 
   try {
@@ -119,18 +126,20 @@ export async function verifyOtp(data: {
         Accept: "application/json",
       },
       body: JSON.stringify(data),
-      redirect: "manual",
     });
-    const responseData: CheckClientResponse = await response.json();
+    const responseData = await response.json();
+    console.log("[verifyOtp] [response]", responseData);
+
     return responseData;
   } catch (error: any) {
-    return error as CheckClientResponse;
+    return error;
   }
 }
 export async function assignPassword(data: {
+  token: string;
   document: string;
   password: string;
-}): Promise<CheckClientResponse> {
+}): Promise<any> {
   const url = `${devUrl}/api/auth/assign-password`;
 
   try {
@@ -141,11 +150,12 @@ export async function assignPassword(data: {
         Accept: "application/json",
       },
       body: JSON.stringify(data),
-      redirect: "manual",
     });
-    const responseData: CheckClientResponse = await response.json();
+    const responseData = await response.json();
+    console.log("[assignPassword] [responseData]", responseData);
+
     return responseData;
   } catch (error: any) {
-    return error as CheckClientResponse;
+    return error;
   }
 }

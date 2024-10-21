@@ -12,7 +12,7 @@ export const OtpCodeLightBox = ({
   onCallBack,
   onCancelBack,
 }: {
-  email: string
+  email: string;
   onCallBack: (value: string) => void;
   onCancelBack: () => void;
 }) => {
@@ -20,6 +20,15 @@ export const OtpCodeLightBox = ({
   function successSnackMessage(arg0: string): any {
     throw new Error("Function not implemented.");
   }
+
+  const handleReSendOtp = () => {
+    sendOtp({ email: email })
+      .then(
+        (otpr) => successSnackMessage(String(otpr.message))
+        // TODO: Cambiar a correo del cliente data[0].email
+      )
+      .catch((error) => successSnackMessage(String(error)));
+  };
 
   return (
     <GridAtom className="OtpCodeLightBox">
@@ -56,12 +65,7 @@ export const OtpCodeLightBox = ({
             variant="outlined"
             adVariant="linkStyle"
             onClick={() => {
-              sendOtp({ email: email })
-                .then(
-                  (otpr) => successSnackMessage(String(otpr.message))
-                  // TODO: Cambiar a correo del cliente data[0].email
-                )
-                .catch((error) => successSnackMessage(String(error)));
+              handleReSendOtp();
             }}
           >
             Enviar código nuevamente

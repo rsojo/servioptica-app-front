@@ -19,6 +19,7 @@ const PreLogin: React.FC = () => {
   const [step, setStep] = useState(1);
   const [nit, setNit] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [tokenPass, setTokenPass] = useState<string>("");
   const [sede, setSede] = useState<OptionsSelectAtomIt[] | null>(null);
   const [checkClientData, setCheckClientData] =
     useState<CheckClientResponse | null>(null);
@@ -50,6 +51,7 @@ const PreLogin: React.FC = () => {
       const { password_1, password_2 } = value;
       if (password_1 === password_2) {
         assignPassword({
+          token: tokenPass,
           document: nit,
           password: password_1,
         }).then((response) => {
@@ -70,10 +72,11 @@ const PreLogin: React.FC = () => {
   const handkeVerifyOtp = (value: string) => {
     console.log("[handkeVerifyOtp]", value);
     verifyOtp({ otp: value, email: email }).then((response) => {
-      if (response.error) {
+      if (response.error || response.data === null) {
         errorSnackMessage(response.message);
       }
-      if (!response.error) {
+      if (!response.error && response.data) {
+        setTokenPass(response.data.token)
         successSnackMessage(String(response.message));
         setStep(4);
       }
