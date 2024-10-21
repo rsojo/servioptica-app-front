@@ -31,7 +31,7 @@ export const OtpCodeLightBox = ({
           adVariant="ghostStyle"
           className="CloseIconBox"
           onClick={onCancelBack}
-          style={{width: 55, minHeight: 55}}
+          style={{ width: 55, minHeight: 55 }}
         >
           <span className="CloseIcon"></span>
         </ButtonAtom>
@@ -47,17 +47,20 @@ export const OtpCodeLightBox = ({
           plataforma se*****g**@tx**co y tiene un valides de 5 min.
         </TextAtom>
         <GridAtom style={{ marginBottom: -105 }} alignItems="center" gap={1}>
-          <ButtonAtom onClick={() => {
-            sendOtp({ email: "bmx.arcia@arciait.com" }).then((otpr) =>
-              successSnackMessage(String(otpr.message))
-            ); // TODO: Cambiar a correo del cliente data[0].email
-          }}>
+          <ButtonAtom onClick={() => onCallBack(otp)}>
             Validar código
           </ButtonAtom>
           <ButtonAtom
             variant="outlined"
             adVariant="linkStyle"
-            onClick={() => onCallBack(otp)}
+            onClick={() => {
+              sendOtp({ email: "bmx.arcia@arciait.com" })
+                .then(
+                  (otpr) => successSnackMessage(String(otpr.message))
+                  // TODO: Cambiar a correo del cliente data[0].email
+                )
+                .catch((error) => successSnackMessage(String(error)));
+            }}
           >
             Enviar código nuevamente
           </ButtonAtom>

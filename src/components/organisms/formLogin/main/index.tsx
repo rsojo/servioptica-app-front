@@ -8,10 +8,8 @@ import fieldBuiltDataOpt from "../data/fieldBuiltDataOpt.json";
 import { PreDataType } from "../../../molecules/form/type";
 
 export const LoginForm = ({
-  setFormData,
   onCallBack
 }: {
-  setFormData?: React.Dispatch<React.SetStateAction<any>>;
   onCallBack: (value: PreDataType) => void
 }) => {
   return (
@@ -60,7 +58,6 @@ export const LoginForm = ({
               actionBtnLabel="Entrar"
               groupsFields={fieldBuiltDataOpt}
               onCallBack={(value) => {
-                setFormData!(value)
                 onCallBack(value)
               }}
             />

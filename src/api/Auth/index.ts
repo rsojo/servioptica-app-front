@@ -22,9 +22,9 @@ export async function loginUser(data: LoginRequest): Promise<LoginResponse> {
       body: JSON.stringify(data),
     });
 
-    if (!response.ok) {
-      throw new Error(`Error ${response.status}: ${response.statusText}`);
-    }
+    // if (!response.ok) {
+    //   throw new Error(`Error ${response.status}: ${response.statusText}`);
+    // }
 
     const responseData: LoginResponse = await response.json();
     return responseData;

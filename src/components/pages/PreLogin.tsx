@@ -68,6 +68,7 @@ const PreLogin: React.FC = () => {
   };
 
   const handkeVerifyOtp = (value: string) => {
+    console.log("[handkeVerifyOtp]", value);
     verifyOtp({ otp: value, email: email }).then((response) => {
       if (response.error) {
         errorSnackMessage(response.message);
@@ -82,7 +83,7 @@ const PreLogin: React.FC = () => {
   const handleCheckClient = (value: { document: string }) => {
     checkClient({ document: value.document })
       .then((response) => {
-        console.log("[checkClient]", response);
+        console.log("[checkClient]", response.code);
         if (response.error) {
           errorSnackMessage(response.message);
         }
@@ -110,11 +111,17 @@ const PreLogin: React.FC = () => {
         }
         if (response.code === 208) {
           const data = response.data as CheckClientData[];
-          setEmail(data[0].email);
-          sendOtp({ email: "bmx.arcia@arciait.com" }).then((otpr) =>
-            successSnackMessage(String(otpr.message))
-          ); // TODO: Cambiar a correo del cliente data[0].email
-          setStep(3);
+          console.log("[response.code === 208]", response);
+          if (data[0].status === "Inactive") {
+            setEmail(data[0].email);
+            sendOtp({ email: "bmx.arcia@arciait.com" }).then((otpr) =>
+              successSnackMessage(String(otpr.message))
+            ); // TODO: Cambiar a correo del cliente data[0].email
+            setStep(3);
+          }
+          if (data[0].status === "Active") {
+            navetgate("/login");
+          }
         }
       })
       .catch((error) => {
