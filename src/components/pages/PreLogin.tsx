@@ -103,7 +103,7 @@ const PreLogin: React.FC = () => {
             setStep(2);
           } else if (data.length === 1) {
             setEmail(data[0].email);
-            sendOtp({ email: "bmx.arcia@arciait.com" }).then((otpr) =>
+            sendOtp({ email: data[0].email }).then((otpr) =>
               successSnackMessage(String(otpr.message))
             ); // TODO: Cambiar a correo del cliente data[0].email
             setStep(3);
@@ -114,7 +114,7 @@ const PreLogin: React.FC = () => {
           console.log("[response.code === 208]", response);
           if (data[0].status === "Inactive") {
             setEmail(data[0].email);
-            sendOtp({ email: "bmx.arcia@arciait.com" }).then((otpr) =>
+            sendOtp({ email: data[0].email }).then((otpr) =>
               successSnackMessage(String(otpr.message))
             ); // TODO: Cambiar a correo del cliente data[0].email
             setStep(3);
@@ -164,6 +164,7 @@ const PreLogin: React.FC = () => {
       />
       {step === 3 && (
         <OtpCodeLightBox
+          email={email}
           onCancelBack={() => setStep(1)}
           onCallBack={(value) => {
             handleLogin(value);

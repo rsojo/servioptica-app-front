@@ -6,11 +6,18 @@ import BkLogin from "../../../../assets/img/bkLogin.webp";
 import { BASE_COLORS } from "../../../../style/constants";
 import fieldBuiltDataOpt from "../data/fieldBuiltDataOpt.json";
 import { PreDataType } from "../../../molecules/form/type";
+import fieldBuiltDataNewPassw from "../data/fieldBuiltDataNewPassw.json";
+import { ButtonAtom } from "../../../atoms";
+import { OtpCodeLightBox } from "../otp";
 
 export const LoginForm = ({
-  onCallBack
+  step,
+  onCallBack,
+  setStep,
 }: {
-  onCallBack: (value: PreDataType) => void
+  step: number;
+  onCallBack: (value: PreDataType) => void;
+  setStep: React.Dispatch<React.SetStateAction<number>>;
 }) => {
   return (
     <>
@@ -54,13 +61,54 @@ export const LoginForm = ({
             Inicio de sesión ópticas
           </TextAtom>
           <SpaceAtom v={8} />
-            <FormModule
-              actionBtnLabel="Entrar"
-              groupsFields={fieldBuiltDataOpt}
+          {step === 1 && (
+            <GridAtom alignItems="center">
+              <FormModule
+                actionBtnLabel="Entrar"
+                groupsFields={fieldBuiltDataOpt}
+                onCallBack={(value) => {
+                  onCallBack(value);
+                }}
+              />
+              <ButtonAtom
+                variant="outlined"
+                adVariant="linkStyle"
+                onClick={() => setStep(2)}
+                style={{ color: BASE_COLORS.blue }}
+              >
+                Recordar contraseña
+              </ButtonAtom>
+            </GridAtom>
+          )}
+
+          {step === 2 && (
+            <GridAtom alignItems="center">
+              <FormModule
+                actionBtnLabel="Validar"
+                groupsFields={fieldBuiltDataNewPassw}
+                onCallBack={(value) => {
+                  onCallBack(value);
+                }}
+              />
+              <ButtonAtom
+                variant="outlined"
+                adVariant="linkStyle"
+                onClick={() => setStep(1)}
+                style={{ color: BASE_COLORS.blue }}
+              >
+                Ir al Login
+              </ButtonAtom>
+            </GridAtom>
+          )}
+          {step === 3 && (
+            <OtpCodeLightBox
+              email={""}
+              onCancelBack={() => setStep(2)}
               onCallBack={(value) => {
-                onCallBack(value)
+                onCallBack({ opt: value });
               }}
             />
+          )}
         </GridAtom>
       </GridAtom>
     </>

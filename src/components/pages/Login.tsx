@@ -1,9 +1,9 @@
 // src/components/Login.tsx
-import React from "react";
+import React, { useState } from "react";
 import ContainerAtom from "../atoms/container";
 import { LoginForm } from "../organisms/formLogin/main";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../../api/Auth";
+import { loginUser, verifyOtp } from "../../api/Auth";
 import { persistAppStoreAtom } from "../../store/Auth";
 import { useAtom } from "jotai";
 import { useMessage } from "../../hooks/useMessage";
@@ -11,11 +11,13 @@ import { useMessage } from "../../hooks/useMessage";
 const Login: React.FC = () => {
   const [, setAppStore] = useAtom(persistAppStoreAtom);
   const { errorSnackMessage, successSnackMessage } = useMessage();
+  const [step, setStep] = useState(1);
 
   const navetgate = useNavigate();
 
   const handleLogin = (value: any) => {
-    if (value)
+    if (value && step === 1) {
+      // Login
       loginUser({ document: value.document, password: value.password }).then(
         (response) => {
           if (response.error) {
@@ -31,6 +33,25 @@ const Login: React.FC = () => {
           }
         }
       );
+    }
+    if (value && step === 2) {
+      // Otp
+      // const handkeVerifyOtp = (value: string) => {
+      //   console.log("[handkeVerifyOtp]", value);
+      //   verifyOtp({ otp: value, email: email }).then((response) => {
+      //     if (response.error) {
+      //       errorSnackMessage(response.message);
+      //     }
+      //     if (!response.error) {
+      //       successSnackMessage(String(response.message));
+      //       setStep(4);
+      //     }
+      //   });
+      // };
+    }
+    if (value && step === 3) {
+      // Passbord
+    }
   };
 
   return (
@@ -42,7 +63,7 @@ const Login: React.FC = () => {
         height: "calc(100vh - 260px)",
       }}
     >
-      <LoginForm onCallBack={handleLogin} />
+      <LoginForm onCallBack={handleLogin} step={step} setStep={setStep} />
     </ContainerAtom>
   );
 };

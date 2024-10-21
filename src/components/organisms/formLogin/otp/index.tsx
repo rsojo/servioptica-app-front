@@ -8,9 +8,11 @@ import "./style.css";
 import { sendOtp } from "../../../../api/Auth";
 
 export const OtpCodeLightBox = ({
+  email,
   onCallBack,
   onCancelBack,
 }: {
+  email: string
   onCallBack: (value: string) => void;
   onCancelBack: () => void;
 }) => {
@@ -54,7 +56,7 @@ export const OtpCodeLightBox = ({
             variant="outlined"
             adVariant="linkStyle"
             onClick={() => {
-              sendOtp({ email: "bmx.arcia@arciait.com" })
+              sendOtp({ email: email })
                 .then(
                   (otpr) => successSnackMessage(String(otpr.message))
                   // TODO: Cambiar a correo del cliente data[0].email

@@ -102,7 +102,7 @@ export const PreLoginForm = ({
           )}
           {step === 4 && (
             <FormModule
-              actionBtnLabel="Crear"
+              actionBtnLabel="Validar"
               groupsFields={fieldBuiltDataNewPassw}
               onCallBack={(value) => {
                 // setFormData!(value);
