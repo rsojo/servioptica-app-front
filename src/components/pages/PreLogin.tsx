@@ -70,23 +70,23 @@ const PreLogin: React.FC = () => {
   };
 
   const handkeVerifyOtp = (value: string) => {
-    console.log("[handkeVerifyOtp]", value);
-    verifyOtp({ otp: value, email: email }).then((response) => {
-      if (response.error || response.data === null) {
-        errorSnackMessage(response.message);
-      }
-      if (!response.error && response.data) {
-        setTokenPass(response.data.token)
-        successSnackMessage(String(response.message));
-        setStep(4);
-      }
-    });
+    verifyOtp({ otp: value, email: email })
+      .then((response) => {
+        if (response.error || response.data === null) {
+          errorSnackMessage(response.message);
+        }
+        if (!response.error && response.data) {
+          setTokenPass(response.data.token);
+          successSnackMessage(String(response.message));
+          setStep(4);
+        }
+      })
+      .catch((error) => errorSnackMessage(String(error.message)));
   };
 
   const handleCheckClient = (value: { document: string }) => {
     checkClient({ document: value.document })
       .then((response) => {
-        console.log("[checkClient]", response.code);
         if (response.error) {
           errorSnackMessage(response.message);
         }
@@ -114,7 +114,6 @@ const PreLogin: React.FC = () => {
         }
         if (response.code === 208) {
           const data = response.data as CheckClientData[];
-          console.log("[response.code === 208]", response);
           if (data[0].status === "Inactive") {
             setEmail(data[0].email);
             sendOtp({ email: data[0].email }).then((otpr) =>
@@ -128,7 +127,7 @@ const PreLogin: React.FC = () => {
         }
       })
       .catch((error) => {
-        errorSnackMessage(error.message);
+        errorSnackMessage(String(error.message));
       });
   };
 
@@ -145,7 +144,7 @@ const PreLogin: React.FC = () => {
         }
       })
       .catch((error) => {
-        errorSnackMessage(error.message);
+        errorSnackMessage(String(error.message));
       });
   };
 

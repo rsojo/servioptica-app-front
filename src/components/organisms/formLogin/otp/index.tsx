@@ -6,6 +6,7 @@ import OTPInput from "../../../atoms/inputOTP";
 import TextAtom from "../../../atoms/text";
 import "./style.css";
 import { sendOtp } from "../../../../api/Auth";
+import { useMessage } from "../../../../hooks/useMessage";
 
 export const OtpCodeLightBox = ({
   email,
@@ -17,17 +18,17 @@ export const OtpCodeLightBox = ({
   onCancelBack: () => void;
 }) => {
   const [otp, setOtp] = useState("");
-  function successSnackMessage(arg0: string): any {
-    throw new Error("Function not implemented.");
-  }
+  const { errorSnackMessage, successSnackMessage } = useMessage();
+
 
   const handleReSendOtp = () => {
+    console.log('[OtpCodeLightBox, handleReSendOtp]')
     sendOtp({ email: email })
       .then(
         (otpr) => successSnackMessage(String(otpr.message))
         // TODO: Cambiar a correo del cliente data[0].email
       )
-      .catch((error) => successSnackMessage(String(error)));
+      .catch((error) => errorSnackMessage(String(error)));
   };
 
   return (

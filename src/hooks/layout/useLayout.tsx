@@ -26,10 +26,6 @@ export const useLayout = () => {
   };
 
   useEffect(() => {
-    console.log(currentLink);
-  }, [currentLink]);
-
-  useEffect(() => {
     const lastMessage =
       messageContext?.messages[messageContext.messages.length - 1];
 
