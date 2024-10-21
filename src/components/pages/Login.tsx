@@ -1,17 +1,37 @@
 // src/components/Login.tsx
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ContainerAtom from "../atoms/container";
-import { OtpCodeLightBox } from "../organisms/formLogin/otp";
+import { LoginForm } from "../organisms/formLogin/main";
 import { useNavigate } from "react-router-dom";
-import { LoginClientForm } from "../organisms/formLogin/client";
+import { loginUser } from "../../api/Auth";
+import { persistAppStoreAtom } from "../../store/Auth";
+import { useAtom } from "jotai";
+import { useMessage } from "../../hooks/useMessage";
 
 const Login: React.FC = () => {
-  const [step, setStep] = useState(1);
-  const [nit, setNit] = useState<string>("");
-  const [formData, setFormData] = useState<any>('');
-  const navetgate = useNavigate()
+  const [, setAppStore] = useAtom(persistAppStoreAtom);
+  const { errorSnackMessage, successSnackMessage } = useMessage();
 
-  useEffect(()=>{console.log(formData)}, [formData])
+  const navetgate = useNavigate();
+
+  const handleLogin = (value: any) => {
+    if (value)
+      loginUser({ document: value.document, password: value.password }).then(
+        (response) => {
+          if (response.error) {
+            errorSnackMessage(response.message);
+          }
+          if (response.data?.access_token) {
+            setAppStore({
+              auth: { access_token: response.data.access_token, rol: "admin" },
+              user: null,
+            });
+            successSnackMessage(String(response.message));
+            navetgate("/home-admin");
+          }
+        }
+      );
+  };
 
   return (
     <ContainerAtom
@@ -22,25 +42,7 @@ const Login: React.FC = () => {
         height: "calc(100vh - 260px)",
       }}
     >
-      <LoginClientForm 
-        setStep={setStep}
-        setNit={setNit}
-        setFormData={setFormData}
-        step={step}
-        nit={nit}
-      />
-      {step === 3 && (
-        <OtpCodeLightBox
-          onCancelBack={() => setStep(1)}
-          onCallBack={(value) => {
-            console.log("onCallBack", value);
-            if (value.length > 0) {
-              navetgate('/dashboard?id=123')
-              setStep(1);
-            }
-          }}
-        />
-      )}
+      <LoginForm onCallBack={handleLogin} />
     </ContainerAtom>
   );
 };

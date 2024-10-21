@@ -14,7 +14,7 @@ export const validateFields = async (
 
   for (const group of groupFields) {
     for (const field of group.fields) {
-      const value = preData ? preData[field.name!] : '';
+      const value = preData ? preData[field.name!] : "";
       const response = await validateField({
         groupId: group.id,
         field,
@@ -54,25 +54,23 @@ export const validateField = async ({
           return {
             groupId: groupId!,
             fieldId: field.id!,
-            errorMessage:'',
+            errorMessage: field.textError ?? `Mínimo ${minlength} caracteres.`,
           };
         }
         if (String(value).length! > maxlength) {
           return {
             groupId: groupId!,
             fieldId: field.id!,
-            errorMessage:
-              field.textError ??
-              `Minimo ${minlength} caracteres.`,
+            errorMessage: field.textError ?? `Máximo ${minlength} caracteres.`,
           };
         }
         return null;
-        case 'select':
-        if (String(value).length === 0 || value === 'NA') {
+      case "select":
+        if (String(value).length === 0 || value === "NA") {
           return {
             groupId: groupId!,
             fieldId: field.id!,
-            errorMessage:'',
+            errorMessage: "",
           };
         }
         return null;
@@ -110,6 +108,28 @@ export const validateField = async ({
             errorMessage:
               field.textError ??
               `Este campo debe tener entre ${minlength} y ${maxlength} caracteres.`,
+          };
+        }
+        return null;
+//TODO: Refactoring to prod
+      case "password":
+        if (String(value).length! < minlength) {
+          return {
+            groupId: groupId!,
+            fieldId: field.id!,
+            errorMessage: field.textError ?? `Mínimo ${minlength} caracteres.`,
+          };
+        }
+        const passwordRegex =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+        // if (!passwordRegex.test(String(value))) {
+        if (!passwordRegex) {
+          return {
+            groupId: groupId!,
+            fieldId: field.id!,
+            errorMessage:
+              field.textError ??
+              `Debe tener al menos 8 caracteres, mayúsculas, minúsculas, números, carácter especial.`,
           };
         }
         return null;

@@ -198,7 +198,7 @@ export default function OTPInput({
         onChange={(value) => {
           setOtp(value);
         }}
-        length={5}
+        length={7}
       />
     </Box>
   );

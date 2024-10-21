@@ -1,0 +1,32 @@
+.accordionAtom.MuiPaper-root,
+.accordionAtom.MuiPaper-root.Mui-expanded {
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+  height: auto;
+  margin: 0;
+}
+.accordionAtom .MuiButtonBase-root,
+.accordionAtom .MuiButtonBase-root.Mui-expanded {
+  padding: 0;
+  min-height: initial;
+}
+.accordionAtom .MuiAccordionSummary-content,
+.accordionAtom .MuiAccordionSummary-content.Mui-expanded {
+  margin: 0;
+}
+.accordionAtom .MuiAccordionSummary-expandIconWrapper svg {
+  fill: #4992b1;
+}
+.accordionAtom .MuiCollapse-root .MuiAccordionDetails-root {
+  padding: 0;
+}
+.accordionAtom .MuiButtonBase-root, .accordionAtom .MuiButtonBase-root.Mui-expanded {
+  padding: 0;
+  min-height: initial;
+  flex-direction: row-reverse;
+} 
+div#root div.Mui-expanded::before {
+  opacity: 1;
+}

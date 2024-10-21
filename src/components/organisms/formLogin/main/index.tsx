@@ -1,24 +1,18 @@
-import { BASE_COLORS } from "../../../../style/constants";
-import { GridAtom, SpaceAtom, TextAtom } from "../../../atoms";
+import GridAtom from "../../../atoms/grid";
+import { SpaceAtom } from "../../../atoms/space";
+import TextAtom from "../../../atoms/text";
 import { FormModule } from "../../../molecules/form";
 import BkLogin from "../../../../assets/img/bkLogin.webp";
-import { updateDefaultValues } from "../libs";
+import { BASE_COLORS } from "../../../../style/constants";
+import fieldBuiltDataOpt from "../data/fieldBuiltDataOpt.json";
+import { PreDataType } from "../../../molecules/form/type";
 
-import FieldBuiltData from "../data/fieldBuiltDataNit.json";
-import FieldBuiltDataSede from "../data/fieldBuiltDataNitSede.json";
-
-export const LoginClientForm = ({
-  setStep,
-  setNit,
+export const LoginForm = ({
   setFormData,
-  step,
-  nit,
+  onCallBack
 }: {
-  setStep: React.Dispatch<React.SetStateAction<number>>;
-  setNit: React.Dispatch<React.SetStateAction<string>>;
-  setFormData: React.Dispatch<React.SetStateAction<any>>;
-  step: number;
-  nit: string;
+  setFormData?: React.Dispatch<React.SetStateAction<any>>;
+  onCallBack: (value: PreDataType) => void
 }) => {
   return (
     <>
@@ -62,31 +56,14 @@ export const LoginClientForm = ({
             Inicio de sesión ópticas
           </TextAtom>
           <SpaceAtom v={8} />
-          {step === 1 ? (
             <FormModule
-              actionBtnLabel="Validar"
-              groupsFields={FieldBuiltData}
+              actionBtnLabel="Entrar"
+              groupsFields={fieldBuiltDataOpt}
               onCallBack={(value) => {
-                setStep(2);
-                setNit(String((value as any).login_nit));
-                console.log(value);
+                setFormData!(value)
+                onCallBack(value)
               }}
             />
-          ) : (
-            <FormModule
-              actionBtnLabel="Enviar código de validación"
-              groupsFields={updateDefaultValues(
-                FieldBuiltDataSede,
-                "login",
-                "login_nit",
-                nit
-              )}
-              onCallBack={(value) => {
-                setStep(3);
-                setFormData(value);
-              }}
-            />
-          )}
         </GridAtom>
       </GridAtom>
     </>

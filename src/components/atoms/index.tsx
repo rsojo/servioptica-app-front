@@ -1,3 +1,4 @@
+export * from './accordion'
 export * from './Alert'
 export * from './Lightbox'
 export * from './Popup'

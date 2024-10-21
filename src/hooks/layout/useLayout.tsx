@@ -18,7 +18,7 @@ export const useLayout = () => {
     isHomePage: location.pathname === "/",
     isHomeAdminPage: location.pathname === "/home-admin",
     isLoginPage: location.pathname === "/login",
-    isLoginOptPage: location.pathname === "/login-opt",
+    isPreLoginPage: location.pathname === "/pre-login",
     isDashboard: location.pathname === "/dashboard",
     isDashboardOpt: location.pathname === "/dashboard-opt",
     isOrderTracking: location.pathname === "/order-tracking",

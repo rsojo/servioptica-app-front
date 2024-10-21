@@ -9,7 +9,7 @@ p.MuiFormHelperText-root.Mui-error {
     margin: 0;
     margin-left: 0px;
     position: absolute;
-    bottom: -26px;
+    top: 64px;
     left: 0;
     width: 100%;
     text-align: center;

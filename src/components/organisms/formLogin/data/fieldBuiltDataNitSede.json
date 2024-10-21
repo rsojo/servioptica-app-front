@@ -6,7 +6,7 @@
       {
         "id": 1,
         "label": "",
-        "name": "login_nit",
+        "name": "document",
         "type": "text",
         "columnSize": 12,
         "important": false,

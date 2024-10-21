@@ -2,6 +2,7 @@
 import React, { createContext, useState, ReactNode, FC, useMemo } from "react";
 
 export interface Message {
+  isOpen: boolean
   title?: string;
   content: string;
   type: "info" | "success" | "error";
