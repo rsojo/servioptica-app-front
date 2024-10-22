@@ -27,7 +27,7 @@ export const BannerHomeAdmin = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Link to={"/dashboard-opt"} className="BigCtaHome">
+        <Link to={"/dashboard-admin"} className="BigCtaHome">
           <GridAtom
             style={{ position: "absolute", width: "100%", height: "100%" }}
           >

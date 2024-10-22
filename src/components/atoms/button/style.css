@@ -1,7 +1,6 @@
 .MuiButtonBase-root.generalBtn {
   border-radius: 0px;
   padding: 14px 24px;
-  box-shadow: none;
   text-transform: initial;
   font-weight: 400;
   line-height: 1;
@@ -72,7 +71,7 @@
 .MuiButtonBase-root.generalBtn.linkStyle,
 .MuiButtonBase-root.generalBtn.linkStyle:hover {
   border: 0px;
-  color: #ffffff;
+  color: #024F8F;
   background-color: transparent;
   font-weight: 400;
   text-transform: initial;
@@ -80,6 +79,8 @@
   box-shadow: none;
   text-decoration: underline;
   font-size: 16px;
+  min-height: initial;
+  min-width: initial;
 }
 .MuiButtonBase-root.generalBtn.small,
 .MuiButtonBase-root.generalBtn.small:hover {

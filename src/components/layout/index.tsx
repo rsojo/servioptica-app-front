@@ -31,7 +31,9 @@ const Layout: React.FC = () => {
         return "login";
       case currentLink.isDashboard:
         return "dash";
-      case currentLink.isDashboardOpt:
+      case currentLink.isDashboardAdmin:
+        return "dash-admin";
+      case currentLink.isDashboardPromo:
         return "dash-admin";
       case currentLink.isOrderTracking:
         return "dash";

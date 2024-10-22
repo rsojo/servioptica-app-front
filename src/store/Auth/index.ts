@@ -48,11 +48,10 @@ const storeAppState = (state: AppStoreAtom) => {
 // Creación del átomo con estado inicial desde localStorage
 export const appStoreAtom = atom<AppStoreAtom>(getStoredAppState());
 
-// Efecto secundario para persistir cambios en el átomo
 export const persistAppStoreAtom = atom(
-  (get) => get(appStoreAtom), // Lector del estado
+  (get) => get(appStoreAtom), 
   (get, set, newState: AppStoreAtom) => {
-    set(appStoreAtom, newState);  // Actualiza el átomo localmente
-    storeAppState(newState);      // Guarda el nuevo estado en localStorage
+    set(appStoreAtom, newState);  
+    storeAppState(newState); 
   }
 );

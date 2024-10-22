@@ -1,26 +1,23 @@
 import { Link, useNavigate } from "react-router-dom";
 import {
-  ButtonAtom,
   ColumnAtom,
   ContainerAtom,
   GridAtom,
-  InputTextAtom,
   RowAtom,
-  SpaceAtom,
   TextAtom,
-  TitleAtom,
 } from "../../atoms";
 
 import LogoServioptica from "../../../assets/img/logo_servioptica@2x.webp";
-import bkDash from "../../../assets/img/bkDash-01.webp";
+import bkDash from "../../../assets/img/bkDashAdmin.webp";
 import PersonIcon from "@mui/icons-material/Person";
 import { BASE_COLORS } from "../../../style/constants";
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 
 export const DashHeaderAdmin = () => {
-  const navetgate = useNavigate()
-  
+  const navetgate = useNavigate();
+
   return (
-    <header style={{ position: "relative", display: "flex"}}>
+    <header style={{ position: "relative", display: "flex" }}>
       <GridAtom
         alignItems="center"
         justifyContent="center"
@@ -31,25 +28,26 @@ export const DashHeaderAdmin = () => {
           height: "100%",
           width: "100%",
           zIndex: 1,
-           overflow: 'hidden',
+          overflow: "hidden",
         }}
       >
         <img
           src={bkDash}
           style={{ objectFit: "cover", height: "100%", width: "105%" }}
           width={1920}
-          height={300}
+          height={330}
           alt="imagen del banner"
         />
       </GridAtom>
-      <ContainerAtom style={{ zIndex: 2, marginBottom: 10 }}>
-        <RowAtom className="HeaderRow" style={{flexFlow: 'wrap'}}>
+      <ContainerAtom
+        style={{ zIndex: 2, marginBottom: 10, minHeight: 330 }}
+      >
+        <RowAtom className="HeaderRow" style={{ flexFlow: "wrap" }}>
           <ColumnAtom
             flex={3}
-            alignItems="center"
+            alignItems="flex-start"
             justifyContent="center"
             gap={2}
-            style={{ minWidth: 300 }}
           >
             <Link to={"/home-admin"}>
               <img
@@ -72,68 +70,57 @@ export const DashHeaderAdmin = () => {
             </TextAtom>
           </ColumnAtom>
           <ColumnAtom
-            flex={9}
+            flex={3}
             alignItems="flex-end"
-            style={{ color: "var(--mainBtnColor)", minWidth: 300 }}
+            style={{ color: BASE_COLORS.blue, minWidth: 300 }}
           >
             <RowAtom
               alignItems="center"
               gap={2}
               style={{ width: 280, justifyContent: "center" }}
             >
-              <GridAtom
-                p={1}
+              <Link
+                to={"/home-admin"}
+                style={{ textAlign: "center", textDecoration: "none" }}
+              >
+                <GridAtom
+                  p={1}
+                  style={{
+                    backgroundColor: "#fff",
+                    borderRadius: 120,
+                    border: `1px solid ${BASE_COLORS.blue}`,
+                  }}
+                >
+                  <HomeRoundedIcon style={{ color: BASE_COLORS.blue }} />
+                </GridAtom>
+              </Link>
+              <Link
+                to={"/login"}
+                style={{ textAlign: "center", textDecoration: "none" }}
+              >
+                <GridAtom
+                  p={1}
+                  style={{
+                    backgroundColor: "#fff",
+                    borderRadius: 120,
+                    border: `1px solid ${BASE_COLORS.blue}`,
+                  }}
+                >
+                  <PersonIcon style={{ color: BASE_COLORS.blue }} />
+                </GridAtom>
+              </Link>
+              <TextAtom
                 style={{
-                  backgroundColor: "#fff",
-                  borderRadius: 120,
-                  border: "1px solid var(--mainBtnColor)",
+                  textAlign: "center",
+                  textDecoration: "none",
+                  color: BASE_COLORS.blue,
                 }}
               >
-                <PersonIcon style={{ color: "var(--mainBtnColor)" }} />
-              </GridAtom>
-              <TextAtom style={{ textAlign: "center" }}>Óptica TXT 02</TextAtom>
+                Super Admin
+              </TextAtom>
             </RowAtom>
           </ColumnAtom>
         </RowAtom>
-        <SpaceAtom v={48} />
-        <GridAtom style={{ width: "100%", marginBottom: -50 }} alignItems="center" gap={2}>
-          <TitleAtom
-            style={{
-              color: BASE_COLORS.blue,
-              fontSize: 30,
-              textAlign: "center",
-              textShadow: "0px 3px 6px #FFFFFF",
-              fontWeight: 900,
-            }}
-          >
-            Consulta de Pedido
-          </TitleAtom>
-          <RowAtom
-            alignItems="center"
-            gap={2}
-            style={{ width: "100%", maxWidth: 600 }}
-          >
-            <ColumnAtom flex={10}>
-              <InputTextAtom
-                field={{ id: "search_orders", placeholder: "Nº de Pedido" }}
-                onChangeCallback={(value) => {
-                  console.log(value);
-                }}
-              />
-            </ColumnAtom>
-            <ColumnAtom style={{flex: 'none'}}>
-              <ButtonAtom
-                onClick={() => {
-                  navetgate('/order-tracking')
-                  console.log("Buscar");
-                }}
-                style={{ minWidth: 173 }}
-              >
-                Buscar
-              </ButtonAtom>
-            </ColumnAtom>
-          </RowAtom>
-        </GridAtom>
       </ContainerAtom>
     </header>
   );

@@ -19,6 +19,29 @@ export async function getFaqActives(): Promise<GetFaqActivesResponse> {
 
     return responseData;
   } catch (error: any) {
-    return error as any;
+    return error;
+  }
+}
+
+export async function getFaqAdmin(token: string): Promise<GetFaqActivesResponse> {
+  const url = `${devUrl}/api/faqs/getActives`;
+
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`, 
+      },
+    });
+
+    const responseData: GetFaqActivesResponse = await response.json();
+    console.log("[getFaqAdmin] [responseData]", responseData);
+
+    return responseData;
+  } catch (error: any) {
+    console.error("[getFaqAdmin] [error]", error);
+    return error;
   }
 }

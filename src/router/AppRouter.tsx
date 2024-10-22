@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Dashboard, Home, Login } from "../components/pages";
 import Layout from "../components/layout";
 import NotFound from "../components/pages/NotFound";
-import DashboardOpt from "../components/pages/DashboardOpt";
+import DashboardAdmin from "../components/pages/DashboardAdmin";
 import OrderTracking from "../components/pages/OrderTracking";
 import SearchOrderTracking from "../components/pages/SearchOrderTracking";
 import HomeAdmin from "../components/pages/HomeAdmin";
@@ -23,7 +23,7 @@ const AppRouter: React.FC = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard-promo" element={<DashboardPromo />} />
-          <Route path="/dashboard-opt" element={<DashboardOpt />} />
+          <Route path="/dashboard-admin" element={<DashboardAdmin />} />
           <Route path="/order-tracking" element={<OrderTracking />} />
           <Route path="/search-order-tracking" element={<SearchOrderTracking />} />
           <Route path="/faq" element={<Faq />} />
