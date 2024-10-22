@@ -1,4 +1,5 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState, useRef } from "react";
 import {
   AccordionAtom,
   ContainerAtom,
@@ -10,66 +11,68 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { BASE_COLORS } from "../../style/constants";
 import Row from "../atoms/row";
+import { getFaqActives } from "../../api/Faq";
+import { CircularProgress } from "@mui/material";
 
 export const Faq = () => {
-  const testData = [
-    {
-      id: "1",
-      header: (
-        <TitleAtom
-          type="h2"
-          style={{ padding: '24px 16px', color: BASE_COLORS.blue, fontWeight: 900 }}
-        >
-          Título 1
-        </TitleAtom>
-      ),
-      content: (
-        <TextAtom
-          style={{
-            padding: 8,
-            paddingLeft: 44,
-            paddingBottom: 24,
-            color: BASE_COLORS.blue,
-          }}
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vel
-          eleifend erat, eu posuere magna. Morbi justo urna, dignissim sit amet
-          suscipit a, euismod sed orci. Phasellus dapibus erat vel ex ultrices
-          tempus. Donec pretium, dolor id pellentesque luctus, massa elit mollis
-          dolor, vitae consequat ipsum mauris vitae sem.
-        </TextAtom>
-      ),
-    },
-    {
-      id: "2",
-      header: (
-        <TitleAtom
-          type="h2"
-          style={{ padding: '24px 16px', color: BASE_COLORS.blue, fontWeight: 900 }}
-        >
-          Título 2
-        </TitleAtom>
-      ),
-      content: (
-        <TextAtom
-          style={{
-            padding: 8,
-            paddingLeft: 40,
-            paddingBottom: 24,
-            color: BASE_COLORS.blue,
-          }}
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vel
-          eleifend erat, eu posuere magna. Morbi justo urna, dignissim sit amet
-          suscipit a, euismod sed orci. Phasellus dapibus erat vel ex ultrices
-          tempus. Donec pretium, dolor id pellentesque luctus, massa elit mollis
-          dolor, vitae consequat ipsum mauris vitae sem.
-        </TextAtom>
-      ),
-    },
-  ];
-
+  const [loading, setLoading] = useState(false);
   const [cuttentActive, setCuttentActive] = useState(0);
+  const [faqsData, setFaqsData] = useState<Array<{
+    id: string;
+    header: JSX.Element;
+    content: JSX.Element;
+  }> | null>(null);
+
+  // Ref para controlar que solo se haga la petición una vez
+  const hasFetchedFaqs = useRef(false);
+
+  const fetchFaqsData = async () => {
+    try {
+      if (!faqsData && !loading) {
+        setLoading(true);
+        const response = await getFaqActives();
+        const formatingData = response.data.map((item) => ({
+          id: String(item.id),
+          header: (
+            <TitleAtom
+              type="h2"
+              style={{
+                padding: "24px 16px",
+                color: BASE_COLORS.blue,
+                fontWeight: 900,
+              }}
+            >
+              {item.question}
+            </TitleAtom>
+          ),
+          content: (
+            <TextAtom
+              style={{
+                padding: 8,
+                paddingLeft: 44,
+                paddingBottom: 24,
+                color: BASE_COLORS.blue,
+              }}
+            >
+              {item.answer}
+            </TextAtom>
+          ),
+        }));
+        setFaqsData(formatingData);
+      }
+    } catch (error) {
+      console.error("Error fetching FAQs:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!hasFetchedFaqs.current && !loading) {
+      hasFetchedFaqs.current = true;
+      fetchFaqsData();
+    }
+  }, [loading]);
 
   return (
     <ContainerAtom
@@ -80,7 +83,7 @@ export const Faq = () => {
       }}
     >
       <GridAtom gap={4}>
-        <Row gap={5} alignItems="center" style={{padding: '0px 32px'}}>
+        <Row gap={5} alignItems="center" style={{ padding: "0px 32px" }}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="31.5"
@@ -102,33 +105,40 @@ export const Faq = () => {
         </Row>
         <GridAtom style={{ width: "100%", border: "1px solid #707070" }} />
       </GridAtom>
-      <GridAtom style={{padding: '32px 64px'}}>
-        {testData.map((item, index) => {
-          return (
-            <AccordionAtom
-              key={index + 1}
-              expandIcon={
-                index === cuttentActive ? (
-                  <RemoveIcon
-                    style={{
-                      fill: BASE_COLORS.blue,
-                    }}
-                  />
-                ) : (
-                  <AddIcon
-                    style={{
-                      fill: BASE_COLORS.blue,
-                    }}
-                  />
-                )
-              }
-              initialExpanded={index === cuttentActive}
-              data={item}
-              onCallBack={() => setCuttentActive(index)}
-            />
-          );
-        })}
-      </GridAtom>
+      {loading && (
+        <GridAtom p={5} style={{minHeight: 320}} justifyContent="center" alignItems="center">
+          <CircularProgress />
+        </GridAtom>
+      )}
+      {!!faqsData && (
+        <GridAtom style={{ padding: "32px 64px" }}>
+          {faqsData.map((item, index) => {
+            return (
+              <AccordionAtom
+                key={index + 1}
+                expandIcon={
+                  index === cuttentActive ? (
+                    <RemoveIcon
+                      style={{
+                        fill: BASE_COLORS.blue,
+                      }}
+                    />
+                  ) : (
+                    <AddIcon
+                      style={{
+                        fill: BASE_COLORS.blue,
+                      }}
+                    />
+                  )
+                }
+                initialExpanded={index === cuttentActive}
+                data={item}
+                onCallBack={() => setCuttentActive(index)}
+              />
+            );
+          })}
+        </GridAtom>
+      )}
     </ContainerAtom>
   );
 };
