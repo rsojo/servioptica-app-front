@@ -6,16 +6,20 @@
   bottom: 0px;
   width: auto;
   padding: 0 4px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  min-height: 40px;
 }
 .swiper-pagination-bullet {
-    width: 8px;
-    height: 8px;
-    border-radius: 20px;
-    transition: .3s;
+  width: 8px;
+  height: 8px;
+  border-radius: 20px;
+  transition: 0.3s;
 }
 .swiper-pagination-bullet-active {
-    opacity: var(--swiper-pagination-bullet-opacity, 1);
-    background: var(--mainColor);
-    width: 16px;
-    border-radius: 20px;
+  opacity: var(--swiper-pagination-bullet-opacity, 1);
+  background: var(--mainColor);
+  width: 16px;
+  border-radius: 20px;
 }

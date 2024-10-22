@@ -12,7 +12,7 @@ const HomeAdmin: React.FC = () => {
   useEffect(()=>{console.log('[appStore]', appStore)},[appStore])
 
   if (!appStore.auth?.access_token) {
-    return <Navigate to="/login-opt" replace />;
+    return <Navigate to="/login" replace />;
   }
   return (
     <ContainerAtom style={{ width: "100%", padding: 0 }}>

@@ -76,7 +76,7 @@ export const MainAdminHeader = () => {
               style={{ width: 280, justifyContent: "center" }}
             >
               <Link
-                to={"/login-opt"}
+                to={"/login"}
                 style={{ textAlign: "center", textDecoration: "none" }}
               >
                 <GridAtom
@@ -91,7 +91,7 @@ export const MainAdminHeader = () => {
                 </GridAtom>
               </Link>
               <Link
-                to={"/login-opt"}
+                to={"/login"}
                 style={{ textAlign: "center", textDecoration: "none" }}
               >
                 <GridAtom

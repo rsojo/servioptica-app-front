@@ -20,11 +20,13 @@ export const SliderDash = ({
               <TitleAtom type="h3" style={{ color: BASE_COLORS.blue }}>
                 {item.title}
               </TitleAtom>
-              <img
-                src={item.img}
-                alt="Test Img"
-                style={{ objectFit: "contain", width: "100%" }}
-              />
+              {item.img && <GridAtom style={{minHeight: 180}}>
+                <img
+                  src={item.img}
+                  alt="Test Img"
+                  style={{ objectFit: "contain", width: "100%" }}
+                />
+              </GridAtom>}
             </ColumnAtom>
           </ColumnAtom>
         );

@@ -70,7 +70,7 @@ export const MainHeader = () => {
             style={{ color: BASE_COLORS.blue, minWidth: 300 }}
           >
             <Link
-              to={"/login-opt"}
+              to={"/login"}
               style={{ textAlign: "center", textDecoration: "none" }}
             >
               <RowAtom

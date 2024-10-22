@@ -1,6 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // src/components/Dashboard.tsx
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
 import {
   ColumnAtom,
   ContainerAtom,
@@ -9,10 +9,45 @@ import {
   SpaceAtom,
 } from "../atoms";
 import DataTable from "../atoms/table";
-import testImg from "../../assets/img/testBannerImg.webp";
 import { SliderDash } from "../organisms/sliderDash";
+import { getPromotionsActives } from "../../api/Promotions";
+import { CircularProgress } from "@mui/material";
 
 const Dashboard: React.FC = () => {
+  const [loading, setLoading] = useState(false);
+  const [promotionsData, setPromotionsData] = useState<Array<{
+    img: string;
+    title: string;
+    description: string;
+  }> | null>(null);
+
+  const hasFetchedPromotions = useRef(false);
+
+  const fetchPromotionsData = async () => {
+    try {
+      if (!promotionsData && !loading) {
+        setLoading(true);
+        const response = await getPromotionsActives();
+        const formatingData = response.data.map((item) => ({
+          img: item.img,
+          title: item.title,
+          description: item.description,
+        }));
+        setPromotionsData(formatingData);
+      }
+    } catch (error) {
+      console.error("Error fetching FAQs:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!hasFetchedPromotions.current && !loading) {
+      hasFetchedPromotions.current = true;
+      fetchPromotionsData();
+    }
+  }, [loading]);
   // const location = useLocation();
   // const searchParams = new URLSearchParams(location.search);
   // const id = searchParams.get("id"); // Obtener el parámetro "id" si está presente
@@ -42,23 +77,17 @@ const Dashboard: React.FC = () => {
           </GridAtom>
         </ColumnAtom>
         <ColumnAtom flex={5} style={{ minWidth: 300 }}>
-          <SliderDash
-            data={[
-              {
-                img: testImg,
-                title: "Promociones",
-                description:
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer scelerisque condimentum lacus eu dapibus. Aliquam eros augue, sagittis at quam quis, porta rhoncus lorem. Vivamus accumsan varius eros, vel varius nisi mollis in. Sed neque tellus, commodo in leo ultricies, egestas finibus diam. Quisque sed aliquam dui, in gravida diam. Nullam volutpat mi interdum, elementum lectus et, cursus magna. In aliquet in ligula sit amet facilisis. Nam iaculis aliquet velit vitae sagittis. Fusce mollis, nunc et congue placerat, lectus turpis mattis ipsum, id laoreet diam tellus sit amet quam. Nulla eu ligula nisl. Proin egestas dictum eros, et efficitur mauris consequat nec. Praesent efficitur neque urna, mattis malesuada tellus venenatis et. Proin pretium est lacus, finibus mattis augue posuere a. In ante nunc, tempus et justo eu, vulputate lacinia dolor. Nulla facilisi.",
-              },
-              { img: testImg, title: "Promociones", description: "hola mundo" },
-              {
-                img: testImg,
-                title: "Promociones",
-                description:
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer scelerisque condimentum lacus eu dapibus. Aliquam eros augue, sagittis at quam quis, porta rhoncus lorem. Vivamus accumsan varius eros, vel varius nisi mollis in. Sed neque tellus, commodo in leo ultricies, egestas finibus diam. Quisque sed aliquam dui, in gravida diam. Nullam volutpat mi interdum, elementum lectus et, cursus magna. In aliquet in ligula sit amet facilisis. Nam iaculis aliquet velit vitae sagittis. Fusce mollis, nunc et congue placerat, lectus turpis mattis ipsum, id laoreet diam tellus sit amet quam. Nulla eu ligula nisl. Proin egestas dictum eros, et efficitur mauris consequat nec. Praesent efficitur neque urna, mattis malesuada tellus venenatis et. Proin pretium est lacus, finibus mattis augue posuere a. In ante nunc, tempus et justo eu, vulputate lacinia dolor. Nulla facilisi.",
-              },
-            ]}
-          />
+          {loading && (
+            <GridAtom
+              p={5}
+              style={{ minHeight: 320, width: "100%" }}
+              justifyContent="center"
+              alignItems="center"
+            >
+              <CircularProgress />
+            </GridAtom>
+          )}
+          {promotionsData && <SliderDash data={promotionsData} />}
         </ColumnAtom>
       </RowAtom>
     </ContainerAtom>
