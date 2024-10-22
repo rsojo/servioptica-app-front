@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import ContainerAtom from "../atoms/container";
 import { LoginForm } from "../organisms/formLogin/main";
 import { useNavigate } from "react-router-dom";
-import { loginUser, verifyOtp } from "../../api/Auth";
+import { loginUser } from "../../api/Auth";
 import { persistAppStoreAtom } from "../../store/Auth";
 import { useAtom } from "jotai";
 import { useMessage } from "../../hooks/useMessage";
