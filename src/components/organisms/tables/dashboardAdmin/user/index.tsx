@@ -50,7 +50,7 @@ export const TableUserAdmin = () => {
                     fontWeight: 900,
                   }}
                 >
-                  Pedidos
+                  Optica
                 </TextAtom>
               </RowAtom>
               <span

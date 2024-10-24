@@ -200,7 +200,7 @@ export const TableFaqAdmin = () => {
                         fontWeight: 900,
                       }}
                     >
-                      Pedidos
+                      FAQs
                     </TextAtom>
                   </RowAtom>
                   <span
