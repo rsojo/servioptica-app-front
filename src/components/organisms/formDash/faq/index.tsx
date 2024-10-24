@@ -1,5 +1,5 @@
 import { BASE_COLORS } from "../../../../style/constants";
-import { GridAtom, SpaceAtom, TextAtom, TitleAtom } from "../../../atoms";
+import { GridAtom, TitleAtom } from "../../../atoms";
 import { FormModule } from "../../../molecules/form";
 
 import FieldBuiltData from "../data/fieldBuiltDataFaq.json";
@@ -36,7 +36,6 @@ export const FaqForm = ({
       </GridAtom>
       <GridAtom gap={0} style={{ width: "100%", maxWidth: 447 }}>
         <FormModule
-        
           variant={"form"}
           actionBtnLabel="Guardar"
           // groupsFields={updateDefaultValues(

@@ -62,7 +62,7 @@ export const LoginForm = ({
           </TextAtom>
           <SpaceAtom v={8} />
           {step === 1 && (
-            <GridAtom alignItems="center">
+            <GridAtom alignItems="center" gap={4}>
               <FormModule
                 actionBtnLabel="Entrar"
                 groupsFields={fieldBuiltDataOpt}
@@ -82,7 +82,7 @@ export const LoginForm = ({
           )}
 
           {step === 2 && (
-            <GridAtom alignItems="center">
+            <GridAtom alignItems="center" gap={4}>
               <FormModule
                 actionBtnLabel="Validar"
                 groupsFields={fieldBuiltDataNewPassw}

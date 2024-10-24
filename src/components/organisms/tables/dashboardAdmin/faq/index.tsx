@@ -8,11 +8,13 @@ import { DataGrid } from "@mui/x-data-grid";
 import { localeText } from "../../../../atoms/table/libs";
 import columns from "./libs/columns";
 import { useEffect, useRef, useState } from "react";
-import { getFaqAdmin } from "../../../../../api/Faq";
+import { addFaqAdmin, getFaqAdmin } from "../../../../../api/Faq";
 import { useAtom } from "jotai";
 import { appStoreAtom } from "../../../../../store/Auth";
 import { Navigate } from "react-router-dom";
 import { FaqForm } from "../../../formDash/faq";
+import { PreDataType } from "../../../../molecules/form/type";
+import { CircularProgress } from "@mui/material";
 
 const paginationModel = { page: 0, pageSize: 10 };
 
@@ -34,7 +36,7 @@ export const TableFaqAdmin = () => {
 
   const fetchFaqsData = async () => {
     try {
-      if (!faqsData && !loading && appStore.auth?.access_token) {
+      if (appStore.auth?.access_token) {
         setLoading(true);
         const response = await getFaqAdmin(appStore.auth?.access_token);
         const formatingData = response.data.map((item) => ({
@@ -49,6 +51,19 @@ export const TableFaqAdmin = () => {
       console.error("Error fetching FAQs:", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleAddFaqsData = async (data: PreDataType) => {
+    setLoading(true);
+    setView("table");
+    const response = await addFaqAdmin({
+      token: appStore.auth?.access_token!,
+      question: data?.description as string,
+      answer: data?.title as string,
+    });
+    if (response) {
+      await fetchFaqsData();
     }
   };
 
@@ -68,6 +83,19 @@ export const TableFaqAdmin = () => {
     return <Navigate to="/login" replace />;
   }
 
+  if (loading) {
+    return (
+      <GridAtom
+        p={5}
+        style={{ minHeight: 320, width: "100%" }}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <CircularProgress />
+      </GridAtom>
+    );
+  }
+  
   return (
     <GridAtom style={{ width: "100%" }}>
       <GridAtom style={{ width: "100%" }} gap={4}>
@@ -133,8 +161,7 @@ export const TableFaqAdmin = () => {
         {view === "form" && (
           <FaqForm
             onCallBack={(data) => {
-              console.log(data);
-              setView('table')
+              handleAddFaqsData(data);
             }}
             isEdit={false}
           />
