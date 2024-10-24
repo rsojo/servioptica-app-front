@@ -8,28 +8,60 @@ import { DataGrid } from "@mui/x-data-grid";
 import { localeText } from "../../../../atoms/table/libs";
 import columns from "./libs/columns";
 import { useEffect, useRef, useState } from "react";
-import { addFaqAdmin, getFaqAdmin } from "../../../../../api/Faq";
+import {
+  addFaqAdmin,
+  getFaqAdmin,
+  removeFaqAdmin,
+  updateFaqAdmin,
+} from "../../../../../api/Faq";
 import { useAtom } from "jotai";
 import { appStoreAtom } from "../../../../../store/Auth";
 import { Navigate } from "react-router-dom";
 import { FaqForm } from "../../../formDash/faq";
 import { PreDataType } from "../../../../molecules/form/type";
-import { CircularProgress } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 
 const paginationModel = { page: 0, pageSize: 10 };
 
 export type TableFaqAdminView = "table" | "form" | "formEdit";
 
 export const TableFaqAdmin = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const [appStore] = useAtom(appStoreAtom);
   const hasFetchedFaqs = useRef(false);
   const [view, setView] = useState<TableFaqAdminView>("table");
+  const [idDelete, setIdDelete] = useState<number | null>(null);
+  const [editData, setEditData] = useState<{
+    data: Array<{
+      groupName: string;
+      fieldName: string;
+      newValue: string;
+    }>;
+    id: number;
+  } | null>(null);
 
   const [stateFilter, setStateFilter] = useState("");
   const [loading, setLoading] = useState(false);
   const [faqsData, setFaqsData] = useState<Array<{
     id: number;
     answer: string;
+    question: string;
     state: string;
     date: string;
   }> | null>(null);
@@ -41,7 +73,8 @@ export const TableFaqAdmin = () => {
         const response = await getFaqAdmin(appStore.auth?.access_token);
         const formatingData = response.data.map((item) => ({
           id: item.id,
-          answer: item.question,
+          answer: item.answer,
+          question: item.question,
           state: String(item.status),
           date: item.updated_at.split("T")[0], //"2024-10-16T18:13:59.000000Z"
         }));
@@ -51,19 +84,32 @@ export const TableFaqAdmin = () => {
       console.error("Error fetching FAQs:", error);
     } finally {
       setLoading(false);
+      setView("table");
     }
   };
 
   const handleAddFaqsData = async (data: PreDataType) => {
     setLoading(true);
-    setView("table");
-    const response = await addFaqAdmin({
-      token: appStore.auth?.access_token!,
-      question: data?.description as string,
-      answer: data?.title as string,
-    });
-    if (response) {
-      await fetchFaqsData();
+    if (!!editData) {
+      const response = await updateFaqAdmin({
+        token: appStore.auth?.access_token!,
+        id: editData.id,
+        question: data?.description as string,
+        answer: data?.title as string,
+      });
+      if (response) {
+        await fetchFaqsData();
+        setEditData(null);
+      }
+    } else {
+      const response = await addFaqAdmin({
+        token: appStore.auth?.access_token!,
+        question: data?.description as string,
+        answer: data?.title as string,
+      });
+      if (response) {
+        await fetchFaqsData();
+      }
     }
   };
 
@@ -78,6 +124,44 @@ export const TableFaqAdmin = () => {
     const matchesState = stateFilter ? row.state.includes(stateFilter) : true;
     return matchesState;
   });
+
+  const handleEdit = (id: number) => {
+    console.log("handleEdit", id);
+    const rowData = faqsData?.find((i) => i.id === id);
+    const defaultData = [
+      {
+        groupName: "faq",
+        fieldName: "title",
+        newValue: rowData?.question ?? "",
+      },
+      {
+        groupName: "faq",
+        fieldName: "description",
+        newValue: rowData?.answer ?? "",
+      },
+    ];
+    setEditData({ data: defaultData, id: rowData?.id! });
+    setView("form");
+  };
+
+  const handleDelete = async (id: number) => {
+    console.log("handleDelete", id);
+    handleClickOpen();
+    setIdDelete(id);
+  };
+
+  const confirmDelete = async (id: number) => {
+    setLoading(true);
+    const response = await removeFaqAdmin({
+      token: appStore.auth?.access_token!,
+      id: id,
+    });
+    if (response) {
+      await fetchFaqsData();
+      handleClose();
+      setIdDelete(null);
+    }
+  };
 
   if (!appStore.auth?.access_token) {
     return <Navigate to="/login" replace />;
@@ -95,7 +179,7 @@ export const TableFaqAdmin = () => {
       </GridAtom>
     );
   }
-  
+
   return (
     <GridAtom style={{ width: "100%" }}>
       <GridAtom style={{ width: "100%" }} gap={4}>
@@ -143,12 +227,12 @@ export const TableFaqAdmin = () => {
               localeText={localeText}
               style={{ width: "100%" }}
               rows={filteredRows}
-              columns={columns}
+              columns={columns(handleEdit, handleDelete)}
               initialState={{ pagination: { paginationModel } }}
               pageSizeOptions={[10, 20, 50, 100]}
               checkboxSelection={false}
               rowSelection={false}
-              onRowClick={(params) => console.log(params)}
+              onRowClick={(params) => console.log(params.row)}
               getRowClassName={(params) =>
                 params.indexRelativeToCurrentPage % 2 === 0
                   ? "alternate-row"
@@ -160,13 +244,35 @@ export const TableFaqAdmin = () => {
         )}
         {view === "form" && (
           <FaqForm
+            goBack={() => {
+              setView("table");
+            }}
             onCallBack={(data) => {
               handleAddFaqsData(data);
             }}
-            isEdit={false}
+            editData={editData?.data!}
           />
         )}
       </GridAtom>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">Eliminar FAQ?</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Esta acción eliminará el registro de FAQ.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancelar</Button>
+          <Button color='error' onClick={() => confirmDelete(idDelete!)} autoFocus>
+            Eliminar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </GridAtom>
   );
 };

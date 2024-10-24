@@ -4,7 +4,6 @@ const devUrl = "https://tracking-servioptica-api.txt.co";
 
 export async function getFaqActives(): Promise<GetFaqActivesResponse> {
   const url = `${devUrl}/api/faqs/getActives`;
-
   try {
     const response = await fetch(url, {
       method: "GET",
@@ -13,10 +12,8 @@ export async function getFaqActives(): Promise<GetFaqActivesResponse> {
         Accept: "application/json",
       },
     });
-
     const responseData: GetFaqActivesResponse = await response.json();
     console.log("[getFaqActives] [responseData]", responseData);
-
     return responseData;
   } catch (error: any) {
     return error;
@@ -36,16 +33,15 @@ export async function getFaqAdmin(
         Authorization: `Bearer ${token}`,
       },
     });
-
     const responseData: GetFaqActivesResponse = await response.json();
     console.log("[getFaqAdmin] [responseData]", responseData);
-
     return responseData;
   } catch (error: any) {
     console.error("[getFaqAdmin] [error]", error);
     return error;
   }
 }
+
 export async function addFaqAdmin({
   token,
   question,
@@ -56,6 +52,8 @@ export async function addFaqAdmin({
   answer: string;
 }): Promise<GetFaqActivesResponse> {
   const url = `${devUrl}/api/faqs`;
+  console.log("[addFaqAdmin] [PREV]", question, answer);
+
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -66,16 +64,15 @@ export async function addFaqAdmin({
       },
       body: JSON.stringify({ question: question, answer: answer }),
     });
-
     const responseData: GetFaqActivesResponse = await response.json();
-    console.log("[getFaqAdmin] [responseData]", responseData);
-
+    console.log("[addFaqAdmin] [responseData]", responseData);
     return responseData;
   } catch (error: any) {
-    console.error("[getFaqAdmin] [error]", error);
+    console.error("[addFaqAdmin] [error]", error);
     return error;
   }
 }
+
 export async function updateFaqAdmin({
   token,
   id,
@@ -86,8 +83,10 @@ export async function updateFaqAdmin({
   id: number;
   question: string;
   answer: string;
-}): Promise<GetFaqActivesResponse> {
-  const url = `${devUrl}/api/faqs`;
+}): Promise<any> {
+  const url = `${devUrl}/api/faqs/${id}`;
+  console.log("[updateFaqAdmin] [PREV]", id, question, answer);
+
   try {
     const response = await fetch(url, {
       method: "PUT",
@@ -97,24 +96,27 @@ export async function updateFaqAdmin({
         Authorization: `Bearer ${token}`,
       },
     });
-
-    const responseData: GetFaqActivesResponse = await response.json();
-    console.log("[getFaqAdmin] [responseData]", responseData);
-
-    return responseData;
+    console.log("[updateFaqAdmin] [response]", response);
+    if (response.status !== 204) {
+      return false;
+    }
+    return true;
   } catch (error: any) {
-    console.error("[getFaqAdmin] [error]", error);
+    console.error("[updateFaqAdmin] [error]", error);
     return error;
   }
 }
+
 export async function removeFaqAdmin({
   token,
   id,
 }: {
   token: string;
   id: number;
-}): Promise<GetFaqActivesResponse> {
-  const url = `${devUrl}/api/faqs`;
+}): Promise<any> {
+  const url = `${devUrl}/api/faqs/${id}`;
+  console.log("[removeFaqAdmin] [PREV]", id);
+
   try {
     const response = await fetch(url, {
       method: "DELETE",
@@ -123,14 +125,15 @@ export async function removeFaqAdmin({
         Accept: "application/json",
         Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify({ id: id }),
     });
-
-    const responseData: GetFaqActivesResponse = await response.json();
-    console.log("[getFaqAdmin] [responseData]", responseData);
-
-    return responseData;
+    console.log("[removeFaqAdmin] [response]", response);
+    if (response.status !== 204) {
+      return false;
+    }
+    return true;
   } catch (error: any) {
-    console.error("[getFaqAdmin] [error]", error);
+    console.error("[removeFaqAdmin] [error]", error);
     return error;
   }
 }

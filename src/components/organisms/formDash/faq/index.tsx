@@ -1,16 +1,22 @@
 import { BASE_COLORS } from "../../../../style/constants";
 import { GridAtom, TitleAtom } from "../../../atoms";
 import { FormModule } from "../../../molecules/form";
-
 import FieldBuiltData from "../data/fieldBuiltDataFaq.json";
 import { PreDataType } from "../../../molecules/form/type";
+import { updateDefaultsValues } from "../../formLogin/libs";
 
 export const FaqForm = ({
   onCallBack,
-  isEdit,
+  goBack,
+  editData,
 }: {
   onCallBack: (value: PreDataType) => void;
-  isEdit: boolean;
+  goBack?: () => void;
+  editData: Array<{
+    groupName: string;
+    fieldName: string;
+    newValue: string;
+  }> | null;
 }) => {
   return (
     <GridAtom gap={4} alignItems="center" style={{ width: "100%" }}>
@@ -21,7 +27,7 @@ export const FaqForm = ({
             color: BASE_COLORS.blue,
             width: "100%",
             fontWeight: 900,
-            fontSize: 30
+            fontSize: 30,
           }}
         >
           Faq - Preguntas Frecuentes
@@ -38,15 +44,17 @@ export const FaqForm = ({
         <FormModule
           variant={"form"}
           actionBtnLabel="Guardar"
-          // groupsFields={updateDefaultValues(
-          //   updateSelectFieldOptions(FieldBuiltDataSede, "login_sede", sede),
-          //   "login",
-          //   "document",
-          //   nit
-          // )}
-          groupsFields={FieldBuiltData}
+          actionBackBtnLabel="Cancelar"
+          groupsFields={
+            !editData
+              ? FieldBuiltData
+              : updateDefaultsValues({
+                  data: FieldBuiltData,
+                  updates: editData,
+                })
+          }
+          onGoBackCallBack={goBack}
           onCallBack={(value) => {
-            // setFormData!(value);
             onCallBack(value);
           }}
         />
