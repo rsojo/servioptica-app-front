@@ -128,7 +128,7 @@ const localeText = {
     MuiTablePagination: {
       labelRowsPerPage: 'Filas por página:',
       labelDisplayedRows: ({ from, to, count }: any) =>
-        `${from}-${to} de ${count !== -1 ? count : `más de ${to}`}`,
+        `${from}-${to} de ${count !== -1 ? count : 'más de '+to}`,
     //   firstIconButtonText: 'Primera página',
     //   lastIconButtonText: 'Última página',
     //   nextIconButtonText: 'Página siguiente',

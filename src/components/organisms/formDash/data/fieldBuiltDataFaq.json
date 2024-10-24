@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "groupName": "faq",
+    "fields": [
+      {
+        "id": 1,
+        "label": "Título:",
+        "name": "title",
+        "type": "text",
+        "columnSize": 12,
+        "important": true,
+        "options": null,
+        "default": "",
+        "placeholder": "",
+        "textError": "Este campo requerido",
+        "minlength": 3,
+        "maxlength": 60
+      },
+      {
+        "id": 2,
+        "label": "Descripción:",
+        "name": "description",
+        "type": "textarea",
+        "columnSize": 12,
+        "important": true,
+        "options": null,
+        "default": "",
+        "placeholder": "",
+        "textError": "¡La contraseña es muy débil!",
+        "minlength": 1,
+        "maxlength": 1440
+      }
+    ]
+  }
+]

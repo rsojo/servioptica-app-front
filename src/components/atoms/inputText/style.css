@@ -11,15 +11,13 @@
 }
 
 .customTextField .MuiInputBase-root {
-  height: 64px;
   border-radius: 8px;
   background: #ffffff;
   box-sizing: border-box;
   border: none;
+  padding: 0;
 }
-.customTextField.small .MuiInputBase-root {
-  height: 32px;
-}
+
 
 .customTextField.ghost .MuiInputBase-root {
   height: auto;
@@ -53,12 +51,26 @@ input:focus-visible {
   height: 100%;
   box-sizing: border-box;
   border-radius: 0px;
-  padding: 0px 16px;
+  padding: 8px 16px;
   box-shadow: none;
   outline-offset: initial;
   outline: none;
   color: var(--mainColor);
+  height: 64px;
 }
+.customTextField .MuiInputBase-root textarea {
+  height: auto;
+  padding: 16px !important;
+}
+
+
+.customTextField.small .MuiInputBase-root input,
+.customTextField.small .MuiInputBase-root input:focus,
+.customTextField.small .MuiInputBase-root input:focus-visible {
+  height: 32px;
+  padding: 0px 16px;
+}
+
 .customTextField.small .MuiInputBase-root input,
 .customTextField.small .MuiInputBase-root textarea,
 .customTextField.small .MuiInputBase-root input:focus,

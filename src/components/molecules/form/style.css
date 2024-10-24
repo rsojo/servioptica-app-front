@@ -1,0 +1,18 @@
+.Variant_form .customTextField .MuiInputBase-root input,
+.Variant_form .customTextField .MuiInputBase-root input:focus,
+.Variant_form .customTextField .MuiInputBase-root input:focus-visible {
+  height: 44px;
+}
+
+.Variant_form > div {
+    gap: 32px;
+}
+
+.Variant_form > div > div:nth-child(2) > div > div {
+    align-items: flex-start;
+}
+
+.Variant_form > div > div:nth-child(2) > div > div .MuiButtonBase-root {
+    padding: 0;
+    min-height: 44px;
+}

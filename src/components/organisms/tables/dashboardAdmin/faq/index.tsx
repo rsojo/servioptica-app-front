@@ -12,12 +12,16 @@ import { getFaqAdmin } from "../../../../../api/Faq";
 import { useAtom } from "jotai";
 import { appStoreAtom } from "../../../../../store/Auth";
 import { Navigate } from "react-router-dom";
+import { FaqForm } from "../../../formDash/faq";
 
 const paginationModel = { page: 0, pageSize: 10 };
+
+export type TableFaqAdminView = "table" | "form" | "formEdit";
 
 export const TableFaqAdmin = () => {
   const [appStore] = useAtom(appStoreAtom);
   const hasFetchedFaqs = useRef(false);
+  const [view, setView] = useState<TableFaqAdminView>("table");
 
   const [stateFilter, setStateFilter] = useState("");
   const [loading, setLoading] = useState(false);
@@ -37,7 +41,7 @@ export const TableFaqAdmin = () => {
           id: item.id,
           answer: item.question,
           state: String(item.status),
-          date: item.updated_at.split('T')[0], //"2024-10-16T18:13:59.000000Z"
+          date: item.updated_at.split("T")[0], //"2024-10-16T18:13:59.000000Z"
         }));
         setFaqsData(formatingData);
       }
@@ -66,59 +70,75 @@ export const TableFaqAdmin = () => {
 
   return (
     <GridAtom style={{ width: "100%" }}>
-      <GridAtom style={{ height: 505, width: "100%" }} gap={4}>
-        <RowAtom style={{ width: "100%" }} gap={2}>
-          <ColumnAtom flex={3} style={{ minWidth: 158 }}>
-            <RowAtom alignItems="center" gap={2} style={{ height: 32 }}>
-              <RowAtom gap={1}>
-                <Inventory2RoundedIcon
-                  style={{ color: BASE_COLORS.blue, fontSize: 20 }}
-                />
+      <GridAtom style={{ width: "100%" }} gap={4}>
+        {view === "table" && (
+          <ColumnAtom flex={1} style={{ width: "100%" }}>
+            <RowAtom style={{ width: "100%" }} gap={2}>
+              <ColumnAtom flex={3} style={{ minWidth: 158 }}>
+                <RowAtom alignItems="center" gap={2} style={{ height: 32 }}>
+                  <RowAtom gap={1}>
+                    <Inventory2RoundedIcon
+                      style={{ color: BASE_COLORS.blue, fontSize: 20 }}
+                    />
 
-                <TextAtom
-                  style={{
-                    color: BASE_COLORS.blue,
-                    fontSize: 20,
-                    fontWeight: 900,
-                  }}
-                >
-                  Pedidos
-                </TextAtom>
-              </RowAtom>
-              <span
-                style={{
-                  background: BASE_COLORS.blue,
-                  height: "100%",
-                  width: 1,
-                }}
-              ></span>
-              <FilterAltOutlinedIcon
-                style={{ color: BASE_COLORS.blue, fontSize: 20 }}
-              />
+                    <TextAtom
+                      style={{
+                        color: BASE_COLORS.blue,
+                        fontSize: 20,
+                        fontWeight: 900,
+                      }}
+                    >
+                      Pedidos
+                    </TextAtom>
+                  </RowAtom>
+                  <span
+                    style={{
+                      background: BASE_COLORS.blue,
+                      height: "100%",
+                      width: 1,
+                    }}
+                  ></span>
+                  <FilterAltOutlinedIcon
+                    style={{ color: BASE_COLORS.blue, fontSize: 20 }}
+                  />
+                </RowAtom>
+              </ColumnAtom>
+              <ColumnAtom flex={12}>
+                <FiltersTable
+                  stateFilter={stateFilter}
+                  setStateFilter={setStateFilter}
+                  setView={setView}
+                />
+              </ColumnAtom>
             </RowAtom>
-          </ColumnAtom>
-          <ColumnAtom flex={12}>
-            <FiltersTable
-              stateFilter={stateFilter}
-              setStateFilter={setStateFilter}
+            <DataGrid
+              localeText={localeText}
+              style={{ width: "100%" }}
+              rows={filteredRows}
+              columns={columns}
+              initialState={{ pagination: { paginationModel } }}
+              pageSizeOptions={[10, 20, 50, 100]}
+              checkboxSelection={false}
+              rowSelection={false}
+              onRowClick={(params) => console.log(params)}
+              getRowClassName={(params) =>
+                params.indexRelativeToCurrentPage % 2 === 0
+                  ? "alternate-row"
+                  : ""
+              }
+              sx={{ border: 0 }}
             />
           </ColumnAtom>
-        </RowAtom>
-        <DataGrid
-          localeText={localeText}
-          style={{ width: "100%" }}
-          rows={filteredRows}
-          columns={columns}
-          initialState={{ pagination: { paginationModel } }}
-          pageSizeOptions={[10, 20, 50, 100]}
-          checkboxSelection={false}
-          rowSelection={false}
-          onRowClick={(params) => console.log(params)}
-          getRowClassName={(params) =>
-            params.indexRelativeToCurrentPage % 2 === 0 ? "alternate-row" : ""
-          }
-          sx={{ border: 0 }}
-        />
+        )}
+        {view === "form" && (
+          <FaqForm
+            onCallBack={(data) => {
+              console.log(data);
+              setView('table')
+            }}
+            isEdit={false}
+          />
+        )}
       </GridAtom>
     </GridAtom>
   );

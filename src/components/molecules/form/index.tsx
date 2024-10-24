@@ -1,4 +1,3 @@
-
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { GroupConstructor, FormActions } from "./components";
@@ -6,6 +5,7 @@ import useGroupVisibility from "./hook/useGroupVisibility";
 import { validateFields } from "./lib/validateFields";
 import { ErrorFrormType, FormModuleProps, PreDataType } from "./type";
 import GridAtom from "../../atoms/grid";
+import './style.css'
 
 export const FormModule = ({
   actionBackBtnLabel,
@@ -19,10 +19,12 @@ export const FormModule = ({
   info,
   loading,
   error: externalError,
+  variant,
 }: FormModuleProps) => {
   const [preData, setPreData] = useState<PreDataType | null>(null);
-  const [error, setError] = useState<ErrorFrormType[] | null>(externalError ?? null);
-
+  const [error, setError] = useState<ErrorFrormType[] | null>(
+    externalError ?? null
+  );
 
   const visibleGroups = useGroupVisibility({
     groupsFields,
@@ -42,12 +44,13 @@ export const FormModule = ({
 
   return (
     <Box
+      className={`Variant_${variant}`}
       component="form"
       id="main_searchPackages_form"
       sx={{
         "& .MuiTextField-root": { m: 0, width: "100%" },
       }}
-      style={{width: '100%'}}
+      style={{ width: "100%" }}
       noValidate={false}
       autoComplete="on"
       onKeyDown={(e) => {
@@ -59,7 +62,7 @@ export const FormModule = ({
         }
       }}
     >
-      <GridAtom gap={8} style={{width: '100%'}}>
+      <GridAtom gap={8} style={{ width: "100%" }}>
         <GroupConstructor
           errorForm={error ? error[0] : null}
           setPreData={setPreData}

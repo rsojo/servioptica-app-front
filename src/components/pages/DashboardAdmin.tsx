@@ -12,10 +12,18 @@ import imgBtnGoUserAdmin from "../../assets/img/imgBtnGoUserAdmin.webp";
 import { TableFaqAdmin } from "../organisms/tables/dashboardAdmin/faq";
 import { TableMainAdmin } from "../organisms/tables/dashboardAdmin/main";
 import { TableUserAdmin } from "../organisms/tables/dashboardAdmin/user";
+import { useAtom } from "jotai";
+import { appStoreAtom } from "../../store/Auth";
+import { Navigate } from "react-router-dom";
 
 const DashboardAdmin: React.FC = () => {
   const [view, setView] = useState<"main" | "faq" | "user">("main");
+  const [appStore] = useAtom(appStoreAtom);
 
+  if (!appStore.auth?.access_token) {
+    return <Navigate to="/login" replace />;
+  }
+  
   return (
     <ContainerAtom
       style={{

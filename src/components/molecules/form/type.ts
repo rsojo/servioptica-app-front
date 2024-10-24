@@ -68,6 +68,7 @@ export type ErrorStructure = {
 export type ErrorFrormType = null | ErrorStructure;
 
 export interface FormModuleProps {
+  variant?: 'form' | 'login'
   error?: ErrorFrormType[] | null
   actionBtnLabel?: string;
   actionBackBtnLabel?: string;

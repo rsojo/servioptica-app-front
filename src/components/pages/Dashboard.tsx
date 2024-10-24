@@ -12,9 +12,13 @@ import DataTable from "../atoms/table";
 import { SliderDash } from "../organisms/sliderDash";
 import { getPromotionsActives } from "../../api/Promotions";
 import { CircularProgress } from "@mui/material";
+import { useAtom } from "jotai";
+import { appStoreAtom } from "../../store/Auth";
+import { Navigate } from "react-router-dom";
 
 const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState(false);
+  
   const [promotionsData, setPromotionsData] = useState<Array<{
     img: string;
     title: string;
@@ -48,6 +52,12 @@ const Dashboard: React.FC = () => {
       fetchPromotionsData();
     }
   }, [loading]);
+  
+  const [appStore] = useAtom(appStoreAtom);
+  if (!appStore.auth?.access_token) {
+    return <Navigate to="/login" replace />;
+  }
+
   // const location = useLocation();
   // const searchParams = new URLSearchParams(location.search);
   // const id = searchParams.get("id"); // Obtener el parámetro "id" si está presente

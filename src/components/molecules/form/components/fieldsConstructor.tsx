@@ -14,6 +14,7 @@ import InputTextAtom from "../../../atoms/inputText";
 import InputRadioAtom from "../../../atoms/inputRadio";
 import InputCheckBoxAtom from "../../../atoms/inputCheckbox";
 import SelectAtom from "../../../atoms/select";
+import { BASE_COLORS } from "../../../../style/constants";
 
 const sizeWidth = (columnSize: number): string => {
   const percentage = (columnSize / 12) * 100;
@@ -46,6 +47,7 @@ const FieldConstructor = ({
         <LabelAtom
           htmlFor={`${field.id}_${field.name}_${index + 1}`}
           important={field.important}
+          style={{color: BASE_COLORS.blue}}
         >
           {field.label}
         </LabelAtom>
@@ -208,7 +210,7 @@ export const FieldsConstructor = ({
                 <SelectAtom
                   id={`${field.id}_${field.name}_${index + 1}`}
                   name={field.name}
-                  variant='general'
+                  variant="general"
                   disabled={false}
                   important={field.important}
                   defaultValue={field.default}
@@ -234,6 +236,8 @@ export const FieldsConstructor = ({
                     id: `${field.id}_${field.name}_${index + 1}`,
                   }}
                   type={"text"}
+                  multiline
+                  rows={5}
                   disabled={false}
                   defaultValue={defaultTextValue}
                   erroForm={field.important && errorForm?.fieldId === field.id}
