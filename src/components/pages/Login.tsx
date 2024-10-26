@@ -29,7 +29,7 @@ const Login: React.FC = () => {
               user: null,
             });
             successSnackMessage(String(response.message));
-            navetgate("/home-admin");
+            navetgate("/dashboard-admin");
           }
         }
       );

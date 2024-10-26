@@ -1,6 +1,9 @@
 .Variant_form .customTextField .MuiInputBase-root input,
 .Variant_form .customTextField .MuiInputBase-root input:focus,
-.Variant_form .customTextField .MuiInputBase-root input:focus-visible {
+.Variant_form .customTextField .MuiInputBase-root input:focus-visible,
+.Variant_form .customFileField .MuiInputBase-root input,
+.Variant_form .customFileField .MuiInputBase-root input:focus,
+.Variant_form .customFileField .MuiInputBase-root input:focus-visible {
   height: 44px;
 }
 

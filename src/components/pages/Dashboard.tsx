@@ -8,13 +8,13 @@ import {
   RowAtom,
   SpaceAtom,
 } from "../atoms";
-import DataTable from "../atoms/table";
 import { SliderDash } from "../organisms/sliderDash";
 import { getPromotionsActives } from "../../api/Promotions";
 import { CircularProgress } from "@mui/material";
 import { useAtom } from "jotai";
 import { appStoreAtom } from "../../store/Auth";
 import { Navigate } from "react-router-dom";
+import { TablePromotions } from "../organisms/tables/dashboardAdmin/promotions";
 
 const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -82,9 +82,7 @@ const Dashboard: React.FC = () => {
         p={3}
       >
         <ColumnAtom flex={7} style={{ minWidth: 300 }}>
-          <GridAtom style={{ width: "100%" }}>
-            <DataTable />
-          </GridAtom>
+          <TablePromotions />
         </ColumnAtom>
         <ColumnAtom flex={5} style={{ minWidth: 300 }}>
           {loading && (

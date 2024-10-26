@@ -139,3 +139,20 @@ export const ToDay = (): { date: string; time: string } => {
     time,
   };
 };
+export const fileToBase64 = (file?: File): Promise<string | undefined> => {
+  if(!file) return Promise.resolve(undefined)
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onload = () => {
+      const base64String = reader.result as string;
+      resolve(base64String);
+    };
+
+    reader.onerror = (error) => {
+      reject(error);
+      return undefined
+    };
+  });
+};

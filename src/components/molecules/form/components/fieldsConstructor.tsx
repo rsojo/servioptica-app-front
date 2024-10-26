@@ -15,6 +15,7 @@ import InputRadioAtom from "../../../atoms/inputRadio";
 import InputCheckBoxAtom from "../../../atoms/inputCheckbox";
 import SelectAtom from "../../../atoms/select";
 import { BASE_COLORS } from "../../../../style/constants";
+import InputFileAtom from "../../../atoms/inputFile";
 
 const sizeWidth = (columnSize: number): string => {
   const percentage = (columnSize / 12) * 100;
@@ -39,7 +40,7 @@ const FieldConstructor = ({
           field.columnSize!
         )} - 16px)`,
         width: "100%",
-        minWidth: 220,
+        minWidth: 200,
         maxWidth: 768,
       }}
     >
@@ -92,6 +93,28 @@ export const FieldsConstructor = ({
         const defaultNumberValue = field.default as number;
 
         switch (type) {
+          case "file":
+            return (
+              <FieldConstructor
+                key={`${field.id}_${index + 1}`}
+                field={field}
+                index={index}
+              >
+                <InputFileAtom
+                  field={{
+                    ...field,
+                    id: `${field.id}_${field.name}_${index + 1}`,
+                  }}
+                  type={field.type}
+                  disabled={false}
+                  defaultValue={defaultTextValue}
+                  erroForm={field.important && errorForm?.fieldId === field.id}
+                  onChangeCallback={(value) => {
+                    handleFieldChange(field.name!, value);
+                  }}
+                />
+              </FieldConstructor>
+            );
           case "text":
             return (
               <FieldConstructor

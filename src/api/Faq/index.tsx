@@ -52,7 +52,7 @@ export async function addFaqAdmin({
   answer: string;
 }): Promise<GetFaqActivesResponse> {
   const url = `${devUrl}/api/faqs`;
-  console.log("[addFaqAdmin] [PREV]", question, answer);
+  console.log("[addFaqAdmin] [PREV]", { question, answer });
 
   try {
     const response = await fetch(url, {
@@ -64,8 +64,10 @@ export async function addFaqAdmin({
       },
       body: JSON.stringify({ question: question, answer: answer }),
     });
+
     const responseData: GetFaqActivesResponse = await response.json();
     console.log("[addFaqAdmin] [responseData]", responseData);
+
     return responseData;
   } catch (error: any) {
     console.error("[addFaqAdmin] [error]", error);
@@ -85,11 +87,11 @@ export async function updateFaqAdmin({
   answer: string;
 }): Promise<any> {
   const url = `${devUrl}/api/faqs/${id}`;
-  console.log("[updateFaqAdmin] [PREV]", id, question, answer);
+  console.log("[updateFaqAdmin] [PREV]", { id, question, answer });
 
   try {
     const response = await fetch(url, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -97,7 +99,7 @@ export async function updateFaqAdmin({
       },
     });
     console.log("[updateFaqAdmin] [response]", response);
-    if (response.status !== 204) {
+    if (response.status !== 200) {
       return false;
     }
     return true;

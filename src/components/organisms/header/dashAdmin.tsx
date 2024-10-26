@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   ColumnAtom,
   ContainerAtom,
@@ -14,7 +14,6 @@ import { BASE_COLORS } from "../../../style/constants";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 
 export const DashHeaderAdmin = () => {
-  const navetgate = useNavigate();
 
   return (
     <header style={{ position: "relative", display: "flex" }}>
@@ -49,7 +48,7 @@ export const DashHeaderAdmin = () => {
             justifyContent="center"
             gap={2}
           >
-            <Link to={"/home-admin"}>
+            <Link to={"/dashboard-admin"}>
               <img
                 style={{ objectFit: "contain" }}
                 src={LogoServioptica}
@@ -80,7 +79,7 @@ export const DashHeaderAdmin = () => {
               style={{ width: 280, justifyContent: "center" }}
             >
               <Link
-                to={"/home-admin"}
+                to={"/dashboard-admin"}
                 style={{ textAlign: "center", textDecoration: "none" }}
               >
                 <GridAtom

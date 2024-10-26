@@ -4,7 +4,7 @@ export interface GetPromotionsActivesResponse {
   message: string;
 }
 export interface GetPromotionsActivesData {
-  id: 2;
+  id: number;
   title: string;
   img: string;
   link: string;
@@ -13,4 +13,14 @@ export interface GetPromotionsActivesData {
   end_date: string;
   created_at: string;
   updated_at: string;
+}
+
+export interface AddPromotionsRequest {
+  token: string;
+  title: string;
+  description: string;
+  end_date: string;
+  start_date: string;
+  img?: string;
+  link: string;
 }

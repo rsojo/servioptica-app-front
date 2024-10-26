@@ -6,11 +6,9 @@ import { FiltersTable } from "./filters";
 import { DataGrid } from "@mui/x-data-grid";
 import { localeText } from "../../../../atoms/table/libs";
 import columns from "./libs/columns";
-import InsertCommentIcon from '@mui/icons-material/InsertComment';
 import { useState } from "react";
 
 import { Navigate } from "react-router-dom";
-import { FaqForm } from "../../../formDash/faq";
 import {
   Button,
   CircularProgress,
@@ -20,15 +18,17 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import { useTableFaqAdmin } from "./hooks/useTableFaqAdmin";
+import { useTablePromotionsAdmin } from "./hooks/useTablePromotionsAdmin";
+import { PromotionsForm } from "../../../formDash/promotions";
+import BookmarksIcon from '@mui/icons-material/Bookmarks';
 
 const paginationModel = { page: 0, pageSize: 10 };
 
-export type TableFaqAdminView = "table" | "form" | "formEdit";
+export type TablePromotionsAdminView = "table" | "form" | "formEdit";
 
-export const TableFaqAdmin = () => {
+export const TablePromotions = () => {
   const {
-    faqsData,
+    promotionsData,
     editData,
     setEditData,
     open,
@@ -37,18 +37,17 @@ export const TableFaqAdmin = () => {
     idDelete,
     setView,
     loading,
-    handleAddFaqsData,
+    handleAddPromotionsData,
     handleEdit,
     handleDelete,
     confirmDelete,
     handleCloseDialog,
-  } = useTableFaqAdmin();
+  } = useTablePromotionsAdmin();
 
   const [stateFilter, setStateFilter] = useState("");
 
-  const filteredRows = faqsData?.filter((row) => {
-    const matchesState = stateFilter ? row.state.includes(stateFilter) : true;
-    return matchesState;
+  const filteredRows = promotionsData?.filter((row) => {
+    return row;
   });
 
   if (!appStore.auth?.access_token) {
@@ -76,7 +75,7 @@ export const TableFaqAdmin = () => {
               <ColumnAtom flex={3} style={{ minWidth: 158 }}>
                 <RowAtom alignItems="center" gap={2} style={{ height: 32 }}>
                   <RowAtom gap={1}>
-                    <InsertCommentIcon
+                    <BookmarksIcon
                       style={{ color: BASE_COLORS.blue, fontSize: 20 }}
                     />
 
@@ -87,7 +86,7 @@ export const TableFaqAdmin = () => {
                         fontWeight: 900,
                       }}
                     >
-                      FAQs
+                      Promociones
                     </TextAtom>
                   </RowAtom>
                   <span
@@ -130,13 +129,13 @@ export const TableFaqAdmin = () => {
           </ColumnAtom>
         )}
         {view === "form" && (
-          <FaqForm
+          <PromotionsForm
             goBack={() => {
               setView("table");
               setEditData(null)
             }}
             onCallBack={(data) => {
-              handleAddFaqsData(data);
+              handleAddPromotionsData(data);
             }}
             editData={editData?.data!}
           />
@@ -148,10 +147,10 @@ export const TableFaqAdmin = () => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">Eliminar FAQ?</DialogTitle>
+        <DialogTitle id="alert-dialog-title">Eliminar Promoción?</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Esta acción eliminará el registro de FAQ.
+            Esta acción eliminará el registro de Promoción.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

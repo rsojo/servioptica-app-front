@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "groupName": "promotion",
+    "fields": [
+      {
+        "id": 1,
+        "label": "Nombre:",
+        "name": "title",
+        "type": "text",
+        "columnSize": 12,
+        "important": true,
+        "options": null,
+        "default": "",
+        "placeholder": "",
+        "textError": "Este campo requerido",
+        "minlength": 3,
+        "maxlength": 60
+      },
+      {
+        "id": 2,
+        "label": "Descripción:",
+        "name": "description",
+        "type": "textarea",
+        "columnSize": 12,
+        "important": true,
+        "options": null,
+        "default": "",
+        "placeholder": "",
+        "textError": "¡La contraseña es muy débil!",
+        "minlength": 1,
+        "maxlength": 1440
+      },
+      {
+        "id": 3,
+        "label": "Link o url de destino:",
+        "name": "link",
+        "type": "text",
+        "columnSize": 12,
+        "important": true,
+        "options": null,
+        "default": "",
+        "placeholder": "",
+        "textError": "Este campo requerido",
+        "minlength": 3,
+        "maxlength": 60
+      },
+      {
+        "id": 4,
+        "label": "Fecha de inicio:",
+        "name": "start_date",
+        "type": "date",
+        "columnSize": 5,
+        "important": true,
+        "options": null,
+        "default": "",
+        "placeholder": "",
+        "textError": "Este campo requerido",
+        "minlength": 3,
+        "maxlength": 60
+      },
+      {
+        "id": 5,
+        "label": "Fecha de fin:",
+        "name": "end_date",
+        "type": "date",
+        "columnSize": 5,
+        "important": true,
+        "options": null,
+        "default": "",
+        "placeholder": "",
+        "textError": "Este campo requerido",
+        "minlength": 3,
+        "maxlength": 60
+      },
+      {
+        "id": 6,
+        "label": "Imágen:",
+        "name": "image",
+        "type": "file",
+        "columnSize": 12,
+        "important": true,
+        "options": null,
+        "default": "",
+        "placeholder": "Adjuntar Imágen",
+        "textError": "Este campo requerido",
+        "minlength": 3,
+        "maxlength": 1060
+      }
+    ]
+  }
+]

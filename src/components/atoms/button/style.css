@@ -18,7 +18,7 @@
 .MuiButtonBase-root.generalBtn.outlined {
   background-color: #ffffff;
   border: 1px solid var(--mainBtnColor);
-  color: #424242;
+  color: var(--mainBtnColor);
   box-shadow: none;
 }
 .MuiButtonBase-root.generalBtn.outlined.focus {
@@ -29,6 +29,11 @@
 .MuiButtonBase-root.generalBtn.outlined.Mui-disabled {
   border: 1px solid #c7c7ca;
   color: #c7c7ca;
+}
+
+.MuiButtonBase-root.generalBtn.outlined:hover {
+  background-color: var(--mainBtnColor);
+  color: #ffffff;
 }
 
 .MuiButtonBase-root.generalBtn:hover,

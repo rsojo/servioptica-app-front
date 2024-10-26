@@ -7,23 +7,33 @@ import {
   RowAtom,
   SpaceAtom,
 } from "../atoms";
-import imgBtnGoFAQ from "../../assets/img/imgBtnGoFAQ.webp";
-import imgBtnGoUserAdmin from "../../assets/img/imgBtnGoUserAdmin.webp";
 import { TableFaqAdmin } from "../organisms/tables/dashboardAdmin/faq";
 import { TableMainAdmin } from "../organisms/tables/dashboardAdmin/main";
 import { TableUserAdmin } from "../organisms/tables/dashboardAdmin/user";
 import { useAtom } from "jotai";
 import { appStoreAtom } from "../../store/Auth";
 import { Navigate } from "react-router-dom";
+import { TablePromotions } from "../organisms/tables/dashboardAdmin/promotions";
+import Inventory2RoundedIcon from "@mui/icons-material/Inventory2Rounded";
+import InsertCommentIcon from '@mui/icons-material/InsertComment';
+import PersonIcon from '@mui/icons-material/Person';
+import BookmarksIcon from '@mui/icons-material/Bookmarks';
 
+type Views = "main" | "faq" | "user" | "promotions";
 const DashboardAdmin: React.FC = () => {
-  const [view, setView] = useState<"main" | "faq" | "user">("main");
+  const menu: Array<{ label: string; action: Views; icon: JSX.Element }> = [
+    { label: "Administración de Pedidos", action: "main", icon: <Inventory2RoundedIcon /> },
+    { label: "Editar Preguntas Frecuentes", action: "faq", icon: <InsertCommentIcon /> },
+    { label: "Administración de Usuarios", action: "user", icon: <PersonIcon /> },
+    { label: "Editar Promociones", action: "promotions", icon: <BookmarksIcon /> },
+  ];
+  const [view, setView] = useState<Views>("main");
   const [appStore] = useAtom(appStoreAtom);
 
   if (!appStore.auth?.access_token) {
     return <Navigate to="/login" replace />;
   }
-  
+
   return (
     <ContainerAtom
       style={{
@@ -48,25 +58,27 @@ const DashboardAdmin: React.FC = () => {
           {view === "main" && <TableMainAdmin />}
           {view === "faq" && <TableFaqAdmin />}
           {view === "user" && <TableUserAdmin />}
+          {view === "promotions" && <TablePromotions />}
         </ColumnAtom>
         <ColumnAtom flex={4} style={{ minWidth: 300 }} gap={2}>
-          <ButtonAtom adVariant="linkStyle" onClick={() => setView("faq")}>
-            <img
-              src={imgBtnGoFAQ}
-              alt="Imágen btn FAQ"
-              width={651}
-              style={{ width: "100%" }}
-            />
-          </ButtonAtom>
-
-          <ButtonAtom adVariant="linkStyle" onClick={() => setView("user")}>
-            <img
-              src={imgBtnGoUserAdmin}
-              alt="Imágen btn FAQ"
-              width={651}
-              style={{ width: "100%" }}
-            />
-          </ButtonAtom>
+          {menu.map((item, index) => (
+            <ButtonAtom
+            key={index + 1}
+              startIcon={item.icon}
+              variant={item.action === view ? "contained" : "outlined"}
+              onClick={() => setView(item.action)}
+              style={{
+                width: "100%",
+                fontWeight: 900,
+                fontSize: 18,
+                textAlign: "left",
+                justifyContent: "flex-start",
+              }}
+              size="small"
+            >
+              {item.label}
+            </ButtonAtom>
+          ))}
         </ColumnAtom>
       </RowAtom>
     </ContainerAtom>

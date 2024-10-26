@@ -50,7 +50,7 @@ export const MainAdminHeader = () => {
             gap={3}
             style={{ minWidth: 300 }}
           >
-            <Link to={"/home-admin"}>
+            <Link to={"/dashboard-admin"}>
               <img
                 src={LogoServioptica}
                 alt={"Logo Servioptica"}

@@ -1,13 +1,12 @@
 import { BASE_COLORS } from "../../../../../style/constants";
 import { ColumnAtom, GridAtom, RowAtom, TextAtom } from "../../../../atoms";
-import Inventory2RoundedIcon from "@mui/icons-material/Inventory2Rounded";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import { FiltersTable } from "./filters";
 import { DataGrid } from "@mui/x-data-grid";
 import { localeText } from "../../../../atoms/table/libs";
 import columns from "./libs/columns";
 import { useState } from "react";
-
+import PersonIcon from '@mui/icons-material/Person';
 const rows = [
   {
     id: 1,
@@ -39,7 +38,7 @@ export const TableUserAdmin = () => {
           <ColumnAtom flex={3} style={{ minWidth: 158 }}>
             <RowAtom alignItems="center" gap={2} style={{ height: 32 }}>
               <RowAtom gap={1}>
-                <Inventory2RoundedIcon
+                <PersonIcon
                   style={{ color: BASE_COLORS.blue, fontSize: 20 }}
                 />
 

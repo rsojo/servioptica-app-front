@@ -1,5 +1,3 @@
-
-
 export type FieldsTypes =
   | "text"
   | "select"
@@ -11,6 +9,7 @@ export type FieldsTypes =
   | "email"
   | "phone"
   | "tel"
+  | "file"
   | "password";
 
 type FieldsColumn = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
@@ -49,7 +48,8 @@ export type FieldsValueType =
   | string
   | number
   | boolean
-  | { [key: string]: boolean }
+  | File
+  | { [key: string]: boolean };
 
 export type PreDataType = {
   [key: string]: FieldsValueType;
@@ -68,8 +68,8 @@ export type ErrorStructure = {
 export type ErrorFrormType = null | ErrorStructure;
 
 export interface FormModuleProps {
-  variant?: 'form' | 'login'
-  error?: ErrorFrormType[] | null
+  variant?: "form" | "login";
+  error?: ErrorFrormType[] | null;
   actionBtnLabel?: string;
   actionBackBtnLabel?: string;
   onCallBack: (data: PreDataType) => void;
@@ -79,5 +79,5 @@ export interface FormModuleProps {
   keysList?: string[];
   additionalFields?: React.ReactNode;
   externalApproval?: boolean;
-  loading?: boolean
+  loading?: boolean;
 }
