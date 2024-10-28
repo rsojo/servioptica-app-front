@@ -47,7 +47,10 @@ export const TableUserAdmin = () => {
 
   const filteredRows = usersData?.filter((row) => {
     const matchesDate = dateFilter ? row.date === dateFilter : true;
-    return matchesDate;
+    const matchesState = stateFilter ? String(row.status).includes(stateFilter) : true;
+    console.log(String(row.status), stateFilter, String(row.status).includes(stateFilter))
+
+    return matchesDate && matchesState;
   });
 
   if (!appStore.auth?.access_token) {
@@ -86,7 +89,7 @@ export const TableUserAdmin = () => {
                         fontWeight: 900,
                       }}
                     >
-                      Usuarios
+                      Óptica
                     </TextAtom>
                   </RowAtom>
                   <span

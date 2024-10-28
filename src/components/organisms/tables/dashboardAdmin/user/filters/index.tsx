@@ -33,20 +33,20 @@ export const FiltersTable = ({
           gap={1}
           justifyContent="flex-start"
         >
-          <ColumnAtom flex={2} style={{ minWidth: 100, maxWidth: 160 }}>
+          {/* <ColumnAtom flex={2} style={{ minWidth: 100, maxWidth: 160 }}>
             <SelectAtom
               id="state"
               name="state"
               variant="small"
               options={[
-                { option: "En proceso", value: "En proceso" },
-                { option: "Finalizado", value: "Finalizado" },
+                { option: "Activo", value: "1" },
+                { option: "Invactivo", value: "0" },
               ]}
               placeholder={"Estado"}
               defaultValue={stateFilter}
               onChangeCallback={(value) => setStateFilter(value)}
             />
-          </ColumnAtom>
+          </ColumnAtom> */}
           <ColumnAtom flex={2} style={{ minWidth: 100, maxWidth: 160 }}>
             <InputTextAtom
               type="date"
@@ -76,7 +76,7 @@ export const FiltersTable = ({
             setView("form");
           }}
         >
-          Crear Usuario
+          Crear Óptica
         </ButtonAtom>
       </ColumnAtom>
     </RowAtom>
