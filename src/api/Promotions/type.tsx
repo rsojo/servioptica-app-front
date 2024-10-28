@@ -13,6 +13,7 @@ export interface GetPromotionsActivesData {
   end_date: string;
   created_at: string;
   updated_at: string;
+  date: string;
 }
 
 export interface AddPromotionsRequest {

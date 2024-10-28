@@ -1,0 +1,64 @@
+[
+  {
+    "id": 1,
+    "groupName": "user",
+    "fields": [
+      {
+        "id": 1,
+        "label": "Titulo:",
+        "name": "name",
+        "type": "text",
+        "columnSize": 12,
+        "important": true,
+        "options": null,
+        "default": "",
+        "placeholder": "Óptica txt 01",
+        "textError": "Este campo requerido",
+        "minlength": 3,
+        "maxlength": 60
+      },
+      {
+        "id": 3,
+        "label": "Estado:",
+        "name": "status",
+        "type": "select",
+        "columnSize": 12,
+        "important": false,
+        "options": [
+          { "option": "Invactivo", "value": "0" },
+          { "option": "Activo", "value": "1" }
+        ],
+        "default": "1",
+        "placeholder": ""
+      },
+      {
+        "id": 4,
+        "label": "Clave:",
+        "name": "password",
+        "type": "password",
+        "columnSize": 12,
+        "important": false,
+        "options": null,
+        "default": "",
+        "placeholder": "",
+        "textError": "Este campo requerido",
+        "minlength": 3,
+        "maxlength": 60
+      },
+      {
+        "id": 5,
+        "label": "Confirmar Clave:",
+        "name": "password_2",
+        "type": "password",
+        "columnSize": 12,
+        "important": false,
+        "options": null,
+        "default": "",
+        "placeholder": "",
+        "textError": "Este campo requerido",
+        "minlength": 3,
+        "maxlength": 60
+      }
+    ]
+  }
+]

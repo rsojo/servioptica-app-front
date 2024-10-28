@@ -83,19 +83,19 @@ export const validateField = async ({
             fieldId: field.id!,
             fieldName: field.name,
             errorMessage:
-              field.textError ?? `O formato de ${field.label} é inválido.`,
+              field.textError ?? `El formato del ${field.label} es inválido.`,
           };
         }
         return null;
 
       case "number":
-        if (minlength || maxlength) {
+        if (String(value).length! < minlength) {
           return {
             groupId: groupId!,
             fieldId: field.id!,
             errorMessage:
               field.textError ??
-              `Debe tener entre ${minlength} y ${maxlength} caracteres.`,
+              `Debe tener entre más de ${minlength} caracteres.`,
           };
         }
         return null;
@@ -111,31 +111,30 @@ export const validateField = async ({
           };
         }
         return null;
-//TODO: Refactoring to prod
       case "password":
-        if (String(value).length! < minlength) {
+        if (String(value).length < minlength) {
           return {
             groupId: groupId!,
             fieldId: field.id!,
             errorMessage: field.textError ?? `Mínimo ${minlength} caracteres.`,
           };
         }
+        
         const passwordRegex =
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+          /^(?=.*[A-Z])(?=.*[\W_])(?!.*[a-z]{2})(?!.*\d{2}).{8,}$/;
         // if (!passwordRegex.test(String(value))) {
-        if (!passwordRegex) {
+          if (!passwordRegex) {
           return {
             groupId: groupId!,
             fieldId: field.id!,
             errorMessage:
               field.textError ??
-              `Debe tener al menos 8 caracteres, mayúsculas, minúsculas, números, carácter especial.`,
+              `Debe tener al menos una letra mayúscula, un carácter especial, sin números ni letras consecutivas.`,
           };
         }
         return null;
 
       default:
-        // Si el tipo de campo no es reconocido, podríamos simplemente continuar o lanzar un error
         return null;
     }
   }

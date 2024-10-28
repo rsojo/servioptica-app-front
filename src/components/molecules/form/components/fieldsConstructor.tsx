@@ -48,7 +48,7 @@ const FieldConstructor = ({
         <LabelAtom
           htmlFor={`${field.id}_${field.name}_${index + 1}`}
           important={field.important}
-          style={{color: BASE_COLORS.blue}}
+          style={{color: BASE_COLORS.blue, margin: 0}}
         >
           {field.label}
         </LabelAtom>
@@ -86,7 +86,7 @@ export const FieldsConstructor = ({
   }, [fields, setPreData]);
 
   return (
-    <RowAtom gap={4} style={{ flexFlow: "wrap", width: "100%" }}>
+    <RowAtom gap={3} style={{ flexFlow: "wrap", width: "100%" }}>
       {fields.map((field: Partial<FieldsStructure>, index: number) => {
         const type = field.type as FieldsTypes;
         const defaultTextValue = field.default as string;

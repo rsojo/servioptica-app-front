@@ -20,7 +20,7 @@ import {
 } from "@mui/material";
 import { useTablePromotionsAdmin } from "./hooks/useTablePromotionsAdmin";
 import { PromotionsForm } from "../../../formDash/promotions";
-import BookmarksIcon from '@mui/icons-material/Bookmarks';
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
 
 const paginationModel = { page: 0, pageSize: 10 };
 
@@ -45,9 +45,11 @@ export const TablePromotions = () => {
   } = useTablePromotionsAdmin();
 
   const [stateFilter, setStateFilter] = useState("");
+  const [dateFilter, setDateFilter] = useState("");
 
   const filteredRows = promotionsData?.filter((row) => {
-    return row;
+    const matchesDate = dateFilter ? row.date === dateFilter : true;
+    return matchesDate;
   });
 
   if (!appStore.auth?.access_token) {
@@ -105,6 +107,8 @@ export const TablePromotions = () => {
                 <FiltersTable
                   stateFilter={stateFilter}
                   setStateFilter={setStateFilter}
+                  dateFilter={dateFilter}
+                  setDateFilter={setDateFilter}
                   setView={setView}
                 />
               </ColumnAtom>
@@ -132,7 +136,7 @@ export const TablePromotions = () => {
           <PromotionsForm
             goBack={() => {
               setView("table");
-              setEditData(null)
+              setEditData(null);
             }}
             onCallBack={(data) => {
               handleAddPromotionsData(data);

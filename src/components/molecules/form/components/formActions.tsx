@@ -63,7 +63,7 @@ export const FormActions = ({
   }, [externalError]);
 
   return (
-    <GridAtom style={{ width: "100%" }}>
+    <GridAtom style={{ width: "100%" }} className="FormActions">
       <RowAtom
         style={{ width: "100%" }}
         justifyContent="center"

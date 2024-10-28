@@ -1,0 +1,76 @@
+[
+  {
+    "id": 1,
+    "groupName": "user",
+    "fields": [
+      {
+        "id": 1,
+        "label": "Titulo:",
+        "name": "name",
+        "type": "text",
+        "columnSize": 12,
+        "important": true,
+        "options": null,
+        "default": "",
+        "placeholder": "Óptica txt 01",
+        "textError": "Este campo requerido",
+        "minlength": 3,
+        "maxlength": 60
+      },
+      {
+        "id": 2,
+        "label": "Nit:",
+        "name": "document",
+        "type": "number",
+        "columnSize": 12,
+        "important": true,
+        "options": null,
+        "default": "",
+        "placeholder": "1013138654-5",
+        "minlength": 10,
+        "maxlength": 15
+      },
+      {
+        "id": 3,
+        "label": "E-Mail:",
+        "name": "email",
+        "type": "email",
+        "columnSize": 12,
+        "important": true,
+        "options": null,
+        "default": "",
+        "placeholder": "optica_txt_01@txt.com.co",
+        "minlength": 3,
+        "maxlength": 60
+      },
+      {
+        "id": 4,
+        "label": "Clave:",
+        "name": "password",
+        "type": "password",
+        "columnSize": 12,
+        "important": true,
+        "options": null,
+        "default": "",
+        "placeholder": "",
+        "textError": "Este campo requerido",
+        "minlength": 3,
+        "maxlength": 60
+      },
+      {
+        "id": 5,
+        "label": "Confirmar Clave:",
+        "name": "password_2",
+        "type": "password",
+        "columnSize": 12,
+        "important": true,
+        "options": null,
+        "default": "",
+        "placeholder": "",
+        "textError": "Este campo requerido",
+        "minlength": 3,
+        "maxlength": 60
+      }
+    ]
+  }
+]

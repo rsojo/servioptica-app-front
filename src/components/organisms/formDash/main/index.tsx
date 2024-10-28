@@ -4,9 +4,9 @@ import TextAtom from "../../../atoms/text";
 import { FormModule } from "../../../molecules/form";
 import BkLogin from "../../../../assets/img/bkLogin.webp";
 import { BASE_COLORS } from "../../../../style/constants";
-import fieldBuiltDataOpt from "../data/fieldBuiltDataOpt.json";
+import fieldBuiltDataOpt from "../data/fieldBuiltDataFaq.json";
 import { PreDataType } from "../../../molecules/form/type";
-import fieldBuiltDataNewPassw from "../data/fieldBuiltDataNewPassw.json";
+import fieldBuiltDataNewPassw from "../data/fieldBuiltDataPromotion.json";
 import { ButtonAtom } from "../../../atoms";
 import { OtpCodeLightBox } from "../otp";
 
