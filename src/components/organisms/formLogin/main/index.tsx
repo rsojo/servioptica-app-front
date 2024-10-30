@@ -7,8 +7,10 @@ import { BASE_COLORS } from "../../../../style/constants";
 import fieldBuiltDataOpt from "../data/fieldBuiltDataOpt.json";
 import { PreDataType } from "../../../molecules/form/type";
 import fieldBuiltDataNewPassw from "../data/fieldBuiltDataNewPassw.json";
+import fieldBuiltDataGetEmail from "../data/fieldBuiltDataGetEmail.json";
 import { ButtonAtom } from "../../../atoms";
 import { OtpCodeLightBox } from "../otp";
+import { useState } from "react";
 
 export const LoginForm = ({
   step,
@@ -19,6 +21,7 @@ export const LoginForm = ({
   onCallBack: (value: PreDataType) => void;
   setStep: React.Dispatch<React.SetStateAction<number>>;
 }) => {
+  const [email, setEmail] = useState<string | null>(null)
   return (
     <>
       <GridAtom
@@ -62,7 +65,7 @@ export const LoginForm = ({
           </TextAtom>
           <SpaceAtom v={8} />
           {step === 1 && (
-            <GridAtom alignItems="center" gap={4}>
+            <GridAtom style={{ width: "100%" }} alignItems="center" gap={4}>
               <FormModule
                 actionBtnLabel="Entrar"
                 groupsFields={fieldBuiltDataOpt}
@@ -82,11 +85,12 @@ export const LoginForm = ({
           )}
 
           {step === 2 && (
-            <GridAtom alignItems="center" gap={4}>
+            <GridAtom style={{ width: "100%" }} alignItems="center" gap={4}>
               <FormModule
                 actionBtnLabel="Validar"
-                groupsFields={fieldBuiltDataNewPassw}
-                onCallBack={(value) => {
+                groupsFields={fieldBuiltDataGetEmail}
+                onCallBack={(value: any) => {
+                  setEmail(value.email)
                   onCallBack(value);
                 }}
               />
@@ -102,12 +106,38 @@ export const LoginForm = ({
           )}
           {step === 3 && (
             <OtpCodeLightBox
-              email={""}
+              email={email!}
               onCancelBack={() => setStep(2)}
               onCallBack={(value) => {
-                onCallBack({ opt: value });
+                onCallBack({ otp: value, email: email! });
               }}
             />
+          )}
+          {step === 4 && (
+            <GridAtom style={{ width: "100%" }} alignItems="center" gap={4}>
+              <FormModule
+                actionBtnLabel="Validar"
+                groupsFields={fieldBuiltDataNewPassw}
+                additionalFields={
+                  <TextAtom style={{ color: BASE_COLORS.blue }} type="small">
+                    <span style={{ color: "#ff0000" }}>***</span> La contraseña debe
+                    contener al menos una letra mayúscula, un carácter especial, no
+                    llevar números consecutivos, no tener letras consecutivas
+                  </TextAtom>
+                }
+                onCallBack={(value: any) => {
+                  onCallBack({...value, email: email! });
+                }}
+              />
+              <ButtonAtom
+                variant="outlined"
+                adVariant="linkStyle"
+                onClick={() => setStep(1)}
+                style={{ color: BASE_COLORS.blue }}
+              >
+                Ir al Login
+              </ButtonAtom>
+            </GridAtom>
           )}
         </GridAtom>
       </GridAtom>

@@ -76,7 +76,7 @@ const PreLogin: React.FC = () => {
           errorSnackMessage(response.message);
         }
         if (!response.error && response.data) {
-          setTokenPass(response.data.token);
+          setTokenPass(response.data.assignToken);
           successSnackMessage(String(response.message));
           setStep(4);
         }

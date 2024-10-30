@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "groupName": "login",
+    "fields": [
+      {
+        "id": 1,
+        "label": "",
+        "name": "email",
+        "type": "email",
+        "columnSize": 12,
+        "important": true,
+        "options": null,
+        "default": "",
+        "placeholder": "Agrega tu E-mail",
+        "textError": "Mínimo 8 caracteres",
+        "minlength": 8,
+        "maxlength": 60
+      }
+    ]
+  }
+]

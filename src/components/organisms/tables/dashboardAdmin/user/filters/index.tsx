@@ -3,7 +3,6 @@ import {
   ColumnAtom,
   InputTextAtom,
   RowAtom,
-  SelectAtom,
 } from "../../../../../atoms";
 import { TableUserAdminView } from "..";
 
