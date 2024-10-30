@@ -51,7 +51,7 @@ const PreLogin: React.FC = () => {
       const { password_1, password_2 } = value;
       if (password_1 === password_2) {
         assignPassword({
-          token: tokenPass,
+          assignToken: tokenPass,
           document: nit,
           password: password_1,
         }).then((response) => {

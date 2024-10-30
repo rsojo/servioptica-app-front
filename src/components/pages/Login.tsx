@@ -3,7 +3,12 @@ import React, { useState } from "react";
 import ContainerAtom from "../atoms/container";
 import { LoginForm } from "../organisms/formLogin/main";
 import { useNavigate } from "react-router-dom";
-import { assignPassword, loginUser, sendOtp, verifyOtp } from "../../api/Auth";
+import {
+  assignPasswordByEmail,
+  loginUser,
+  sendOtp,
+  verifyOtp,
+} from "../../api/Auth";
 import { persistAppStoreAtom } from "../../store/Auth";
 import { useAtom } from "jotai";
 import { useMessage } from "../../hooks/useMessage";
@@ -54,7 +59,7 @@ const Login: React.FC = () => {
         if (response.error) {
           errorSnackMessage(response.message);
         }
-        console.log(response)
+        console.log(response);
         if (!response.error && response.data) {
           setTokenPass(response.data.assignToken);
           successSnackMessage(String(response.message));
@@ -67,9 +72,9 @@ const Login: React.FC = () => {
       if (value.password_1 !== value.password_2) {
         errorSnackMessage("!Las claves no coinciden!");
       } else {
-        assignPassword({
-          token: tokenPass,
-          document: value.email,
+        assignPasswordByEmail({
+          assignToken: tokenPass,
+          email: value.email,
           password: value.password_1,
         }).then((response) => {
           if (response.error) {

@@ -144,8 +144,34 @@ export async function verifyOtp(data: {
 }
 
 export async function assignPassword(data: {
-  token: string;
+  assignToken: string;
   document: string;
+  password: string;
+}): Promise<any> {
+  const url = `${devUrl}/api/auth/assign-password`;
+  console.log("[assignPassword] [PREV]", data, url);
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const responseData = await response.json();
+    console.log("[assignPassword] [responseData]", responseData);
+
+    return responseData;
+  } catch (error: any) {
+    return error;
+  }
+}
+
+export async function assignPasswordByEmail(data: {
+  assignToken: string;
+  email: string;
   password: string;
 }): Promise<any> {
   const url = `${devUrl}/api/auth/assign-password`;
