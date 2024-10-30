@@ -24,7 +24,7 @@ const AppRouter: React.FC = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard-promo" element={<DashboardPromo />} />
           <Route path="/dashboard-admin" element={<DashboardAdmin />} />
-          <Route path="/order-tracking" element={<OrderTracking />} />
+          <Route path="/order-tracking/:id" element={<OrderTracking />} />
           <Route path="/search-order-tracking" element={<SearchOrderTracking />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="*" element={<NotFound />} />

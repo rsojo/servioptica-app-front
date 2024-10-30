@@ -13,9 +13,12 @@ import bkGeneralVideo from "../../../assets/videos/bkGeneral.mp4";
 import PersonIcon from "@mui/icons-material/Person";
 import { ButtonAtom, InputTextAtom, SpaceAtom, TitleAtom } from "../../atoms";
 import { BASE_COLORS } from "../../../style/constants";
+import { useState } from "react";
 
 export const SearchHeader = () => {
   const navetgate = useNavigate();
+  const [searchValue, setSearchValue] = useState<string | null>(null);
+
   return (
     <header style={{ position: "relative", display: "flex" }}>
       <GridAtom
@@ -116,13 +119,15 @@ export const SearchHeader = () => {
                 field={{ id: "search_orders", placeholder: "Nº de Pedido" }}
                 onChangeCallback={(value) => {
                   console.log(value);
+                  setSearchValue(value as string);
                 }}
               />
             </ColumnAtom>
             <ColumnAtom style={{ flex: "none" }}>
               <ButtonAtom
+                disabled={!searchValue}
                 onClick={() => {
-                  navetgate("/order-tracking");
+                  navetgate(`/order-tracking/${searchValue}`);
                   console.log("Buscar");
                 }}
                 style={{ minWidth: 173 }}
@@ -133,7 +138,6 @@ export const SearchHeader = () => {
           </RowAtom>
         </GridAtom>
         <SpaceAtom v={88} />
-
       </ContainerAtom>
     </header>
   );

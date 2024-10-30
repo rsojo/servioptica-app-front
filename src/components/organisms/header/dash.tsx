@@ -15,9 +15,11 @@ import LogoServioptica from "../../../assets/img/logo_servioptica@2x.webp";
 import bkDash from "../../../assets/img/bkDash-01.webp";
 import PersonIcon from "@mui/icons-material/Person";
 import { BASE_COLORS } from "../../../style/constants";
+import { useState } from "react";
 
 export const DashHeader = () => {
   const navetgate = useNavigate()
+  const [searchValue, setSearchValue] = useState<string | null>(null);
   
   return (
     <header style={{ position: "relative", display: "flex"}}>
@@ -117,14 +119,16 @@ export const DashHeader = () => {
               <InputTextAtom
                 field={{ id: "search_orders", placeholder: "Nº de Pedido" }}
                 onChangeCallback={(value) => {
+                  setSearchValue(value as string)
                   console.log(value);
                 }}
               />
             </ColumnAtom>
             <ColumnAtom style={{flex: 'none'}}>
               <ButtonAtom
+                disabled={!searchValue}
                 onClick={() => {
-                  navetgate('/order-tracking')
+                  navetgate(`/order-tracking/${searchValue}`)
                   console.log("Buscar");
                 }}
                 style={{ minWidth: 173 }}

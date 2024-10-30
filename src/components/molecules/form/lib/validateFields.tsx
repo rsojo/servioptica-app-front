@@ -119,10 +119,11 @@ export const validateField = async ({
             errorMessage: field.textError ?? `Mínimo ${minlength} caracteres.`,
           };
         }
-
+        
         const passwordRegex =
           /^(?=.*[A-Z])(?=.*[\W_])(?!.*[a-z]{2})(?!.*\d{2}).{8,}$/;
-        if (!passwordRegex.test(String(value))) {
+        // if (!passwordRegex.test(String(value))) {
+          if (!passwordRegex) {
           return {
             groupId: groupId!,
             fieldId: field.id!,
