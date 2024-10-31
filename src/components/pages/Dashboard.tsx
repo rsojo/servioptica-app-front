@@ -81,10 +81,10 @@ const Dashboard: React.FC = () => {
         }}
         p={3}
       >
-        <ColumnAtom flex={7} style={{ minWidth: 300 }}>
+        <ColumnAtom flex={8} style={{ minWidth: 300 }}>
           <TablePromotions />
         </ColumnAtom>
-        <ColumnAtom flex={5} style={{ minWidth: 300 }}>
+        <ColumnAtom flex={4} style={{ minWidth: 300 }}>
           {loading && (
             <GridAtom
               p={5}

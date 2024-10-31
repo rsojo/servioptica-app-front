@@ -40,7 +40,7 @@ const PreLogin: React.FC = () => {
       const findSede = checkClientData.data?.find(
         (i) => i.email === value.login_sede
       );
-      handleRegister(findSede!);
+      handleRegister(findSede);
     }
     if (value && step === 3) {
       // Form Tipo C (OTP)
@@ -108,7 +108,7 @@ const PreLogin: React.FC = () => {
             setEmail(data[0].email);
             sendOtp({ email: data[0].email }).then((otpr) =>
               successSnackMessage(String(otpr.message))
-            ); // TODO: Cambiar a correo del cliente data[0].email
+            );
             setStep(3);
           }
         }
@@ -118,7 +118,7 @@ const PreLogin: React.FC = () => {
             setEmail(data[0].email);
             sendOtp({ email: data[0].email }).then((otpr) =>
               successSnackMessage(String(otpr.message))
-            ); // TODO: Cambiar a correo del cliente data[0].email
+            );
             setStep(3);
           }
           if (data[0].status === "Active") {
@@ -131,7 +131,7 @@ const PreLogin: React.FC = () => {
       });
   };
 
-  const handleRegister = (findSede: CheckClientData) => {
+  const handleRegister = (findSede?: CheckClientData) => {
     register({ ...findSede! })
       .then((response) => {
         if (response.error) {
@@ -139,7 +139,7 @@ const PreLogin: React.FC = () => {
         }
         if (response.data) {
           successSnackMessage(String(response.message));
-          setEmail(findSede.email);
+          setEmail(findSede?.email!);
           setStep(3);
         }
       })
