@@ -34,7 +34,7 @@
     "start-branch": "node src/scripts/create-branch.js",
     "end-branch": "node src/scripts/merge-delete-branch.js",
     "update-branch": "node src/scripts/update-branch-from-dev.js",
-    "start": "react-scripts start",
+    "start": "PORT=8000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
