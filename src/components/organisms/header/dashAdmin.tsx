@@ -15,12 +15,23 @@ import LogoServioptica from "../../../assets/img/logo_servioptica@2x.webp";
 import bkDash from "../../../assets/img/bkDashAdmin.webp";
 import PersonIcon from "@mui/icons-material/Person";
 import { BASE_COLORS } from "../../../style/constants";
-import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import { useState } from "react";
+import { Button, Menu, MenuItem } from "@mui/material";
+import { appStoreAtom } from "../../../store/Auth";
+import { useAtom } from "jotai";
 
 export const DashHeaderAdmin = () => {
+  const [, setAppStore] = useAtom(appStoreAtom);
   const navetgate = useNavigate();
   const [searchValue, setSearchValue] = useState<string | null>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <header style={{ position: "relative", display: "flex" }}>
@@ -53,7 +64,7 @@ export const DashHeaderAdmin = () => {
             justifyContent="center"
             gap={2}
           >
-            <Link to={"/dashboard-admin"}>
+            <Link to={"/"}>
               <img
                 style={{ objectFit: "contain" }}
                 src={LogoServioptica}
@@ -83,45 +94,42 @@ export const DashHeaderAdmin = () => {
               gap={2}
               style={{ width: 280, justifyContent: "center" }}
             >
-              <Link
-                to={"/dashboard-admin"}
-                style={{ textAlign: "center", textDecoration: "none" }}
+              <Button
+                id="basic-button"
+                aria-controls={open ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+                onClick={handleClick}
               >
                 <GridAtom
                   p={1}
                   style={{
                     backgroundColor: "#fff",
                     borderRadius: 120,
-                    border: `1px solid ${BASE_COLORS.blue}`,
+                    border: "1px solid var(--mainBtnColor)",
                   }}
                 >
-                  <HomeRoundedIcon style={{ color: BASE_COLORS.blue }} />
+                  <PersonIcon style={{ color: "var(--mainBtnColor)" }} />
                 </GridAtom>
-              </Link>
-              <Link
-                to={"/login"}
-                style={{ textAlign: "center", textDecoration: "none" }}
-              >
-                <GridAtom
-                  p={1}
-                  style={{
-                    backgroundColor: "#fff",
-                    borderRadius: 120,
-                    border: `1px solid ${BASE_COLORS.blue}`,
-                  }}
-                >
-                  <PersonIcon style={{ color: BASE_COLORS.blue }} />
-                </GridAtom>
-              </Link>
-              <TextAtom
-                style={{
-                  textAlign: "center",
-                  textDecoration: "none",
-                  color: BASE_COLORS.blue,
+              </Button>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
                 }}
               >
-                Super Admin...
-              </TextAtom>
+                <MenuItem
+                  onClick={() => {
+                    setAppStore({ auth: null, user: null });
+                    handleClose();
+                  }}
+                >
+                  Logout
+                </MenuItem>
+              </Menu>
             </RowAtom>
           </ColumnAtom>
         </RowAtom>

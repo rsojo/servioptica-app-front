@@ -16,13 +16,25 @@ import bkDash from "../../../assets/img/bkDash-01.webp";
 import PersonIcon from "@mui/icons-material/Person";
 import { BASE_COLORS } from "../../../style/constants";
 import { useState } from "react";
+import { Button, Menu, MenuItem } from "@mui/material";
+import { appStoreAtom } from "../../../store/Auth";
+import { useAtom } from "jotai";
 
 export const DashHeader = () => {
-  const navetgate = useNavigate()
+  const [, setAppStore] = useAtom(appStoreAtom);
+  const navetgate = useNavigate();
   const [searchValue, setSearchValue] = useState<string | null>(null);
-  
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <header style={{ position: "relative", display: "flex"}}>
+    <header style={{ position: "relative", display: "flex" }}>
       <GridAtom
         alignItems="center"
         justifyContent="center"
@@ -33,7 +45,7 @@ export const DashHeader = () => {
           height: "100%",
           width: "100%",
           zIndex: 1,
-           overflow: 'hidden',
+          overflow: "hidden",
         }}
       >
         <img
@@ -45,7 +57,7 @@ export const DashHeader = () => {
         />
       </GridAtom>
       <ContainerAtom style={{ zIndex: 2, marginBottom: 10 }}>
-        <RowAtom className="HeaderRow" style={{flexFlow: 'wrap'}}>
+        <RowAtom className="HeaderRow" style={{ flexFlow: "wrap" }}>
           <ColumnAtom
             flex={3}
             alignItems="center"
@@ -83,22 +95,51 @@ export const DashHeader = () => {
               gap={2}
               style={{ width: 280, justifyContent: "center" }}
             >
-              <GridAtom
-                p={1}
-                style={{
-                  backgroundColor: "#fff",
-                  borderRadius: 120,
-                  border: "1px solid var(--mainBtnColor)",
+              <Button
+                id="basic-button"
+                aria-controls={open ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+                onClick={handleClick}
+              >
+                <GridAtom
+                  p={1}
+                  style={{
+                    backgroundColor: "#fff",
+                    borderRadius: 120,
+                    border: "1px solid var(--mainBtnColor)",
+                  }}
+                >
+                  <PersonIcon style={{ color: "var(--mainBtnColor)" }} />
+                </GridAtom>
+              </Button>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
                 }}
               >
-                <PersonIcon style={{ color: "var(--mainBtnColor)" }} />
-              </GridAtom>
-              <TextAtom style={{ textAlign: "center" }}>Óptica TXT 01</TextAtom>
+                <MenuItem
+                  onClick={() => {
+                    setAppStore({ auth: null, user: null });
+                    handleClose();
+                  }}
+                >
+                  Logout
+                </MenuItem>
+              </Menu>
             </RowAtom>
           </ColumnAtom>
         </RowAtom>
         <SpaceAtom v={48} />
-        <GridAtom style={{ width: "100%", marginBottom: -50 }} alignItems="center" gap={2}>
+        <GridAtom
+          style={{ width: "100%", marginBottom: -50 }}
+          alignItems="center"
+          gap={2}
+        >
           <TitleAtom
             style={{
               color: BASE_COLORS.blue,
@@ -119,16 +160,16 @@ export const DashHeader = () => {
               <InputTextAtom
                 field={{ id: "search_orders", placeholder: "Nº de Pedido" }}
                 onChangeCallback={(value) => {
-                  setSearchValue(value as string)
+                  setSearchValue(value as string);
                   console.log(value);
                 }}
               />
             </ColumnAtom>
-            <ColumnAtom style={{flex: 'none'}}>
+            <ColumnAtom style={{ flex: "none" }}>
               <ButtonAtom
                 disabled={!searchValue}
                 onClick={() => {
-                  navetgate(`/order-tracking/${searchValue}`)
+                  navetgate(`/order-tracking/${searchValue}`);
                   console.log("Buscar");
                 }}
                 style={{ minWidth: 173 }}

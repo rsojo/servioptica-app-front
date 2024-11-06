@@ -34,6 +34,10 @@ const DashboardAdmin: React.FC = () => {
     return <Navigate to="/login" replace />;
   }
 
+  if (!appStore.auth.admin) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
   return (
     <ContainerAtom
       style={{
