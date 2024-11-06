@@ -2,6 +2,7 @@ import { atom } from "jotai";
 
 interface Auth {
   access_token: string;
+  admin: boolean;
   rol: string;
 }
 

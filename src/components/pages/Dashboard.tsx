@@ -58,6 +58,10 @@ const Dashboard: React.FC = () => {
     return <Navigate to="/login" replace />;
   }
 
+  if (appStore.auth.admin) {
+    return <Navigate to="/dashboard-admin" replace />;
+  }
+
   // const location = useLocation();
   // const searchParams = new URLSearchParams(location.search);
   // const id = searchParams.get("id"); // Obtener el parámetro "id" si está presente

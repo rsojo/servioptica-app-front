@@ -3,7 +3,7 @@ export interface LoginRequest {
   password: string;
 }
 export interface LoginResponse {
-  data: { access_token: string; token_type: string } | null;
+  data: { access_token: string; token_type: string; admin: boolean } | null;
   message: string;
   error: boolean;
 }

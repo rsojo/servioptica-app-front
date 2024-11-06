@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import ContainerAtom from "../atoms/container";
 import { LoginForm } from "../organisms/formLogin/main";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import {
   assignPasswordByEmail,
   loginUser,
@@ -13,8 +13,9 @@ import { persistAppStoreAtom } from "../../store/Auth";
 import { useAtom } from "jotai";
 import { useMessage } from "../../hooks/useMessage";
 
+
 const Login: React.FC = () => {
-  const [, setAppStore] = useAtom(persistAppStoreAtom);
+  const [appStore, setAppStore] = useAtom(persistAppStoreAtom);
   const { errorSnackMessage, successSnackMessage } = useMessage();
   const [tokenPass, setTokenPass] = useState<string>("");
 
@@ -32,11 +33,19 @@ const Login: React.FC = () => {
           }
           if (response.data?.access_token) {
             setAppStore({
-              auth: { access_token: response.data.access_token, rol: "admin" },
+              auth: {
+                access_token: response.data.access_token,
+                rol: "admin",
+                admin: response.data.admin,
+              },
               user: null,
             });
             successSnackMessage(String(response.message));
-            navetgate("/dashboard-admin");
+            if (response.data.admin) {
+              navetgate("/dashboard-admin");
+            } else {
+              navetgate("/dashboard");
+            }
           }
         }
       );
@@ -88,6 +97,13 @@ const Login: React.FC = () => {
       }
     }
   };
+
+  if (appStore.auth && !appStore.auth.admin) {
+    return <Navigate to="/dashboard" replace />;
+  }
+  if (appStore.auth && appStore.auth.admin) {
+    return <Navigate to="/dashboard-admin" replace />;
+  }
 
   return (
     <ContainerAtom

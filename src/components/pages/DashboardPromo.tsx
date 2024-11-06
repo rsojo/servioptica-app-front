@@ -56,6 +56,9 @@ const DashboardPromp: React.FC = () => {
   if (!appStore.auth?.access_token) {
     return <Navigate to="/login" replace />;
   }
+  if (appStore.auth.admin) {
+    return <Navigate to="/dashboard" replace />;
+  }
   // const location = useLocation();
   // const searchParams = new URLSearchParams(location.search);
   // const id = searchParams.get("id"); // Obtener el parámetro "id" si está presente
