@@ -28,7 +28,6 @@ const PreLogin: React.FC = () => {
   const { errorSnackMessage, successSnackMessage } = useMessage();
 
   const handleLogin = (value: any) => {
-    console.log(step, value);
 
     if (value && step === 1) {
       // Form tipo A (NIT)

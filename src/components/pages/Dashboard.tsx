@@ -15,6 +15,7 @@ import { useAtom } from "jotai";
 import { appStoreAtom } from "../../store/Auth";
 import { Navigate } from "react-router-dom";
 import { TablePromotions } from "../organisms/tables/dashboardAdmin/promotions";
+import { TableMainAdmin } from "../organisms/tables/dashboardAdmin/main";
 
 const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -40,7 +41,7 @@ const Dashboard: React.FC = () => {
         setPromotionsData(formatingData);
       }
     } catch (error) {
-      console.error("Error fetching FAQs:", error);
+      console.error("Error fetching Promotions:", error);
     } finally {
       setLoading(false);
     }
@@ -86,7 +87,7 @@ const Dashboard: React.FC = () => {
         p={3}
       >
         <ColumnAtom flex={8} style={{ minWidth: 300 }}>
-          <TablePromotions />
+          <TableMainAdmin />
         </ColumnAtom>
         <ColumnAtom flex={4} style={{ minWidth: 300 }}>
           {loading && (

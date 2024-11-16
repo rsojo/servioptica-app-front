@@ -7,7 +7,7 @@ import {
   RegisterResponse,
 } from "./type";
 
-const devUrl = "https://tracking-servioptica-api.txt.co";
+const devUrl = "http://127.0.0.1:8000";
 
 export async function loginUser(data: LoginRequest): Promise<LoginResponse> {
   const url = `${devUrl}/api/auth/login`;

@@ -158,10 +158,9 @@ export const DashHeader = () => {
           >
             <ColumnAtom flex={10}>
               <InputTextAtom
-                field={{ id: "search_orders", placeholder: "Nº de Pedido" }}
+                field={{ id: "search_orders", placeholder: "Nº de Pedido 1" }}
                 onChangeCallback={(value) => {
                   setSearchValue(value as string);
-                  console.log(value);
                 }}
               />
             </ColumnAtom>
@@ -170,7 +169,7 @@ export const DashHeader = () => {
                 disabled={!searchValue}
                 onClick={() => {
                   navetgate(`/order-tracking/${searchValue}`);
-                  console.log("Buscar");
+                  console.log("Buscar 1");
                 }}
                 style={{ minWidth: 173 }}
               >

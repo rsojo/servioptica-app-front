@@ -19,8 +19,10 @@ import { useState } from "react";
 import { Button, Menu, MenuItem } from "@mui/material";
 import { appStoreAtom } from "../../../store/Auth";
 import { useAtom } from "jotai";
+import { searchOrder } from "../../../store/searchOrder";
 
 export const DashHeaderAdmin = () => {
+  const [, setSearchOrderAtom] = useAtom(searchOrder)
   const [, setAppStore] = useAtom(appStoreAtom);
   const navetgate = useNavigate();
   const [searchValue, setSearchValue] = useState<string | null>(null);
@@ -32,6 +34,10 @@ export const DashHeaderAdmin = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleSearchOreder = () => {
+    setSearchOrderAtom((prev)=>({...prev, document: searchValue}))
+  }
 
   return (
     <header style={{ position: "relative", display: "flex" }}>
@@ -157,7 +163,7 @@ export const DashHeaderAdmin = () => {
           >
             <ColumnAtom flex={10}>
               <InputTextAtom
-                field={{ id: "search_orders", placeholder: "Nº de Pedido" }}
+                field={{ id: "search_orders", placeholder: "Nº de Nit Optica" }}
                 onChangeCallback={(value) => {
                   setSearchValue(value as string);
                 }}
@@ -167,8 +173,7 @@ export const DashHeaderAdmin = () => {
               <ButtonAtom
                 disabled={!searchValue}
                 onClick={() => {
-                  navetgate(`/order-tracking/${searchValue}`);
-                  console.log("Buscar");
+                  handleSearchOreder();
                 }}
                 style={{ minWidth: 173 }}
               >

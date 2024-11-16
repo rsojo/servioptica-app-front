@@ -7,7 +7,16 @@ import { DataGrid } from "@mui/x-data-grid";
 import { localeText } from "../../../../atoms/table/libs";
 import columns from "./libs/columns";
 import { useState } from "react";
+import { useTableOrdersAdmin } from "./hooks/useTableOrdersAdmin";
 
+export interface RowTableData {
+  id: number;
+  order: number;
+  site: string;
+  lot: string;
+  state: string;
+  date: string;
+}
 const rows = [
   {
     id: 1,
@@ -21,16 +30,15 @@ const rows = [
 const paginationModel = { page: 0, pageSize: 10 };
 
 export const TableMainAdmin = () => {
-  const [siteFilter, setSiteFilter] = useState("");
-  const [stateFilter, setStateFilter] = useState("");
-  const [dateFilter, setDateFilter] = useState("");
-
-  const filteredRows = rows.filter((row) => {
-    const matchesSite = siteFilter ? row.site.includes(siteFilter) : true;
-    const matchesState = stateFilter ? row.state.includes(stateFilter) : true;
-    const matchesDate = dateFilter ? row.date === dateFilter : true;
-    return matchesSite && matchesState && matchesDate;
-  });
+  const { 
+    setSiteFilter,
+    siteFilter,
+    setStateFilter,
+    stateFilter,
+    setDateFilter,
+    dateFilter,
+    filteredRows
+  } = useTableOrdersAdmin();
 
   return (
     <GridAtom style={{ width: "100%" }}>

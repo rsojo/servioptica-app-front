@@ -58,7 +58,6 @@ export const FiltersTable = ({
               }}
               onChangeCallback={(value) => {
                 setDateFilter(String(value));
-                console.log(value);
               }}
             />
           </ColumnAtom>

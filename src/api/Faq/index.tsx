@@ -1,6 +1,6 @@
 import { GetFaqActivesResponse } from "./type";
 
-const devUrl = "https://tracking-servioptica-api.txt.co";
+const devUrl = "http://127.0.0.1:8000";
 
 export async function getFaqActives(): Promise<GetFaqActivesResponse> {
   const url = `${devUrl}/api/faqs/getActives`;

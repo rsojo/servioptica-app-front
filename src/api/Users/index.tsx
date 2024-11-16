@@ -4,7 +4,7 @@ import {
   UpdateUsersRequest,
 } from "./type";
 
-const devUrl = "https://tracking-servioptica-api.txt.co";
+const devUrl = "http://127.0.0.1:8000";
 
 export async function getUsersAdmin(
   token: string

@@ -30,8 +30,8 @@ export const SwiperAtom = ({
       navigation
       pagination={pagination} // Activar paginación por puntos clicables
       scrollbar={{ draggable: true }}
-      onSwiper={(swiper: any) => console.log(swiper)}
-      onSlideChange={() => console.log("slide change")}
+      onSwiper={(swiper: any) => {}}
+      onSlideChange={() => {}}
     >
       {data.map((item, index) => {
         return (

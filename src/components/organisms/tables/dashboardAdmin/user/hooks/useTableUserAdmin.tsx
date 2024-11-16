@@ -49,7 +49,6 @@ export const useTableUsersAdmin = () => {
           ...item,
           date: item.updated_at.split("T")[0], //"2024-10-16T18:13:59.000000Z"
         }));
-        console.log(formatingData);
         setUsersData(formatingData);
       }
     } catch (error) {

@@ -4,6 +4,7 @@ interface Auth {
   access_token: string;
   admin: boolean;
   rol: string;
+  document: string;
 }
 
 interface UserData {

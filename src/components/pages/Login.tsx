@@ -35,8 +35,9 @@ const Login: React.FC = () => {
             setAppStore({
               auth: {
                 access_token: response.data.access_token,
-                rol: "admin",
+                rol: response.data.admin ? "admin" : "user",
                 admin: response.data.admin,
+                document: value.documen,
               },
               user: null,
             });
@@ -68,7 +69,6 @@ const Login: React.FC = () => {
         if (response.error) {
           errorSnackMessage(response.message);
         }
-        console.log(response);
         if (!response.error && response.data) {
           setTokenPass(response.data.assignToken);
           successSnackMessage(String(response.message));
