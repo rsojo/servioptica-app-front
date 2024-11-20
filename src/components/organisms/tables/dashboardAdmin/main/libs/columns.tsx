@@ -4,7 +4,7 @@ import generalColumnProps from "../../../../../atoms/table/libs/generalColumnPro
 const columns: GridColDef[] = [
   {
     ...generalColumnProps,
-    field: "id_pedido",
+    field: "id",
     headerName: "Nº",
     minWidth: 50,
     maxWidth: 50,
@@ -35,10 +35,12 @@ const columns: GridColDef[] = [
   },
   {
     ...generalColumnProps,
-    field: "fecha_entrada_pedido",
+    field: "fecha_actualizacion",
     headerName: "Fecha",
     minWidth: 120,
-    valueGetter: (value, row) => `${String(row.date).split('-')[2]}/${String(row.date).split('-')[1]}/${String(row.date).split('-')[0]}`,
+    valueGetter: (value, row) => {
+      const splitDate = String(value).split('T')[0].split('-')
+      return `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`},
   },
   // {
   //     field: 'actions',

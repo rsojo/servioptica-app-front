@@ -1,39 +1,22 @@
 import { ButtonAtom, ColumnAtom, InputTextAtom, RowAtom, SelectAtom } from "../../../../../atoms";
 
 interface FiltersTableProps {
-  siteFilter: string;
-  setSiteFilter: React.Dispatch<React.SetStateAction<string>>;
   stateFilter: string;
   setStateFilter: React.Dispatch<React.SetStateAction<string>>;
   dateFilter: string;
   setDateFilter: React.Dispatch<React.SetStateAction<string>>;
+  onDownloadAction: () => void
 }
 export const FiltersTable = ({
-  siteFilter,
-  setSiteFilter,
   stateFilter,
   setStateFilter,
   dateFilter,
   setDateFilter,
+  onDownloadAction,
 }: FiltersTableProps) => {
   return (
     <RowAtom style={{ width: "100%", flexFlow: "wrap" }} gap={1}>
-      <ColumnAtom flex={2} style={{ minWidth: 120, maxWidth: 320 }}>
-        <SelectAtom
-          id="site"
-          name="site"
-          variant='small'
-          options={[
-            { option: "Óptica Txt 01", value: "Óptica Txt 01" },
-            { option: "Óptica Txt 02", value: "Óptica Txt 02" },
-            { option: "Óptica Txt 03", value: "Óptica Txt 03" },
-            { option: "Óptica Txt 04", value: "Óptica Txt 04" },
-          ]}
-          placeholder={"Sede"}
-          defaultValue={siteFilter}
-          onChangeCallback={(value) => setSiteFilter(value)}
-        />
-      </ColumnAtom>
+      
       <ColumnAtom flex={2} style={{ minWidth: 100, maxWidth: 320 }}>
         <SelectAtom
           id="state"
@@ -84,7 +67,7 @@ export const FiltersTable = ({
               />
             </svg>
           }
-          onClick={() => {}}
+          onClick={onDownloadAction}
         >
           Descarga
         </ButtonAtom>

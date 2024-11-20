@@ -93,12 +93,12 @@ export const DashHeaderAdmin = () => {
           <ColumnAtom
             flex={3}
             alignItems="flex-end"
-            style={{ color: BASE_COLORS.blue, minWidth: 300 }}
+            style={{ color: BASE_COLORS.blue, minWidth: 80 }}
           >
             <RowAtom
               alignItems="center"
               gap={2}
-              style={{ width: 280, justifyContent: "center" }}
+              style={{justifyContent: 'flex-end' }}
             >
               <Button
                 id="basic-button"

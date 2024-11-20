@@ -21,7 +21,7 @@ import { appStoreAtom } from "../../../store/Auth";
 import { useAtom } from "jotai";
 
 export const DashHeader = () => {
-  const [, setAppStore] = useAtom(appStoreAtom);
+  const [appStore, setAppStore] = useAtom(appStoreAtom);
   const navetgate = useNavigate();
   const [searchValue, setSearchValue] = useState<string | null>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -88,19 +88,19 @@ export const DashHeader = () => {
           <ColumnAtom
             flex={9}
             alignItems="flex-end"
-            style={{ color: "var(--mainBtnColor)", minWidth: 300 }}
+            style={{ color: "var(--mainBtnColor)", minWidth: 60 }}
           >
             <RowAtom
-              alignItems="center"
+              alignItems='flex-end'
               gap={2}
-              style={{ width: 280, justifyContent: "center" }}
+              style={{ justifyContent: 'flex-end' }}
             >
               <Button
                 id="basic-button"
                 aria-controls={open ? "basic-menu" : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
-                onClick={handleClick}
+                onClick={(e)=>appStore.auth?.access_token ? handleClick(e) : navetgate('/login')}
               >
                 <GridAtom
                   p={1}
@@ -158,7 +158,7 @@ export const DashHeader = () => {
           >
             <ColumnAtom flex={10}>
               <InputTextAtom
-                field={{ id: "search_orders", placeholder: "Nº de Pedido 1" }}
+                field={{ id: "search_orders", placeholder: "Nº de Pedido" }}
                 onChangeCallback={(value) => {
                   setSearchValue(value as string);
                 }}
@@ -169,7 +169,6 @@ export const DashHeader = () => {
                 disabled={!searchValue}
                 onClick={() => {
                   navetgate(`/order-tracking/${searchValue}`);
-                  console.log("Buscar 1");
                 }}
                 style={{ minWidth: 173 }}
               >

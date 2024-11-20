@@ -5,6 +5,7 @@ export interface OrdersResponse {
 }
 
 export interface OrderData {
+  id?:number;
   seq_no: string;
   fecha_entrada_pedido: string;
   id_pedido: string;
@@ -27,7 +28,7 @@ export interface OrderRequest {
   pageSize: number,
   pageNumber: number,
   status: string | null,
-  document: string,
+  document: string | null,
   orderCode: string | null,
   site: string | null,
   date: string | null,

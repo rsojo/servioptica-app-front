@@ -1,10 +1,92 @@
-import React from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { ContainerAtom, GridAtom, SpaceAtom } from "../atoms";
 import { SteperOrderTracking } from "../organisms/steperOrderTracking";
 import { BottomOrderTracking } from "../organisms/bottomOrderTracking";
 import { TopOrderTracking } from "../organisms/topOrderTracking";
+import { useParams } from "react-router-dom";
+import { useAtom } from "jotai";
+import { appStoreAtom } from "../../store/Auth";
+import { Orders } from "../../api/Orders";
+import { OrderData } from "../../api/Orders/type";
+import { CircularProgress } from "@mui/material";
 
 const OrderTracking: React.FC = () => {
+  const {id: idPedido} = useParams()
+  const [appStore] = useAtom(appStoreAtom);
+  const [data, setData] = useState<OrderData[] | null>(null);
+  const [currentData, setCurrentData] = useState<OrderData | null>(null);
+  const [loading, setLoading] = useState(false)
+
+  const isFetchingRef = useRef(false);
+
+  useEffect(()=>{fetchTableData(idPedido!)}, [idPedido])
+
+  useEffect(() => {
+    if (data) {
+      const priorities = ['5', '4', '3', '2', '1'];
+      const currentData = priorities
+        .map(priority => data.find(item => item.seq_no === priority))
+        .find(item => item !== undefined);
+  
+      if (currentData) {
+        setCurrentData(currentData);
+      }
+    }
+  }, [data]);
+  
+
+  const fetchTableData = async (orderCode: string) => {
+    if (isFetchingRef.current) return;
+    isFetchingRef.current = true;
+    setLoading(true);
+    try {
+        const data = {
+            token: appStore.auth?.access_token!,
+            pageSize: 10,
+            pageNumber: 1,
+            status: null,
+            document: null,
+            orderCode: orderCode,
+            site: null,
+            date: null,
+        }
+        const response = await Orders({...data});
+        const newData = response.data.map((item, index)=>({...item, id: index + 1}))
+        setData(newData);
+    } catch (error) {
+        console.error("Error fetching Table Data:", error);
+    } finally {
+      setLoading(false)
+    }
+}
+
+useEffect(() => {
+  if (!data && idPedido && !isFetchingRef.current) {
+    fetchTableData(idPedido);
+  }
+}, [idPedido, data]);
+
+useEffect(() => {
+  setData(null); // Reiniciar datos
+  setCurrentData(null); // Reiniciar datos actuales
+  isFetchingRef.current = false; // Permitir nuevas solicitudes
+  if (idPedido) {
+    fetchTableData(idPedido);
+  }
+}, [idPedido]);
+
+if (loading) {
+  return (
+    <GridAtom
+      style={{ minHeight: 320, width: "100%" }}
+      justifyContent="center"
+      alignItems="center"
+    >
+      <CircularProgress />
+    </GridAtom>
+  );
+}
+
   return (
     <ContainerAtom
       style={{
@@ -17,15 +99,15 @@ const OrderTracking: React.FC = () => {
     >
       <SpaceAtom v={40} />
       <GridAtom gap={4} style={{ width: "100%" }} alignItems="center">
-        <TopOrderTracking />
+        <TopOrderTracking data={currentData} />
         <span
           style={{ borderBottom: "1px solid", width: "100%", marginBottom: 40 }}
         />
-        <SteperOrderTracking currentStep={4} />
+        <SteperOrderTracking currentStep={Number(currentData?.seq_no ?? '0')} data={data}/>
         <span
           style={{ borderBottom: "1px solid", width: "100%", marginTop: 32 }}
         />
-        <BottomOrderTracking />
+        <BottomOrderTracking data={currentData} />
       </GridAtom>
     </ContainerAtom>
   );

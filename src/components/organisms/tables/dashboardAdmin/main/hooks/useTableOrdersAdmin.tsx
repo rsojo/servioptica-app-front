@@ -1,49 +1,78 @@
 import { useEffect, useState } from "react";
-import { RowTableData } from "..";
-import { Orders } from "../../../../../../api/Orders";
+import { ExportCsv, Orders } from "../../../../../../api/Orders";
 import { appStoreAtom } from "../../../../../../store/Auth";
 import { useAtom } from "jotai";
 import { searchOrder } from "../../../../../../store/searchOrder";
+import { OrderData } from "../../../../../../api/Orders/type";
+import { downloadFile } from "../../../../../../utils";
 
 export const useTableOrdersAdmin = () => {
     const [appStore] = useAtom(appStoreAtom);
     const [searchOrderAtom] = useAtom(searchOrder);
-    const [tableData, setTableData] = useState<any[]>([]);
-    const [siteFilter, setSiteFilter] = useState("");
+    const [tableData, setTableData] = useState<OrderData[] | null>(null);
     const [stateFilter, setStateFilter] = useState("");
     const [dateFilter, setDateFilter] = useState("");
-    const filteredRows = tableData
-    //const filteredRows = tableData.filter((row) => {
-    //    const matchesSite = siteFilter ? row.site.includes(siteFilter) : true;
-    //    const matchesState = stateFilter ? row.state.includes(stateFilter) : true;
-    //    const matchesDate = dateFilter ? row.date === dateFilter : true;
-    //    return matchesSite && matchesState && matchesDate;
-    //});
+    const [loading, setLoading] = useState(false)
+
+    const uniqueData = tableData
+    ? tableData.filter(
+          (item, index, self) =>
+              self.findIndex((t) => t.id_pedido === item.id_pedido) === index
+      )
+    : null;
+    const filteredRows = uniqueData?.filter((row) => {
+        const matchesState = stateFilter ? row.estado.includes(stateFilter) : true;
+        const matchesDate = dateFilter ? row.fecha_actualizacion.split('T')[0] === dateFilter : true;
+        return matchesState && matchesDate;
+    });
 
     const fetchTableData = async (document: string) => {
+        setLoading(true)
         try {
-            if(document){
-                const data = {
-                    token: appStore.auth?.access_token!,
-                    pageSize: 1,
-                    pageNumber: 100,
-                    status: null,
-                    document: document,
-                    orderCode: null,
-                    site: null,
-                    date: null,
-                }
-                const response = await Orders({...data});
-                console.log("Orders response", response);
-                setTableData(response.data);
+            const data = {
+                token: appStore.auth?.access_token!,
+                pageSize: 100,
+                pageNumber: 1,
+                status: null,
+                document: document,
+                orderCode: null,
+                site: null,
+                date: null,
+            }
+            const response = await Orders({...data});
+            const newData = response.data.map((item, index)=>({...item, id: index + 1}))
+            setTableData(newData);
+        } catch (error) {
+            console.error("Error fetching Table Data:", error);
+        } 
+        finally {
+            setLoading(false)
         }
+    }
+
+    const handleDownload = async () => {
+        try {
+            const data = {
+                token: appStore.auth?.access_token!,
+                pageSize: 100,
+                pageNumber: 1,
+                status: null,
+                document: null,
+                orderCode: null,
+                site: null,
+                date: null,
+            }
+            const response = await ExportCsv({...data});
+            // downloadFile(response.data.url, response.data.name)
         } catch (error) {
             console.error("Error fetching Table Data:", error);
         }
-    }
+    } 
     //INIT
     useEffect(() => {
-        if(!tableData && !appStore.auth?.admin){fetchTableData(appStore.auth?.document!)}
+        if(!tableData && !appStore.auth?.admin!){
+            fetchTableData(appStore.auth?.document!)
+        }
     }, [tableData]);
 
     useEffect(() => {
@@ -53,12 +82,12 @@ export const useTableOrdersAdmin = () => {
     }, [searchOrderAtom]);
     
     return {
-        setSiteFilter,
-        siteFilter,
+        handleDownload,
         setStateFilter,
         stateFilter,
         setDateFilter,
         dateFilter,
-        filteredRows
+        filteredRows,
+        loading
     }
 }

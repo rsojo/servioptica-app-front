@@ -1,7 +1,8 @@
+import { OrderData } from "../../../api/Orders/type";
 import { BASE_COLORS } from "../../../style/constants";
 import { ColumnAtom, RowAtom, TextAtom } from "../../atoms";
 
-export const TopOrderTracking = () => {
+export const TopOrderTracking = ({data}:{data: OrderData | null}) => {
   return (
     <RowAtom gap={4} style={{ width: "100%" }} alignItems="center">
       <ColumnAtom style={{ flex: "none" }}>
@@ -23,13 +24,13 @@ export const TopOrderTracking = () => {
         </TextAtom>
       </ColumnAtom>
       <ColumnAtom style={{ flex: "none" }}>
-        <TextAtom style={{ color: BASE_COLORS.blue }}>110</TextAtom>
+        <TextAtom style={{ color: BASE_COLORS.blue }}>{data?.id_cliente ?? '---'}</TextAtom>
       </ColumnAtom>
       <ColumnAtom style={{ flex: "none" }}>
-        <TextAtom style={{ color: BASE_COLORS.blue }}>1013138654</TextAtom>
+        <TextAtom style={{ color: BASE_COLORS.blue }}>{data?.id_pedido ?? '---'}</TextAtom>
       </ColumnAtom>
       <ColumnAtom style={{ flex: "none" }}>
-        <TextAtom style={{ color: BASE_COLORS.blue }}>Óptica Txt 01.</TextAtom>
+        <TextAtom style={{ color: BASE_COLORS.blue }}>{data?.cliente ?? '---'}.</TextAtom>
       </ColumnAtom>
       <ColumnAtom style={{ flex: "none" }}>
         <TextAtom

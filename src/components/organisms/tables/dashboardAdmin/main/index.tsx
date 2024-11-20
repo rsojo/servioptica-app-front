@@ -6,8 +6,9 @@ import { FiltersTable } from "./filters";
 import { DataGrid } from "@mui/x-data-grid";
 import { localeText } from "../../../../atoms/table/libs";
 import columns from "./libs/columns";
-import { useState } from "react";
 import { useTableOrdersAdmin } from "./hooks/useTableOrdersAdmin";
+import { useNavigate } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 
 export interface RowTableData {
   id: number;
@@ -17,28 +18,37 @@ export interface RowTableData {
   state: string;
   date: string;
 }
-const rows = [
-  {
-    id: 1,
-    order: 1013138654,
-    site: "Óptica Txt 01",
-    lot: "10135-79840",
-    state: "En proceso",
-    date: "2024-09-01",
-  },
-];
+
 const paginationModel = { page: 0, pageSize: 10 };
 
 export const TableMainAdmin = () => {
+  const navetgate = useNavigate();
   const { 
-    setSiteFilter,
-    siteFilter,
+    loading,
+    handleDownload,
     setStateFilter,
     stateFilter,
     setDateFilter,
     dateFilter,
     filteredRows
   } = useTableOrdersAdmin();
+
+  if (loading) {
+    return (
+      <GridAtom
+        style={{ minHeight: 320, width: "100%" }}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <CircularProgress />
+      </GridAtom>
+    );
+  }
+  
+  if(!filteredRows) {
+    return<></>
+  }
+
 
   return (
     <GridAtom style={{ width: "100%" }}>
@@ -75,25 +85,24 @@ export const TableMainAdmin = () => {
           </ColumnAtom>
           <ColumnAtom flex={12}>
             <FiltersTable
-              siteFilter={siteFilter}
-              setSiteFilter={setSiteFilter}
               stateFilter={stateFilter}
               setStateFilter={setStateFilter}
               dateFilter={dateFilter}
               setDateFilter={setDateFilter}
+              onDownloadAction={()=>handleDownload()}
             />
           </ColumnAtom>
         </RowAtom>
         <DataGrid
           localeText={localeText}
           style={{ width: "100%" }}
-          rows={filteredRows}
+          rows={filteredRows ?? undefined}
           columns={columns}
           initialState={{ pagination: { paginationModel } }}
           pageSizeOptions={[10, 20, 50, 100]}
           checkboxSelection={false}
           rowSelection={false}
-          onRowClick={(params) => console.log(params)}
+          onRowClick={(params) => navetgate(`/order-tracking/${params.row.id_pedido}`)}
           getRowClassName={(params) =>
             params.indexRelativeToCurrentPage % 2 === 0 ? "alternate-row" : ""
           }

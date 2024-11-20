@@ -37,7 +37,7 @@ const Login: React.FC = () => {
                 access_token: response.data.access_token,
                 rol: response.data.admin ? "admin" : "user",
                 admin: response.data.admin,
-                document: value.documen,
+                document: value.document,
               },
               user: null,
             });

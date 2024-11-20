@@ -22,7 +22,7 @@ export const useLayout = () => {
     isDashboard: location.pathname === "/dashboard",
     isDashboardAdmin: location.pathname === "/dashboard-admin",
     isDashboardPromo: location.pathname === "/dashboard-promo",
-    isOrderTracking: location.pathname === "/order-tracking",
+    isOrderTracking: location.pathname.includes("/order-tracking"),
     isSearchOrderTracking: location.pathname === "/search-order-tracking",
   };
 

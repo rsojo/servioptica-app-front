@@ -14,7 +14,6 @@ import { CircularProgress } from "@mui/material";
 import { useAtom } from "jotai";
 import { appStoreAtom } from "../../store/Auth";
 import { Navigate } from "react-router-dom";
-import { TablePromotions } from "../organisms/tables/dashboardAdmin/promotions";
 import { TableMainAdmin } from "../organisms/tables/dashboardAdmin/main";
 
 const Dashboard: React.FC = () => {
