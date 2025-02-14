@@ -32,6 +32,7 @@ export interface FieldsStructure {
   textError: string;
   minlength: number;
   maxlength: number;
+  description?: string;
 }
 
 export interface GroupFields {

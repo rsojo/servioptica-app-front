@@ -93,7 +93,7 @@ export default function DataTable() {
         pageSizeOptions={[10, 20, 50, 100]}
         checkboxSelection={false}
         rowSelection={false}
-        onRowClick={(params) => console.log(params)}
+        onRowClick={() => {}}
         getRowClassName={(params) =>
           params.indexRelativeToCurrentPage % 2 === 0 ? "alternate-row" : ""
         }

@@ -1,46 +1,94 @@
-# Getting Started with Create React App
+# ServiOptica Frontend Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este proyecto es una aplicación frontend desarrollada en React, diseñada para gestionar distintas funcionalidades administrativas y de usuario final. Utiliza tecnologías modernas como Material UI (MUI), React Router, Jotai para manejo de estado, y una arquitectura modular para garantizar escalabilidad y mantenibilidad.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📁 Estructura del Proyecto
 
-### `npm start`
+### **Carpetas principales**
+1. **`src/`**: Contiene todo el código fuente de la aplicación.
+   - **`api/`**: Contiene servicios y funciones para interactuar con la API backend. Cada funcionalidad está organizada en subcarpetas:
+     - **`Auth/`**: Gestión de autenticación.
+     - **`Faq/`**: Funciones relacionadas con preguntas frecuentes.
+     - **`Promotions/`**: Gestión de promociones.
+     - **`Users/`**: Operaciones relacionadas con usuarios (CRUD).
+   - **`assets/`**: Recursos estáticos como imágenes, fuentes y estilos globales.
+   - **`components/`**: Componentes React reutilizables organizados en:
+     - **`atoms/`**: Componentes más pequeños y básicos (botones, inputs, etc.).
+     - **`layout/`**: Componentes responsables del diseño general como cabeceras, pies de página y estructuras de páginas.
+     - **`molecules/`**: Componentes más complejos que combinan múltiples átomos.
+     - **`organisms/`**: Bloques funcionales que combinan moléculas y átomos.
+     - **`pages/`**: Componentes para las páginas principales de la aplicación (Dashboard, Login, FAQ, etc.).
+   - **`context/`**: Manejo de estado global con React Context. Ejemplo:
+     - **`MessageContext.tsx`**: Proporciona una capa para mostrar mensajes globales (snackbars, alertas, etc.).
+   - **`hooks/`**: Hooks personalizados para encapsular lógica reutilizable.
+   - **`router/`**: Configuración de rutas de la aplicación usando React Router.
+   - **`scripts/`**: Scripts de automatización para flujos de desarrollo (gestión de ramas y actualizaciones).
+   - **`store/`**: Configuración de estado global usando Jotai.
+   - **`style/`**: Estilos globales o específicos de componentes.
+   - **`utils/`**: Funciones utilitarias reutilizables en toda la aplicación.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### **Archivos clave**
+- **`App.tsx`**: Punto de entrada principal de la aplicación donde se configura el `Router` y los proveedores globales.
+- **`index.tsx`**: Renderiza la aplicación en el DOM.
+- **`react-app-env.d.ts`**: Archivo de soporte para el tipado de TypeScript.
+- **`reportWebVitals.ts`**: Para medir métricas de rendimiento de la aplicación.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+---
 
-### `npm test`
+## ⚙️ Tecnologías utilizadas
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### **Frameworks y librerías principales**
+- **React**: Para la creación de interfaces de usuario.
+- **React Router**: Gestión de navegación.
+- **Jotai**: Manejo de estado global.
+- **Material UI (MUI)**: Sistema de diseño y componentes estilizados.
 
-### `npm run build`
+### **Herramientas para desarrollo**
+- **TypeScript**: Para tipado estático y mayor seguridad en el desarrollo.
+- **Styled Components**: Para estilos CSS en JavaScript.
+- **Swiper**: Para carruseles interactivos.
+- **Testing Library**: Para pruebas unitarias y funcionales.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🚀 Scripts disponibles
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+En el archivo `package.json`, se incluyen los siguientes scripts para facilitar el desarrollo:
 
-### `npm run eject`
+- **`start`**: Inicia la aplicación en modo desarrollo en el puerto 8000.
+- **`build`**: Genera una versión optimizada para producción.
+- **`test`**: Ejecuta las pruebas configuradas.
+- **`eject`**: Extrae la configuración de React Scripts para personalización avanzada.
+- **Scripts personalizados**:
+  - **`update-master`**: Actualiza la rama master desde dev.
+  - **`start-branch`**: Crea una nueva rama desde dev.
+  - **`end-branch`**: Realiza un merge de la rama actual a dev y la elimina.
+  - **`update-branch`**: Actualiza la rama actual desde dev.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+---
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🌐 Arquitectura de la aplicación
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. **Modularidad**: 
+   - Cada funcionalidad está aislada en su propio módulo dentro de la carpeta `api/`.
+   - Los componentes están organizados jerárquicamente para promover la reutilización y el diseño limpio.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+2. **Estado global**: 
+   - **Jotai** se utiliza en la carpeta `store/` para manejar estados clave como autenticación.
+   - Contextos como `MessageContext` permiten manejar funcionalidades globales específicas (mensajes, alertas).
 
-## Learn More
+3. **UI y Estilo**:
+   - MUI proporciona una base visual consistente, con personalización adicional usando `@emotion`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+4. **Rutas**:
+   - Definidas en `src/router/`, se soportan rutas públicas, privadas y específicas para admins.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
+
+## 🛠️ Desarrollo continuo
+
+El flujo de desarrollo incluye scripts automatizados para manejo de ramas y actualizaciones (`scripts/`). Esto permite a los desarrolladores mantener sincronizadas las ramas `dev` y `master` y trabajar en ramas de características específicas sin conflictos.
+
+---

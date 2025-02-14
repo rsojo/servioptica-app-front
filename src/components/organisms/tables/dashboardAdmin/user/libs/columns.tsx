@@ -24,11 +24,26 @@ const columns = (handleEdit: (id: number) => void, handleDelete: (id: number) =>
       field: "document",
       headerName: "NIT",
       minWidth: 120,
+    },{
+      ...generalColumnProps,
+      field: "email",
+      headerName: "Correo",
+      minWidth: 120,
+    },
+    {
+      ...generalColumnProps,
+      field: "created_at",
+      headerName: "Fecha de publicación",
+      minWidth: 120,
+      valueGetter: (value, row) =>
+        `${String(row.date).split("-")[2]}/${String(row.date).split("-")[1]}/${
+          String(row.date).split("-")[0]
+        }`,
     },
     {
       ...generalColumnProps,
       field: "date",
-      headerName: "Fecha de publicación",
+      headerName: "Última fecha de ingreso",
       minWidth: 120,
       valueGetter: (value, row) =>
         `${String(row.date).split("-")[2]}/${String(row.date).split("-")[1]}/${

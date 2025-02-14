@@ -127,7 +127,7 @@ export const SearchHeader = () => {
                 disabled={!searchValue}
                 onClick={() => {
                   navetgate(`/order-tracking/${searchValue}`);
-                  console.log("Buscar 2");
+                  // console.log("Buscar 2");
                 }}
                 style={{ minWidth: 173 }}
               >

@@ -46,9 +46,9 @@ export const TableUserAdmin = () => {
   } = useTableUsersAdmin();
 
   const filteredRows = usersData?.filter((row) => {
+    //console.log({usersData});
     const matchesDate = dateFilter ? row.date === dateFilter : true;
     const matchesState = stateFilter ? String(row.status).includes(stateFilter) : true;
-    console.log(String(row.status), stateFilter, String(row.status).includes(stateFilter))
 
     return matchesDate && matchesState;
   });
@@ -123,7 +123,7 @@ export const TableUserAdmin = () => {
               pageSizeOptions={[10, 20, 50, 100]}
               checkboxSelection={false}
               rowSelection={false}
-              onRowClick={(params) => console.log(params.row)}
+              onRowClick={() => {}}
               getRowClassName={(params) =>
                 params.indexRelativeToCurrentPage % 2 === 0
                   ? "alternate-row"

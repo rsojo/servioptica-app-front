@@ -25,25 +25,39 @@ export async function Orders(props: OrderRequest): Promise<OrdersResponse> {
   }
 }
 
-export async function ExportCsv(props: OrderRequest): Promise<OrdersResponse> {
+export async function ExportCsv(props: OrderRequest): Promise<void> {
   const url = `${devUrl}/api/orders/exportCsv`;
-  console.log("[ExportCsv] [PREV]", props, url);
+  // console.log("[ExportCsv] [PREV]", props, url);
 
   try {
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
+        Accept: "application/csv",
         Authorization: `Bearer ${props.token}`,
       },
-      body: JSON.stringify({ ...props })
+      body: JSON.stringify({ ...props }),
     });
-    const responseData: OrdersResponse = await response.json();
-    console.log("[ExportCsv] [responseData]", responseData);
-    return responseData;
+
+    if (!response.ok) {
+      throw new Error(`Error en la respuesta del servidor: ${response.status}`);
+    }
+
+    const blob = await response.blob();
+
+    const urlBlob = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = urlBlob;
+    a.download = "exported_orders.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+   //  console.log("[ExportCsv] Archivo descargado correctamente.");
   } catch (error: any) {
     console.error("[ExportCsv] [Error]", error);
     throw error; // Lanza el error para manejo externo si es necesario
   }
 }
+

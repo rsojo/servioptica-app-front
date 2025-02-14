@@ -68,7 +68,7 @@ export const useTableUsersAdmin = () => {
         password: String(data?.password),
         status: Number(data?.status),
       };
-      console.log("handleAddUsersData", { ...setDataEdit });
+      // console.log("handleAddUsersData", { ...setDataEdit });
       const response = await updateUsersAdmin({
         token: appStore.auth?.access_token!,
         id: editData.id,
@@ -124,14 +124,14 @@ export const useTableUsersAdmin = () => {
         newValue: rowData?.email ?? "",
       },
     ];
-    console.log("[handleEdit] defaultData", defaultData);
+    // console.log("[handleEdit] defaultData", defaultData);
 
     setEditData({ data: defaultData, id: rowData?.id! });
     setView("form");
   };
 
   const handleDelete = async (id: number) => {
-    console.log("handleDelete", id);
+    // console.log("handleDelete", id);
     handleClickOpenDialog();
     setIdDelete(id);
   };

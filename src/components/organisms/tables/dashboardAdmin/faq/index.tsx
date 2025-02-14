@@ -119,7 +119,7 @@ export const TableFaqAdmin = () => {
               pageSizeOptions={[10, 20, 50, 100]}
               checkboxSelection={false}
               rowSelection={false}
-              onRowClick={(params) => console.log(params.row)}
+              onRowClick={() => {}}
               getRowClassName={(params) =>
                 params.indexRelativeToCurrentPage % 2 === 0
                   ? "alternate-row"

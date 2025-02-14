@@ -118,7 +118,7 @@ export const useTableFaqAdmin = () => {
   };
 
   const handleDelete = async (id: number) => {
-    console.log("handleDelete", id);
+    // console.log("handleDelete", id);
     handleClickOpenDialog();
     setIdDelete(id);
   };

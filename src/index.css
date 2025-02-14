@@ -53,3 +53,8 @@ span {
   padding: 1px 0;
   margin: 0;
 }
+.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-regular.MuiTablePagination-toolbar, .MuiTablePagination-root {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+}

@@ -17,10 +17,9 @@ interface AppStoreAtom {
   user: UserData | null;
 }
 
-const EXPIRATION_TIME = 30 * 60 * 1000; // 30 minutos en milisegundos
+const EXPIRATION_TIME = 30 * 60 * 1000; // 30m
 const STORAGE_KEY = "appStoreAtom";
 
-// Función para obtener el estado del almacenamiento local
 const getStoredAppState = (): AppStoreAtom => {
   const storedState = localStorage.getItem(STORAGE_KEY);
   if (!storedState) return { auth: null, user: null };
@@ -28,7 +27,6 @@ const getStoredAppState = (): AppStoreAtom => {
   const parsedState = JSON.parse(storedState);
   const { timestamp, state } = parsedState;
 
-  // Comprobar si la data ha expirado
   const now = new Date().getTime();
   if (now - timestamp > EXPIRATION_TIME) {
     localStorage.removeItem(STORAGE_KEY);
@@ -38,7 +36,6 @@ const getStoredAppState = (): AppStoreAtom => {
   return state;
 };
 
-// Función para guardar el estado en el almacenamiento local con marca de tiempo
 const storeAppState = (state: AppStoreAtom) => {
   const timestamp = new Date().getTime();
   localStorage.setItem(
@@ -47,7 +44,6 @@ const storeAppState = (state: AppStoreAtom) => {
   );
 };
 
-// Creación del átomo con estado inicial desde localStorage
 export const appStoreAtom = atom<AppStoreAtom>(getStoredAppState());
 
 export const persistAppStoreAtom = atom(

@@ -52,6 +52,7 @@ export const useTableOrdersAdmin = () => {
 
     const handleDownload = async () => {
         try {
+            setLoading(true)
             const data = {
                 token: appStore.auth?.access_token!,
                 pageSize: 100,
@@ -62,10 +63,12 @@ export const useTableOrdersAdmin = () => {
                 site: null,
                 date: null,
             }
-            const response = await ExportCsv({...data});
+            await ExportCsv(data);
             // downloadFile(response.data.url, response.data.name)
         } catch (error) {
             console.error("Error fetching Table Data:", error);
+        } finally {
+            setLoading(false)
         }
     } 
     //INIT

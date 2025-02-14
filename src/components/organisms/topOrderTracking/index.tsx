@@ -1,8 +1,11 @@
+import { useAtom } from "jotai";
 import { OrderData } from "../../../api/Orders/type";
 import { BASE_COLORS } from "../../../style/constants";
 import { ColumnAtom, RowAtom, TextAtom } from "../../atoms";
+import { appStoreAtom } from "../../../store/Auth";
 
 export const TopOrderTracking = ({data}:{data: OrderData | null}) => {
+  const [appStore] = useAtom(appStoreAtom);
   return (
     <RowAtom gap={4} style={{ width: "100%" }} alignItems="center">
       <ColumnAtom style={{ flex: "none" }}>
@@ -23,12 +26,12 @@ export const TopOrderTracking = ({data}:{data: OrderData | null}) => {
           Pedido
         </TextAtom>
       </ColumnAtom>
-      <ColumnAtom style={{ flex: "none" }}>
+      {appStore.auth?.access_token && <ColumnAtom style={{ flex: "none" }}>
         <TextAtom style={{ color: BASE_COLORS.blue }}>{data?.id_cliente ?? '---'}</TextAtom>
-      </ColumnAtom>
-      <ColumnAtom style={{ flex: "none" }}>
+      </ColumnAtom>}
+      {appStore.auth?.access_token &&<ColumnAtom style={{ flex: "none" }}>
         <TextAtom style={{ color: BASE_COLORS.blue }}>{data?.id_pedido ?? '---'}</TextAtom>
-      </ColumnAtom>
+      </ColumnAtom>}
       <ColumnAtom style={{ flex: "none" }}>
         <TextAtom style={{ color: BASE_COLORS.blue }}>{data?.cliente ?? '---'}.</TextAtom>
       </ColumnAtom>

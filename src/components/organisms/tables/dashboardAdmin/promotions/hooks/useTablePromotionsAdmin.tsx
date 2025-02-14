@@ -69,7 +69,7 @@ export const useTablePromotionsAdmin = () => {
       start_date: data?.start_date as string,
       img: await fileToBase64(data?.image as File),
     };
-    console.log( 'handleAddPromotionsData',{...setData})
+    // console.log( 'handleAddPromotionsData',{...setData})
     
     setLoading(true);
     if (!!editData) {
@@ -135,14 +135,14 @@ export const useTablePromotionsAdmin = () => {
         newValue: rowData?.end_date ?? "",
       },
     ];
-    console.log("[handleEdit] defaultData", defaultData);
+    // console.log("[handleEdit] defaultData", defaultData);
 
     setEditData({ data: defaultData, id: rowData?.id! });
     setView("form");
   };
 
   const handleDelete = async (id: number) => {
-    console.log("handleDelete", id);
+    // console.log("handleDelete", id);
     handleClickOpenDialog();
     setIdDelete(id);
   };

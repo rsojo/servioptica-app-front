@@ -23,10 +23,6 @@ export async function loginUser(data: LoginRequest): Promise<LoginResponse> {
       body: JSON.stringify(data),
     });
 
-    // if (!response.ok) {
-    //   throw new Error(`Error ${response.status}: ${response.statusText}`);
-    // }
-
     const responseData: LoginResponse = await response.json();
     //console.log("[loginUser] [responseData]", responseData);
 
@@ -79,10 +75,6 @@ export async function register(
       body: JSON.stringify(data),
       // redirect: "manual",
     });
-
-    // if (!response.ok) {
-    //   throw new Error(`Error ${response.status}: ${response.statusText}`);
-    // }
     
     const responseData: RegisterResponse = await response.json();
     //console.log("[register] [responseData]", responseData);

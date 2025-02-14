@@ -84,6 +84,7 @@
         "default": "",
         "placeholder": "Adjuntar Imágen",
         "textError": "Este campo requerido",
+        "description": "Tamaño recomendado 600px de ancho X 300px de alto, \n peso máximo 2mb, formatos permitidos: jpg, jpeg, png",
         "minlength": 3,
         "maxlength": 1060
       }

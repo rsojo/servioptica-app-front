@@ -16,6 +16,7 @@ import InputCheckBoxAtom from "../../../atoms/inputCheckbox";
 import SelectAtom from "../../../atoms/select";
 import { BASE_COLORS } from "../../../../style/constants";
 import InputFileAtom from "../../../atoms/inputFile";
+import { TextAtom } from "../../../atoms";
 
 const sizeWidth = (columnSize: number): string => {
   const percentage = (columnSize / 12) * 100;
@@ -54,6 +55,7 @@ const FieldConstructor = ({
         </LabelAtom>
       )}
       {children}
+      {field.description && <TextAtom>{field.description}</TextAtom>}
     </GridAtom>
   );
 };

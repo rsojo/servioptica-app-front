@@ -22,7 +22,7 @@ export const OtpCodeLightBox = ({
 
 
   const handleReSendOtp = () => {
-    console.log('[OtpCodeLightBox, handleReSendOtp]')
+    // console.log('[OtpCodeLightBox, handleReSendOtp]')
     sendOtp({ email: email })
       .then(
         (otpr) => successSnackMessage(String(otpr.message))
