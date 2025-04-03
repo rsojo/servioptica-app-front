@@ -130,6 +130,7 @@ export const DashHeaderAdmin = () => {
                 <MenuItem
                   onClick={() => {
                     setAppStore({ auth: null, user: null });
+                    localStorage.removeItem('appStoreAtom');
                     handleClose();
                   }}
                 >

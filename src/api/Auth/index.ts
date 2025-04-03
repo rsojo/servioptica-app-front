@@ -7,11 +7,11 @@ import {
   RegisterResponse,
 } from "./type";
 
-const devUrl = "http://127.0.0.1:8000";
+const devUrl = "https://apitrazabilidadco.essilorluxottica.com";
 
 export async function loginUser(data: LoginRequest): Promise<LoginResponse> {
   const url = `${devUrl}/api/auth/login`;
-  //console.log("[loginUser] [PREV˝]", data, url);
+  // console.log("[loginUser] [PREV˝]", data, url);
 
   try {
     const response = await fetch(url, {
@@ -24,10 +24,11 @@ export async function loginUser(data: LoginRequest): Promise<LoginResponse> {
     });
 
     const responseData: LoginResponse = await response.json();
-    //console.log("[loginUser] [responseData]", responseData);
+    // console.log("[loginUser] [responseData]", responseData);
 
     return responseData;
   } catch (error: any) {
+    // console.log("[loginUser] [error]", error);
     return error as LoginResponse;
   }
 }

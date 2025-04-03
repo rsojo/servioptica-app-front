@@ -53,7 +53,8 @@ const Dashboard: React.FC = () => {
     }
   }, [loading]);
   
-  const [appStore] = useAtom(appStoreAtom);
+  const [appStore] = useAtom(appStoreAtom); 
+
   if (!appStore.auth?.access_token) {
     return <Navigate to="/login" replace />;
   }

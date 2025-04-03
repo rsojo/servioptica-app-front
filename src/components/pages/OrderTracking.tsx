@@ -19,7 +19,7 @@ const OrderTracking: React.FC = () => {
 
   const isFetchingRef = useRef(false);
 
-  useEffect(()=>{fetchTableData(idPedido!)}, [idPedido])
+  // useEffect(()=>{fetchTableData(idPedido!)}, [idPedido])
 
   useEffect(() => {
     if (data) {
@@ -60,11 +60,11 @@ const OrderTracking: React.FC = () => {
     }
 }
 
-useEffect(() => {
-  if (!data && idPedido && !isFetchingRef.current) {
-    fetchTableData(idPedido);
-  }
-}, [idPedido, data]);
+  // useEffect(() => {
+    // if (!data && idPedido && !isFetchingRef.current) {
+      // fetchTableData(idPedido);
+    // }
+  // }, [idPedido, data]);
 
 useEffect(() => {
   setData(null); // Reiniciar datos

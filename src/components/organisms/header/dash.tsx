@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   ButtonAtom,
   ColumnAtom,
@@ -21,9 +21,11 @@ import { appStoreAtom } from "../../../store/Auth";
 import { useAtom } from "jotai";
 
 export const DashHeader = () => {
+    const {id: idPedido} = useParams()
+  
   const [appStore, setAppStore] = useAtom(appStoreAtom);
   const navetgate = useNavigate();
-  const [searchValue, setSearchValue] = useState<string | null>(null);
+  const [searchValue, setSearchValue] = useState<string | null>(idPedido || null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -125,6 +127,7 @@ export const DashHeader = () => {
                 <MenuItem
                   onClick={() => {
                     setAppStore({ auth: null, user: null });
+                    localStorage.removeItem('appStoreAtom');
                     handleClose();
                   }}
                 >
@@ -159,6 +162,7 @@ export const DashHeader = () => {
             <ColumnAtom flex={10}>
               <InputTextAtom
                 field={{ id: "search_orders", placeholder: "Nº de Pedido" }}
+                defaultValue={idPedido}
                 onChangeCallback={(value) => {
                   setSearchValue(value as string);
                 }}
@@ -168,7 +172,11 @@ export const DashHeader = () => {
               <ButtonAtom
                 disabled={!searchValue}
                 onClick={() => {
-                  navetgate(`/order-tracking/${searchValue}`);
+                  if(idPedido === searchValue) {
+                    window.location.replace(`/order-tracking/${searchValue}`);
+                  }else{
+                  navetgate(`/order-tracking/${searchValue}`);}
+
                 }}
                 style={{ minWidth: 173 }}
               >

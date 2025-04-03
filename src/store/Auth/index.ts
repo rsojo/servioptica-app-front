@@ -17,7 +17,7 @@ interface AppStoreAtom {
   user: UserData | null;
 }
 
-const EXPIRATION_TIME = 30 * 60 * 1000; // 30m
+const EXPIRATION_TIME = 60 * 60 * 1000; // 60m
 const STORAGE_KEY = "appStoreAtom";
 
 const getStoredAppState = (): AppStoreAtom => {

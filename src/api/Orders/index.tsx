@@ -1,10 +1,10 @@
 import { OrderRequest, OrdersResponse } from "./type";
 
-const devUrl = "http://127.0.0.1:8000";
+const devUrl = "https://apitrazabilidadco.essilorluxottica.com";
 
 export async function Orders(props: OrderRequest): Promise<OrdersResponse> {
   const url = `${devUrl}/api/orders`;
-  //console.log("[Orders] [PREV]", props, url);
+  console.log("[Orders] [PREV]", props, url); // TODO: Eliminar console.log en producción
 
   try {
     const response = await fetch(url, {
@@ -17,7 +17,7 @@ export async function Orders(props: OrderRequest): Promise<OrdersResponse> {
       body: JSON.stringify({ ...props })
     });
     const responseData: OrdersResponse = await response.json();
-    //console.log("[Orders] [responseData]", responseData);
+    console.log("[Orders] [responseData]", responseData); // TODO: Eliminar console.log en producción
     return responseData;
   } catch (error: any) {
     console.error("[Orders] [Error]", error);

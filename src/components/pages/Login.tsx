@@ -32,13 +32,15 @@ const Login: React.FC = () => {
             errorSnackMessage(response.message);
           }
           if (response.data?.access_token) {
+            const authData = {
+              access_token: response.data.access_token,
+              rol: response.data.admin ? "admin" : "user",
+              admin: response.data.admin,
+              document: value.document,
+            };
+            // console.log("[handleLogin] [authData]", authData);
             setAppStore({
-              auth: {
-                access_token: response.data.access_token,
-                rol: response.data.admin ? "admin" : "user",
-                admin: response.data.admin,
-                document: value.document,
-              },
+              auth: authData,
               user: null,
             });
             successSnackMessage(String(response.message));

@@ -4,7 +4,7 @@ import {
   UpdateUsersRequest,
 } from "./type";
 
-const devUrl = "http://127.0.0.1:8000";
+const devUrl = "https://apitrazabilidadco.essilorluxottica.com";
 
 export async function getUsersAdmin(
   token: string
