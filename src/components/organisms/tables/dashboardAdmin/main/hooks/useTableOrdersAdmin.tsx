@@ -17,12 +17,12 @@ export const useTableOrdersAdmin = () => {
     const uniqueData = tableData
     ? tableData.filter(
           (item, index, self) =>
-              self.findIndex((t) => t.id_pedido === item.id_pedido) === index
+              self.findIndex((t) => t.pedido === item.pedido) === index
       )
     : null;
     const filteredRows = uniqueData?.filter((row) => {
         const matchesState = stateFilter ? row.estado.includes(stateFilter) : true;
-        const matchesDate = dateFilter ? row.fecha_actualizacion.split('T')[0] === dateFilter : true;
+        const matchesDate = dateFilter ? row.fecha_modificacion.split('T')[0] === dateFilter : true;
         return matchesState && matchesDate;
     });
 

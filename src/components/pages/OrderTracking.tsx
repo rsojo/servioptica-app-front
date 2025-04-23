@@ -9,6 +9,7 @@ import { appStoreAtom } from "../../store/Auth";
 import { Orders } from "../../api/Orders";
 import { OrderData } from "../../api/Orders/type";
 import { CircularProgress } from "@mui/material";
+import { useMessage } from "../../hooks/useMessage";
 
 const OrderTracking: React.FC = () => {
   const {id: idPedido} = useParams()
@@ -16,14 +17,14 @@ const OrderTracking: React.FC = () => {
   const [data, setData] = useState<OrderData[] | null>(null);
   const [currentData, setCurrentData] = useState<OrderData | null>(null);
   const [loading, setLoading] = useState(false)
-
+  const {errorSnackMessage} = useMessage() 
   const isFetchingRef = useRef(false);
 
   // useEffect(()=>{fetchTableData(idPedido!)}, [idPedido])
 
   useEffect(() => {
     if (data) {
-      const priorities = ['5', '4', '3', '2', '1'];
+      const priorities = ['9','8','7','6','5', '4', '3', '2', '1'];
       const currentData = priorities
         .map(priority => data.find(item => item.seq_no === priority))
         .find(item => item !== undefined);
@@ -51,6 +52,9 @@ const OrderTracking: React.FC = () => {
             date: null,
         }
         const response = await Orders({...data});
+        if(response.data.length === 0) {
+          errorSnackMessage("¡Número de orden inválido!")
+          return};
         const newData = response.data.map((item, index)=>({...item, id: index + 1}))
         setData(newData);
     } catch (error) {
@@ -59,12 +63,6 @@ const OrderTracking: React.FC = () => {
       setLoading(false)
     }
 }
-
-  // useEffect(() => {
-    // if (!data && idPedido && !isFetchingRef.current) {
-      // fetchTableData(idPedido);
-    // }
-  // }, [idPedido, data]);
 
 useEffect(() => {
   setData(null); // Reiniciar datos

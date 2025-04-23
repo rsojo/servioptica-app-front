@@ -172,10 +172,16 @@ export const DashHeader = () => {
               <ButtonAtom
                 disabled={!searchValue}
                 onClick={() => {
+                  console.log('onClick', 
+                    searchValue,
+                    idPedido,
+                    idPedido === searchValue
+                  )
                   if(idPedido === searchValue) {
                     window.location.replace(`/order-tracking/${searchValue}`);
                   }else{
-                  navetgate(`/order-tracking/${searchValue}`);}
+                    navetgate(`/order-tracking/${searchValue}`);
+                  }
 
                 }}
                 style={{ minWidth: 173 }}

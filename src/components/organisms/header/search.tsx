@@ -14,10 +14,22 @@ import PersonIcon from "@mui/icons-material/Person";
 import { ButtonAtom, InputTextAtom, SpaceAtom, TitleAtom } from "../../atoms";
 import { BASE_COLORS } from "../../../style/constants";
 import { useState } from "react";
+import { useOrderTracking } from "../../../hooks/useOrderTracking";
 
 export const SearchHeader = () => {
   const navetgate = useNavigate();
   const [searchValue, setSearchValue] = useState<string | null>(null);
+  const {loading, fetchTableData} = useOrderTracking()
+
+  const handleSearch = async () => {  
+    if (searchValue) {
+      const data = await fetchTableData(searchValue);
+      if (data) {
+        navetgate(`/order-tracking/${searchValue}`);
+      }
+    }
+  }
+
 
   return (
     <header style={{ position: "relative", display: "flex" }}>
@@ -116,7 +128,7 @@ export const SearchHeader = () => {
           >
             <ColumnAtom flex={10}>
               <InputTextAtom
-                field={{ id: "search_orders", placeholder: "Nº de Pedido 2" }}
+                field={{ id: "search_orders", placeholder: "Nº de Pedido" }}
                 onChangeCallback={(value) => {
                   setSearchValue(value as string);
                 }}
@@ -124,11 +136,9 @@ export const SearchHeader = () => {
             </ColumnAtom>
             <ColumnAtom style={{ flex: "none" }}>
               <ButtonAtom
-                disabled={!searchValue}
-                onClick={() => {
-                  navetgate(`/order-tracking/${searchValue}`);
-                  // console.log("Buscar 2");
-                }}
+                loading={loading}
+                disabled={!searchValue || loading}
+                onClick={handleSearch}
                 style={{ minWidth: 173 }}
               >
                 Buscar

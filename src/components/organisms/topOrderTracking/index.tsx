@@ -27,26 +27,26 @@ export const TopOrderTracking = ({data}:{data: OrderData | null}) => {
         </TextAtom>
       </ColumnAtom>
       {appStore.auth?.access_token && <ColumnAtom style={{ flex: "none" }}>
-        <TextAtom style={{ color: BASE_COLORS.blue }}>{data?.id_cliente ?? '---'}</TextAtom>
+        <TextAtom style={{ color: BASE_COLORS.blue }}>{data?.id_cliente_contacto ?? '---'}</TextAtom>
       </ColumnAtom>}
       {appStore.auth?.access_token &&<ColumnAtom style={{ flex: "none" }}>
-        <TextAtom style={{ color: BASE_COLORS.blue }}>{data?.id_pedido ?? '---'}</TextAtom>
+        <TextAtom style={{ color: BASE_COLORS.blue }}>{data?.pedido ?? '---'}</TextAtom>
       </ColumnAtom>}
       <ColumnAtom style={{ flex: "none" }}>
-        <TextAtom style={{ color: BASE_COLORS.blue }}>{data?.cliente ?? '---'}.</TextAtom>
+        <TextAtom style={{ color: BASE_COLORS.blue }}>{data?.cliente_contacto ?? '---'}.</TextAtom>
       </ColumnAtom>
       <ColumnAtom style={{ flex: "none" }}>
         <TextAtom
           style={{ color: BASE_COLORS.blue, textDecoration: "underline" }}
         >
-          En proceso
+          {data?.estado ?? '---'}
         </TextAtom>
       </ColumnAtom>
       <ColumnAtom style={{ flex: "none" }}>
         <TextAtom
           style={{ color: BASE_COLORS.blue, textDecoration: "underline" }}
         >
-          02/09/2024
+           {data?.fecha_estimada ? data?.fecha_estimada.split(' ')[0] : '---'}
         </TextAtom>
       </ColumnAtom>
     </RowAtom>

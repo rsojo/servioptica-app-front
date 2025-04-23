@@ -3,7 +3,7 @@ export interface OrdersResponse {
   error: boolean;
   message: string;
 }
-
+/*
 export interface OrderData {
   id?:number;
   seq_no: string;
@@ -21,6 +21,29 @@ export interface OrderData {
   cliente_contacto: string | null;
   UsuarioNombres: string;
 };
+*/
+export interface OrderData {
+  id?: number;
+  document_no: string;
+  seq_no: string;
+  seq_no_original: string;
+  fecha_entrada: string;
+  pedido: string;
+  pedido_cliente: string;
+  lote_num_laboratorio: string | null;
+  estado: string;
+  fecha_estado: string;
+  fecha_estimada: string;
+  fecha_recalculo: string | null;
+  fecha_modificacion: string;
+  id_cliente_contacto: string;
+  razon_social: string;
+  nit: string;
+  cliente_contacto: string | null;
+  escenario: string;
+}
+
+
 
 
 export interface OrderRequest {

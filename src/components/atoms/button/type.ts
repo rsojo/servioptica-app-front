@@ -15,6 +15,7 @@ export type BtnColor =
 export type ButtonAtomProps = {
   focus?: boolean;
   endIcon?: any;
+  loading?: boolean;
   size?: BtnSize;
   startIcon?: any;
   color?: BtnColor;

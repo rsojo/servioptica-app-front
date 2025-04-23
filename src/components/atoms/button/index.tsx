@@ -1,4 +1,5 @@
-import { Button } from "@mui/material";
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 import { ReactElement } from "react";
 import "./style.css";
 import { ButtonAtomProps } from "./type";
@@ -14,6 +15,7 @@ export const ButtonAtom = ({
   endIcon,
   disabled,
   children,
+  loading,
   adVariant,
   className,
   startIcon,
@@ -28,7 +30,7 @@ export const ButtonAtom = ({
       aria-describedby={ariaDescribedby}
       type={type ?? "button"}
       onClick={onClick}
-      disabled={disabled ?? false}
+      disabled={disabled || loading}
       className={`
         generalBtn 
         ${color ? color + "_color" : ""} 
@@ -37,11 +39,14 @@ export const ButtonAtom = ({
         ${size ? "btn_" + size : ""}
         ${className ?? ""}
         ${focus ? "focus" : ''}
-        `}
+      `}
       variant={variant ?? "contained"}
       style={{ ...style }}
     >
-      {children}
+      <span style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+        {loading && <CircularProgress color="inherit" size={18} />}
+        {children}
+      </span>
     </Button>
   );
 };

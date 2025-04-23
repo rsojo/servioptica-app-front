@@ -72,8 +72,9 @@ export const useTableFaqAdmin = () => {
       const response = await updateFaqAdmin({
         token: appStore.auth?.access_token!,
         id: editData.id,
-        question: data?.description as string,
-        answer: data?.title as string,
+        question: data?.title as string,
+        answer: data?.description as string,
+        state: data?.state as string,
       });
       if (response) {
         await fetchFaqsData();
@@ -106,6 +107,11 @@ export const useTableFaqAdmin = () => {
         groupName: "faq",
         fieldName: "title",
         newValue: rowData?.question ?? "",
+      },
+      {
+        groupName: "faq",
+        fieldName: "state",
+        newValue: rowData?.state ?? "",
       },
       {
         groupName: "faq",

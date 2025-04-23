@@ -36,6 +36,7 @@ export const DashHeaderAdmin = () => {
   };
 
   const handleSearchOreder = () => {
+    console.log("searchValue", searchValue);
     setSearchOrderAtom((prev)=>({...prev, document: searchValue}))
   }
 

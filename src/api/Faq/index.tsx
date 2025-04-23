@@ -80,10 +80,11 @@ export async function updateFaqAdmin(props: {
   id: number;
   question: string;
   answer: string;
+  state: string;
 }): Promise<any> {
-  const { token, id, question, answer } = props;
+  const { token, id, question, answer, state } = props;
   const url = `${devUrl}/api/faqs/${id}`;
-  // console.log("[updateFaqAdmin] [PREV]", { id, question, answer });
+  console.log("[updateFaqAdmin] [PREV]", { id, question, answer, state });
 
   try {
     const response = await fetch(url, {

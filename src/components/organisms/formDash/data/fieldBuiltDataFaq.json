@@ -15,10 +15,30 @@
         "placeholder": "",
         "textError": "Este campo requerido",
         "minlength": 3,
-        "maxlength": 60
+        "maxlength": 160
       },
       {
         "id": 2,
+        "label": "Estado:",
+        "name": "state",
+        "type": "select",
+        "columnSize": 12,
+        "important": true,
+        "options": [
+          {
+            "option": "Active",
+            "value": "Active"
+          },
+          {
+            "option": "Inactive",
+            "value": "Inactive"
+          }
+        ],
+        "placeholder": "",
+        "textError": "Este campo requerido"
+      },
+      {
+        "id": 3,
         "label": "Descripción:",
         "name": "description",
         "type": "textarea",
