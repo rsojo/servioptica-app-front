@@ -86,13 +86,15 @@ const PreLogin: React.FC = () => {
   const handleCheckClient = (value: { document: string }) => {
     checkClient({ document: value.document })
       .then((response) => {
-        if (response.error) {
+        console.log("response", response);
+        if (response.error || response.code === 500) {
           errorSnackMessage(response.message);
+          return
         }
         successSnackMessage(String(response.message));
         setCheckClientData(response);
 
-        if (response.code === 302) navetgate("/login");
+        if (response.code === 302) {navetgate("/login"); return;};
 
         if (response.code === 202) {
           const data = response.data as CheckClientData[];
@@ -103,12 +105,14 @@ const PreLogin: React.FC = () => {
             }));
             setSede(preData as OptionsSelectAtomIt[]);
             setStep(2);
+            return;
           } else if (data.length === 1) {
             setEmail(data[0].email);
             sendOtp({ email: data[0].email }).then((otpr) =>
               successSnackMessage(String(otpr.message))
             );
             setStep(3);
+            return
           }
         }
         if (response.code === 208) {
@@ -119,10 +123,11 @@ const PreLogin: React.FC = () => {
               successSnackMessage(String(otpr.message))
             );
             setStep(3);
-          }
+          } else
           if (data[0].status === "Active") {
             navetgate("/login");
           }
+          return
         }
       })
       .catch((error) => {

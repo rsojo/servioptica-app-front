@@ -42,7 +42,7 @@ export const useTablePromotionsAdmin = () => {
 
   const fetchPromotionsData = async () => {
     try {
-      if (appStore.auth?.access_token) {
+      if (!appStore.auth?.access_token) {return null}
         setLoading(true);
         const response = await getPromotionsAdmin(appStore.auth?.access_token);
         const formatingData = response.data.map((item) => ({
@@ -50,9 +50,12 @@ export const useTablePromotionsAdmin = () => {
           date: item.updated_at.split("T")[0], //"2024-10-16T18:13:59.000000Z"
         }));
         setPromotionsData(formatingData);
-      }
+
+        return formatingData
+      
     } catch (error) {
       console.error("Error fetching Promotions:", error);
+      return error
     } finally {
       setLoading(false);
       setView("table");
@@ -69,7 +72,7 @@ export const useTablePromotionsAdmin = () => {
       start_date: data?.start_date as string,
       img: await fileToBase64(data?.image as File),
     };
-    // console.log( 'handleAddPromotionsData',{...setData})
+
     
     setLoading(true);
     if (!!editData) {
@@ -79,10 +82,14 @@ export const useTablePromotionsAdmin = () => {
         id: editData.id,
         ...setData,
       });
+      console.log( '[handleAddPromotionsData] [response]',{response})
+
       if (response) {
         await fetchPromotionsData();
         setEditData(null);
       }
+      setLoading(false)
+      return
     } else {
       // CREATE
       const response = await addPromotionsAdmin({
@@ -92,6 +99,8 @@ export const useTablePromotionsAdmin = () => {
       if (!response.error) {
         await fetchPromotionsData();
       }
+      setLoading(false)
+      return
     }
   };
 

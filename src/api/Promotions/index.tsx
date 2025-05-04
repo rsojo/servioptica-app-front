@@ -73,7 +73,7 @@ export async function updatePromotionsAdmin(props: Partial<AddPromotionsRequest>
   id: number;
 }): Promise<any> {
   const url = `${devUrl}/api/promotions/${props.id}`;
- // console.log("[updatePromotionsAdmin] [PREV]", props);
+  console.log("[updatePromotionsAdmin] [PREV]", props);
 
   try {
     const response = await fetch(url, {
@@ -85,11 +85,15 @@ export async function updatePromotionsAdmin(props: Partial<AddPromotionsRequest>
       },
       body: JSON.stringify({...props}),
     });
-   // console.log("[updatePromotionsAdmin] [response]", response);
-    if (response.status !== 200) {
-      return false;
+    console.log("[updatePromotionsAdmin] [response]", response);
+    if (response.status === 422) {
+      console.error("[updatePromotionsAdmin] [error]", response);
+      return response;
     }
-    return true;
+    if (response.status !== 200) {
+      return response;
+    }
+    return response;
   } catch (error: any) {
     console.error("[updatePromotionsAdmin] [error]", error);
     return error;
