@@ -1,6 +1,7 @@
 import { AddPromotionsRequest, GetPromotionsActivesResponse } from "./type";
 
-const devUrl = "http://127.0.0.1:8000";
+//const devUrl = "http://127.0.0.1:8000";
+const devUrl = process.env.REACT_APP_BASE_URL
 
 export async function getPromotionsActives(): Promise<GetPromotionsActivesResponse> {
   const url = `${devUrl}/api/promotions/getActives`;

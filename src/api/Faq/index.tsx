@@ -1,6 +1,7 @@
 import { GetFaqActivesResponse } from "./type";
 
-const devUrl = "https://apitrazabilidadco.essilorluxottica.com";
+//const devUrl = "https://apitrazabilidadco.essilorluxottica.com";
+const devUrl = process.env.REACT_APP_BASE_URL
 
 export async function getFaqActives(): Promise<GetFaqActivesResponse> {
   const url = `${devUrl}/api/faqs/getActives`;
@@ -82,9 +83,10 @@ export async function updateFaqAdmin(props: {
   answer: string;
   state: string;
 }): Promise<any> {
-  const { token, id, question, answer, state } = props;
+  const { token, id, state, ...data } = props;
+  const newData = { ...data, status: state === "Active" ? 1 : 0 }
   const url = `${devUrl}/api/faqs/${id}`;
-  console.log("[updateFaqAdmin] [PREV]", { id, question, answer, state });
+  console.log("[updateFaqAdmin] [PREV]", newData);
 
   try {
     const response = await fetch(url, {
@@ -94,7 +96,7 @@ export async function updateFaqAdmin(props: {
         Accept: "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ ...props }),
+      body: JSON.stringify(newData),
     });
     // console.log("[updateFaqAdmin] [response]", await response.json());
     if (response.status !== 200) {

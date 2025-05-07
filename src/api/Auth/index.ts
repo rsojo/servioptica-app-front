@@ -7,9 +7,11 @@ import {
   RegisterResponse,
 } from "./type";
 
-const devUrl = "http://127.0.0.1:8000";
+//const devUrl = "https://apitrazabilidadco.essilorluxottica.com";
+const devUrl = process.env.REACT_APP_BASE_URL
 
 export async function loginUser(data: LoginRequest): Promise<LoginResponse> {
+  console.log('[process.env.REACT_APP_BASE_URL]', process.env.REACT_APP_BASE_URL)
   const url = `${devUrl}/api/auth/login`;
    console.log("[loginUser] [PREV˝]", data, url);
 

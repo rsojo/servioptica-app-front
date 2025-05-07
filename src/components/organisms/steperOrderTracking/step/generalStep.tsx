@@ -5,7 +5,7 @@ import { ColumnAtom, GridAtom, TextAtom, TitleAtom } from "../../../atoms";
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 
 export const GeneralStep = ({ data }: { data: OrderData }) => {
-  const active = !!data
+  const active = data.estado.length > 0;
   useEffect(() => {console.log('[data]', data)}, [data]);
   return (
     <ColumnAtom className="StepOrder_Box" alignItems="center" gap={2}>
@@ -13,7 +13,7 @@ export const GeneralStep = ({ data }: { data: OrderData }) => {
         className="StepOrder"
         style={{
           background: active ? BASE_COLORS.blue : "#DEDEDE",
-          color: active ? "#fff" : BASE_COLORS.blue,
+          color: active ? "#fff" : BASE_COLORS.gray,
         }}
       >
         <CheckRoundedIcon sx={{width: 48, height: 48}} />

@@ -55,6 +55,7 @@ export const FaqForm = ({
           }
           onGoBackCallBack={goBack}
           onCallBack={(value) => {
+            // console.log("value", value);
             onCallBack(value);
           }}
         />

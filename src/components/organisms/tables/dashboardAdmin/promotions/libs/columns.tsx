@@ -21,12 +21,6 @@ const columns = (handleEdit: (id: number) => void, handleDelete: (id: number) =>
     },
     {
       ...generalColumnProps,
-      field: "state",
-      headerName: "Estado",
-      minWidth: 120,
-    },
-    {
-      ...generalColumnProps,
       field: "date",
       headerName: "Fecha de publicación",
       minWidth: 120,
