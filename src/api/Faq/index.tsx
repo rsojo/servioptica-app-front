@@ -13,7 +13,7 @@ export async function getFaqActives(): Promise<GetFaqActivesResponse> {
       },
     });
     const responseData: GetFaqActivesResponse = await response.json();
-    console.log("[getFaqActives] [responseData]", responseData);
+    // console.log("[getFaqActives] [responseData]", responseData);
     return responseData;
   } catch (error: any) {
     return error;
@@ -34,7 +34,7 @@ export async function getFaqAdmin(
       },
     });
     const responseData: GetFaqActivesResponse = await response.json();
-    console.log("[getFaqAdmin] [responseData]", responseData);
+    // console.log("[getFaqAdmin] [responseData]", responseData);
     return responseData;
   } catch (error: any) {
     console.error("[getFaqAdmin] [error]", error);
@@ -52,7 +52,7 @@ export async function addFaqAdmin({
   answer: string;
 }): Promise<GetFaqActivesResponse> {
   const url = `${devUrl}/api/faqs`;
-  console.log("[addFaqAdmin] [PREV]", { question, answer });
+  // console.log("[addFaqAdmin] [PREV]", { question, answer });
 
   try {
     const response = await fetch(url, {
@@ -66,7 +66,7 @@ export async function addFaqAdmin({
     });
 
     const responseData: GetFaqActivesResponse = await response.json();
-    console.log("[addFaqAdmin] [responseData]", responseData);
+    // console.log("[addFaqAdmin] [responseData]", responseData);
 
     return responseData;
   } catch (error: any) {
@@ -96,7 +96,7 @@ export async function updateFaqAdmin(props: {
       },
       body: JSON.stringify({ ...props }),
     });
-     console.log("[updateFaqAdmin] [response]", await response.json());
+    // console.log("[updateFaqAdmin] [response]", await response.json());
     if (response.status !== 200) {
       return false;
     }
@@ -115,7 +115,7 @@ export async function removeFaqAdmin({
   id: number;
 }): Promise<any> {
   const url = `${devUrl}/api/faqs/${id}`;
-  console.log("[removeFaqAdmin] [PREV]", id);
+  // console.log("[removeFaqAdmin] [PREV]", id);
 
   try {
     const response = await fetch(url, {
@@ -127,7 +127,7 @@ export async function removeFaqAdmin({
       },
       body: JSON.stringify({ id: id }),
     });
-    console.log("[removeFaqAdmin] [response]", response);
+    // console.log("[removeFaqAdmin] [response]", response);
     if (response.status !== 204) {
       return false;
     }

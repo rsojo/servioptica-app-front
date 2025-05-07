@@ -1,6 +1,6 @@
 import { OrderRequest, OrdersResponse } from "./type";
 
-const devUrl = "https://apitrazabilidadco.essilorluxottica.com";
+const devUrl = "http://127.0.0.1:8000";
 
 export async function Orders(props: OrderRequest): Promise<OrdersResponse> {
   const url = `${devUrl}/api/orders`;
