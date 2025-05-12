@@ -91,7 +91,7 @@ export const SearchHeader = () => {
               gap={2}
               style={{ width: 280, justifyContent: "center" }}
             >
-              <GridAtom
+              {/*<GridAtom
                 p={1}
                 style={{
                   backgroundColor: "#fff",
@@ -100,7 +100,7 @@ export const SearchHeader = () => {
                 }}
               >
                 <PersonIcon style={{ color: BASE_COLORS.blue }} />
-              </GridAtom>
+              </GridAtom>*/}
             </RowAtom>
           </ColumnAtom>
         </RowAtom>

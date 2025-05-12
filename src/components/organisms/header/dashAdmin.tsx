@@ -20,8 +20,10 @@ import { Button, Menu, MenuItem } from "@mui/material";
 import { appStoreAtom } from "../../../store/Auth";
 import { useAtom } from "jotai";
 import { searchOrder } from "../../../store/searchOrder";
+import { hideSearchAtom } from "../../../store/searchOrder/hideSearchAtom";
 
 export const DashHeaderAdmin = () => {
+  const [hideSearch] = useAtom(hideSearchAtom);
   const [, setSearchOrderAtom] = useAtom(searchOrder)
   const [, setAppStore] = useAtom(appStoreAtom);
   const navetgate = useNavigate();
@@ -142,7 +144,7 @@ export const DashHeaderAdmin = () => {
           </ColumnAtom>
         </RowAtom>
         <SpaceAtom v={48} />
-        <GridAtom
+        {!hideSearch && <GridAtom
           style={{ width: "100%", marginBottom: -50 }}
           alignItems="center"
           gap={4}
@@ -183,7 +185,7 @@ export const DashHeaderAdmin = () => {
               </ButtonAtom>
             </ColumnAtom>
           </RowAtom>
-        </GridAtom>
+        </GridAtom>}
       </ContainerAtom>
     </header>
   );

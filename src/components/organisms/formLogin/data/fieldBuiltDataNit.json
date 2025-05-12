@@ -11,7 +11,7 @@
         "columnSize": 12,
         "important": true,
         "options": null,
-        "default": "73101196",
+        "default": "",
         "placeholder": "Nit",
         "textError": "Campo requerido",
         "minlength": 3,

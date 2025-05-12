@@ -43,7 +43,7 @@ export const ButtonAtom = ({
       variant={variant ?? "contained"}
       style={{ ...style }}
     >
-      <span style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+      <span style={{ display: "flex", alignItems: "center", justifyContent: 'center', gap: "0.5rem" }}>
         {loading && <CircularProgress color="inherit" size={18} />}
         {children}
       </span>

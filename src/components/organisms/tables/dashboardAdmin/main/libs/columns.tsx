@@ -11,7 +11,7 @@ const columns: GridColDef[] = [
   },
   {
     ...generalColumnProps,
-    field: "id_pedido",
+    field: "pedido",
     headerName: "Pedido Nº",
     minWidth: 120,
   },
@@ -23,7 +23,7 @@ const columns: GridColDef[] = [
   },
   {
     ...generalColumnProps,
-    field: "lote",
+    field: "lote_num_laboratorio",
     headerName: "Lote",
     minWidth: 120,
   },

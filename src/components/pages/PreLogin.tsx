@@ -14,8 +14,12 @@ import {
 } from "../../api/Auth";
 import { OptionsSelectAtomIt } from "../atoms";
 import { CheckClientData, CheckClientResponse } from "../../api/Auth/type";
+import { useAtom } from "jotai";
+import { persistAppStoreAtom } from "../../store/Auth";
 
 const PreLogin: React.FC = () => {
+  const [, setAppStore] = useAtom(persistAppStoreAtom);
+
   const [step, setStep] = useState(1);
   const [nit, setNit] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -28,7 +32,9 @@ const PreLogin: React.FC = () => {
   const { errorSnackMessage, successSnackMessage } = useMessage();
 
   const handleLogin = (value: any) => {
-
+    setAppStore({
+      auth: null,
+      user: null,})
     if (value && step === 1) {
       // Form tipo A (NIT)
       setNit(value.document);
