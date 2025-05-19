@@ -2,8 +2,16 @@
 import React from "react";
 import ContainerAtom from "../atoms/container";
 import { BannerHome } from "../organisms/bannerHome";
+import { useAtom } from "jotai";
+import { appStoreAtom } from "../../store/Auth";
+import { Navigate } from "react-router-dom";
 
 const Home: React.FC = () => {
+  const [appStore] = useAtom(appStoreAtom);
+
+  if (appStore && appStore.auth) {
+    return <Navigate to="/dashboard" replace />;
+  }
   /*
   const messageContext = useContext(MessageContext);
 

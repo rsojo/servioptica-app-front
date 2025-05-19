@@ -67,7 +67,6 @@ export const DashHeader = () => {
             gap={2}
             style={{ minWidth: 300 }}
           >
-            <Link to={"/"}>
               <img
                 style={{ objectFit: "contain" }}
                 src={LogoServioptica}
@@ -75,7 +74,6 @@ export const DashHeader = () => {
                 width={215}
                 height={91}
               />
-            </Link>
             <TextAtom
               type="small"
               style={{

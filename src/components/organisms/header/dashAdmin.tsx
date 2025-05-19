@@ -73,7 +73,6 @@ export const DashHeaderAdmin = () => {
             justifyContent="center"
             gap={2}
           >
-            <Link to={"/"}>
               <img
                 style={{ objectFit: "contain" }}
                 src={LogoServioptica}
@@ -81,7 +80,6 @@ export const DashHeaderAdmin = () => {
                 width={215}
                 height={91}
               />
-            </Link>
             <TextAtom
               type="small"
               style={{

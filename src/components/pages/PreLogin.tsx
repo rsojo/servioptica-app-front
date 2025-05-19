@@ -16,6 +16,7 @@ import { OptionsSelectAtomIt } from "../atoms";
 import { CheckClientData, CheckClientResponse } from "../../api/Auth/type";
 import { useAtom } from "jotai";
 import { persistAppStoreAtom } from "../../store/Auth";
+import { LoginForm } from "../organisms/formLogin/main";
 
 const PreLogin: React.FC = () => {
   const [, setAppStore] = useAtom(persistAppStoreAtom);
@@ -100,7 +101,10 @@ const PreLogin: React.FC = () => {
         successSnackMessage(String(response.message));
         setCheckClientData(response);
 
-        if (response.code === 302) {navetgate("/login"); return;};
+        if (response.code === 302) {
+            setStep(4); 
+            return;
+          };
 
         if (response.code === 202) {
           const data = response.data as CheckClientData[];
@@ -157,6 +161,23 @@ const PreLogin: React.FC = () => {
         errorSnackMessage(String(error.message));
       });
   };
+
+  if(step === 4) {
+    return (
+    <ContainerAtom
+      style={{
+        position: "relative",
+        overflow: "hidden",
+        minHeight: 500,
+        height: "calc(100vh - 260px)",
+      }}
+    >    
+      <LoginForm document={nit}  onCallBack={handleLogin} step={step} setStep={setStep} /> 
+    </ContainerAtom>
+    )
+  }
+  
+
 
   return (
     <ContainerAtom

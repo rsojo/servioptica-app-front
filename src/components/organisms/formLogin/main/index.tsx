@@ -5,6 +5,7 @@ import { FormModule } from "../../../molecules/form";
 import BkLogin from "../../../../assets/img/bkLogin.webp";
 import { BASE_COLORS } from "../../../../style/constants";
 import fieldBuiltDataOpt from "../data/fieldBuiltDataOpt.json";
+import fieldBuiltDataOptAdmin from "../data/fieldBuiltDataOptAdmin.json";
 import { PreDataType } from "../../../molecules/form/type";
 import fieldBuiltDataNewPassw from "../data/fieldBuiltDataNewPassw.json";
 import fieldBuiltDataGetEmail from "../data/fieldBuiltDataGetEmail.json";
@@ -16,10 +17,14 @@ export const LoginForm = ({
   step,
   onCallBack,
   setStep,
+  isAdmin = false,
+  document
 }: {
   step: number;
   onCallBack: (value: PreDataType) => void;
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  isAdmin?: boolean;
+  document?: string;
 }) => {
   const [email, setEmail] = useState<string | null>(null)
   return (
@@ -61,14 +66,16 @@ export const LoginForm = ({
               fontWeight: 600,
             }}
           >
-            Inicio de sesión ópticas
+            Inicio de sesión {isAdmin?"administrador":"ópticas"}
           </TextAtom>
           <SpaceAtom v={8} />
           {step === 1 && (
             <GridAtom style={{ width: "100%" }} alignItems="center" gap={4}>
               <FormModule
                 actionBtnLabel="Entrar"
-                groupsFields={fieldBuiltDataOpt}
+                groupsFields={isAdmin ? fieldBuiltDataOptAdmin : fieldBuiltDataOpt.map(i=>{
+                  return {...i, fields: i.fields.map(item => item.name === 'document' ? {...item, default: document} : item)}
+                })}
                 onCallBack={(value) => {
                   onCallBack(value);
                 }}

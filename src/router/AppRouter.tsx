@@ -11,6 +11,7 @@ import HomeAdmin from "../components/pages/HomeAdmin";
 import DashboardPromo from "../components/pages/DashboardPromo";
 import { Faq } from "../components/pages/faq";
 import PreLogin from "../components/pages/PreLogin";
+import LoginAdmin from "../components/pages/Login_admin";
 
 const AppRouter: React.FC = () => {
   return (
@@ -20,7 +21,9 @@ const AppRouter: React.FC = () => {
           <Route index element={<Home />} />
           <Route path="/home-admin" element={<HomeAdmin />} />
           <Route path="/pre-login" element={<PreLogin />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login />} />          
+          <Route path="/login_admin" element={<LoginAdmin />} />
+
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard-promo" element={<DashboardPromo />} />
           <Route path="/dashboard-admin" element={<DashboardAdmin />} />

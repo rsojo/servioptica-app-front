@@ -116,7 +116,7 @@ const Login: React.FC = () => {
         height: "calc(100vh - 260px)",
       }}
     >
-      <LoginForm onCallBack={handleLogin} step={step} setStep={setStep} />
+      <LoginForm  onCallBack={handleLogin} step={step} setStep={setStep} />
     </ContainerAtom>
   );
 };
