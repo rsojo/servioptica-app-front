@@ -4,11 +4,14 @@ import { ColumnAtom, ContainerAtom, GridAtom, SpaceAtom } from "../atoms";
 import { SwiperAtom } from "../atoms/swiper";
 import { getPromotionsActives } from "../../api/Promotions";
 import { CircularProgress } from "@mui/material";
+import { Link } from "react-router-dom";
+import { url } from "inspector";
 
 const SearchOrderTracking: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [promotionsData, setPromotionsData] = useState<Array<{
     img: string;
+    url: string;
   }> | null>(null);
 
   const hasFetchedPromotions = useRef(false);
@@ -20,6 +23,7 @@ const SearchOrderTracking: React.FC = () => {
         const response = await getPromotionsActives();
         const formatingData = response.data.map((item) => ({
           img: item.img,
+          url: item.link,
         }));
         setPromotionsData(formatingData);
       }
@@ -42,11 +46,13 @@ const SearchOrderTracking: React.FC = () => {
     return promotionsData.map((item, index) => {
       return (
         <ColumnAtom key={index + 1} style={{ width: "100%", minHeight: 200 }} gap={4}>
+          <Link target="_blank" to={item.url}>
           <img
             src={item.img}
             alt="Test Img"
             style={{ objectFit: "contain", width: "100%" }}
-          />
+            />
+            </Link>
         </ColumnAtom>
       );
     });

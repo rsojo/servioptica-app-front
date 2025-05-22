@@ -6,12 +6,13 @@ import BkLogin from "../../../../assets/img/bkLogin.webp";
 import { BASE_COLORS } from "../../../../style/constants";
 import fieldBuiltDataOpt from "../data/fieldBuiltDataOpt.json";
 import fieldBuiltDataOptAdmin from "../data/fieldBuiltDataOptAdmin.json";
+import fieldBuiltDataLoginPassword from "../data/fieldBuiltDataLoginPassword.json";
 import { PreDataType } from "../../../molecules/form/type";
 import fieldBuiltDataNewPassw from "../data/fieldBuiltDataNewPassw.json";
 import fieldBuiltDataGetEmail from "../data/fieldBuiltDataGetEmail.json";
 import { ButtonAtom } from "../../../atoms";
 import { OtpCodeLightBox } from "../otp";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 export const LoginForm = ({
   step,
@@ -27,6 +28,26 @@ export const LoginForm = ({
   document?: string;
 }) => {
   const [email, setEmail] = useState<string | null>(null)
+
+  const handleBuildData = useMemo(() => {
+    if (isAdmin) {
+      return fieldBuiltDataOptAdmin;
+    } else {
+      if(document) {
+        console.log("[handleBuildData] [document]", document)
+        return fieldBuiltDataLoginPassword
+      }
+      return fieldBuiltDataOpt.map((i) => {
+        return {
+          ...i,
+          fields: i.fields.map((item) =>
+            item.name === "document" ? { ...item, default: document } : item
+          ),
+        };
+      });
+    }
+  }, [document, isAdmin]);
+  
   return (
     <>
       <GridAtom
@@ -72,10 +93,10 @@ export const LoginForm = ({
           {step === 1 && (
             <GridAtom style={{ width: "100%" }} alignItems="center" gap={4}>
               <FormModule
+                key={document}
+                document={document}
                 actionBtnLabel="Entrar"
-                groupsFields={isAdmin ? fieldBuiltDataOptAdmin : fieldBuiltDataOpt.map(i=>{
-                  return {...i, fields: i.fields.map(item => item.name === 'document' ? {...item, default: document} : item)}
-                })}
+                groupsFields={handleBuildData}
                 onCallBack={(value) => {
                   onCallBack(value);
                 }}

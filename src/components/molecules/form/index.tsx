@@ -20,6 +20,7 @@ export const FormModule = ({
   loading,
   error: externalError,
   variant,
+  document,
 }: FormModuleProps) => {
   const [preData, setPreData] = useState<PreDataType | null>(null);
   const [error, setError] = useState<ErrorFrormType[] | null>(

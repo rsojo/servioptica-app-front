@@ -14,7 +14,7 @@ export async function getPromotionsActives(): Promise<GetPromotionsActivesRespon
       },
     });
     const responseData: GetPromotionsActivesResponse = await response.json();
-   // console.log("[getPromotionsActives] [responseData]", responseData);
+   console.log("[getPromotionsActives] [responseData]", responseData);
     return responseData;
   } catch (error: any) {
     return error as any;

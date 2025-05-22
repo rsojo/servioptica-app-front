@@ -34,20 +34,6 @@ export const FiltersTable = ({
           justifyContent='flex-start'
         >
           <ColumnAtom flex={2} style={{ minWidth: 100, maxWidth: 160 }}>
-            <SelectAtom
-              id="state"
-              name="state"
-              variant="small"
-              options={[
-                { option: "En proceso", value: "En proceso" },
-                { option: "Finalizado", value: "Finalizado" },
-              ]}
-              placeholder={"Estado"}
-              defaultValue={stateFilter}
-              onChangeCallback={(value) => setStateFilter(value)}
-            />
-          </ColumnAtom>
-          <ColumnAtom flex={2} style={{ minWidth: 100, maxWidth: 160 }}>
             <InputTextAtom
               type="date"
               variant="small"

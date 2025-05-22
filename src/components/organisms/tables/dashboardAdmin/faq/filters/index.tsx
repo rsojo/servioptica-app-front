@@ -31,8 +31,8 @@ export const FiltersTable = ({
           name="state"
           variant="small"
           options={[
-            { option: "En proceso", value: "En proceso" },
-            { option: "Finalizado", value: "Finalizado" },
+            { option: "Inactive", value: "Inactive" },
+            { option: "Active", value: "Active" },
           ]}
           placeholder={"Estado"}
           defaultValue={stateFilter}

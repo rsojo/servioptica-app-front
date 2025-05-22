@@ -16,14 +16,13 @@ import { CircularProgress } from "@mui/material";
 
 export const Faq = () => {
   const [loading, setLoading] = useState(false);
-  const [cuttentActive, setCuttentActive] = useState(0);
+  const [currentActive, setCurrentActive] = useState<number | null>(null); // Inician todos cerrados
   const [faqsData, setFaqsData] = useState<Array<{
     id: string;
     header: JSX.Element;
     content: JSX.Element;
   }> | null>(null);
 
-  // Ref para controlar que solo se haga la petición una vez
   const hasFetchedFaqs = useRef(false);
 
   const fetchFaqsData = async () => {
@@ -105,35 +104,32 @@ export const Faq = () => {
         </Row>
         <GridAtom style={{ width: "100%", border: "1px solid #707070" }} />
       </GridAtom>
+
       {loading && (
-        <GridAtom p={5} style={{minHeight: 320}} justifyContent="center" alignItems="center">
+        <GridAtom p={5} style={{ minHeight: 320 }} justifyContent="center" alignItems="center">
           <CircularProgress />
         </GridAtom>
       )}
+
       {!!faqsData && (
         <GridAtom style={{ padding: "32px 64px" }}>
           {faqsData.map((item, index) => {
+            const isActive = index === currentActive;
             return (
               <AccordionAtom
-                key={index + 1}
+                key={item.id}
                 expandIcon={
-                  index === cuttentActive ? (
-                    <RemoveIcon
-                      style={{
-                        fill: BASE_COLORS.blue,
-                      }}
-                    />
+                  isActive ? (
+                    <RemoveIcon style={{ fill: BASE_COLORS.blue }} />
                   ) : (
-                    <AddIcon
-                      style={{
-                        fill: BASE_COLORS.blue,
-                      }}
-                    />
+                    <AddIcon style={{ fill: BASE_COLORS.blue }} />
                   )
                 }
-                initialExpanded={index === cuttentActive}
+                initialExpanded={isActive}
                 data={item}
-                onCallBack={() => setCuttentActive(index)}
+                onCallBack={() =>
+                  setCurrentActive((prev) => (prev === index ? null : index))
+                }
               />
             );
           })}

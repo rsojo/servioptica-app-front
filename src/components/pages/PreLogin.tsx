@@ -8,6 +8,7 @@ import { useMessage } from "../../hooks/useMessage";
 import {
   assignPassword,
   checkClient,
+  loginUser,
   register,
   sendOtp,
   verifyOtp,
@@ -35,9 +36,12 @@ const PreLogin: React.FC = () => {
   const handleLogin = (value: any) => {
     setAppStore({
       auth: null,
-      user: null,})
+      user: null,
+    })
+
     if (value && step === 1) {
       // Form tipo A (NIT)
+      console.log('[document]',document)
       setNit(value.document);
       handleCheckClient(value);
     }
@@ -66,12 +70,42 @@ const PreLogin: React.FC = () => {
           }
           if (!response.error) {
             successSnackMessage(String(response.message));
-            navetgate("/login");
+            //navetgate("/login");
+            setStep(5);
           }
         });
       } else {
         errorSnackMessage("Las contraseñas no coinciden");
       }
+    }
+    if (value && step === 5 && nit) {
+      // Form tipo E (LOGIN)
+      loginUser({ document: nit, password: value.password }).then(
+        (response) => {
+          if (response.error) {
+            errorSnackMessage(response.message);
+          }
+          if (response.data?.access_token) {
+            const authData = {
+              access_token: response.data.access_token,
+              rol: response.data.admin ? "admin" : "user",
+              admin: response.data.admin,
+              document :nit,
+            };
+            // console.log("[handleLogin] [authData]", authData);
+            setAppStore({
+              auth: authData,
+              user: null,
+            });
+            successSnackMessage(String(response.message));
+            if (response.data.admin) {
+              navetgate("/dashboard-admin");
+            } else {
+              navetgate("/dashboard");
+            }
+          }
+        }
+      );
     }
   };
 
@@ -93,7 +127,7 @@ const PreLogin: React.FC = () => {
   const handleCheckClient = (value: { document: string }) => {
     checkClient({ document: value.document })
       .then((response) => {
-        console.log("response", response);
+        console.log("[handleCheckClient] [response]", response);
         if (response.error || response.code === 500) {
           errorSnackMessage(response.message);
           return
@@ -102,7 +136,7 @@ const PreLogin: React.FC = () => {
         setCheckClientData(response);
 
         if (response.code === 302) {
-            setStep(4); 
+            setStep(5); 
             return;
           };
 
@@ -135,7 +169,8 @@ const PreLogin: React.FC = () => {
             setStep(3);
           } else
           if (data[0].status === "Active") {
-            navetgate("/login");
+            //navetgate("/login");
+            setStep(5);
           }
           return
         }
@@ -162,7 +197,7 @@ const PreLogin: React.FC = () => {
       });
   };
 
-  if(step === 4) {
+  if(step === 5 && nit) {
     return (
     <ContainerAtom
       style={{
@@ -172,12 +207,10 @@ const PreLogin: React.FC = () => {
         height: "calc(100vh - 260px)",
       }}
     >    
-      <LoginForm document={nit}  onCallBack={handleLogin} step={step} setStep={setStep} /> 
+      <LoginForm document={nit} onCallBack={handleLogin} step={1} setStep={setStep} /> 
     </ContainerAtom>
     )
   }
-  
-
 
   return (
     <ContainerAtom
