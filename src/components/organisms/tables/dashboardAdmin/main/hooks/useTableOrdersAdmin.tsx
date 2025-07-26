@@ -5,6 +5,7 @@ import { useAtom } from "jotai";
 import { searchOrder } from "../../../../../../store/searchOrder";
 import { OrderData } from "../../../../../../api/Orders/type";
 import { downloadFile } from "../../../../../../utils";
+import { useDownloadCSV } from "./useDownloadCSV";
 
 export const useTableOrdersAdmin = () => {
     const [appStore] = useAtom(appStoreAtom);
@@ -22,7 +23,7 @@ export const useTableOrdersAdmin = () => {
     : null;
     const filteredRows = uniqueData?.filter((row) => {
         const matchesState = stateFilter ? row.estado.includes(stateFilter) : true;
-        const matchesDate = dateFilter ? row.fecha_modificacion.split('T')[0] === dateFilter : true;
+        const matchesDate = dateFilter ? row.fecha_estado.split(' ')[0] === dateFilter : true;
         return matchesState && matchesDate;
     });
 
@@ -50,27 +51,28 @@ export const useTableOrdersAdmin = () => {
         }
     }
 
-    const handleDownload = async () => {
-        try {
-            setLoading(true)
-            const data = {
-                token: appStore.auth?.access_token!,
-                pageSize: 100,
-                pageNumber: 1,
-                status: null,
-                document: null,
-                orderCode: null,
-                site: null,
-                date: null,
-            }
-            await ExportCsv(data);
-            // downloadFile(response.data.url, response.data.name)
-        } catch (error) {
-            console.error("Error fetching Table Data:", error);
-        } finally {
-            setLoading(false)
+    const downloadCSV = useDownloadCSV();
+
+    const handleDownload = () => {
+        if (!filteredRows || filteredRows.length === 0) {
+            console.warn("No data available to download.");
+            return;
         }
-    } 
+        downloadCSV(
+        filteredRows,
+        ['id', 'pedido', 'nit', 'lote_num_laboratorio', 'estado', 'fecha_estado'],
+        {
+            id: 'Nº',
+            pedido: 'Pedido Nº',
+            nit: 'Sede',
+            lote_num_laboratorio: 'Lote',
+            estado: 'Estado',
+            fecha_estado: 'Fecha'
+        }
+        );
+    };
+
+
     //INIT
     useEffect(() => {
         if(!tableData && !appStore.auth?.admin!){

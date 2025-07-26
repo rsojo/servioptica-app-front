@@ -36,6 +36,7 @@ const Dashboard: React.FC = () => {
           img: item.img,
           title: item.title,
           description: item.description,
+          link: item.link,
         }));
         setPromotionsData(formatingData);
       }

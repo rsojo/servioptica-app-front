@@ -23,10 +23,12 @@ export const FiltersTable = ({
           name="state"
           variant='small'
           options={[
-            { option: "Inactive", value: "Inactive" },
-            { option: "Active", value: "Active" },
+            { option: "Productivo AGENCIA", value: "Pedido en proceso Productivo AGENCIA" },
+            { option: "Productivo LABORATORIO", value: "Pedido en proceso Productivo LABORATORIO" },
+            { option: "Envío a AGENCIA", value: "Pedido en proceso de envio DEL LABORATORIO a LA AGENCIA" },
+            { option: "Pedido Recibido", value: "Pedido Recibido" }
           ]}
-          placeholder={"Estado"}
+          placeholder={"Todos los estados"}
           defaultValue={stateFilter}
           onChangeCallback={(value) => setStateFilter(value)}
         />
@@ -37,7 +39,7 @@ export const FiltersTable = ({
           variant="small"
           field={{
             id: "date",
-            name: "date",
+            name: "fecha_estado",
             placeholder: "Fecha",
             default: dateFilter,
           }}

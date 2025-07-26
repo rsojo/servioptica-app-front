@@ -9,6 +9,7 @@ import columns from "./libs/columns";
 import { useTableOrdersAdmin } from "./hooks/useTableOrdersAdmin";
 import { useNavigate } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
+import { useEffect } from "react";
 
 export interface RowTableData {
   id: number;
@@ -32,6 +33,8 @@ export const TableMainAdmin = () => {
     dateFilter,
     filteredRows
   } = useTableOrdersAdmin();
+
+  useEffect(() => {if(filteredRows){console.log("filteredRows", filteredRows)}}, [filteredRows, dateFilter]);
 
   if (loading) {
     return (
@@ -102,7 +105,7 @@ export const TableMainAdmin = () => {
           pageSizeOptions={[10, 20, 50, 100]}
           checkboxSelection={false}
           rowSelection={false}
-          onRowClick={(params) => navetgate(`/order-tracking/${params.row.id_pedido}`)}
+          onRowClick={(params) => {if(params.row.pedido_cliente?.startsWith("RX")){navetgate(`/order-tracking/${params.row.pedido_cliente}`)}else{alert("ID de pedido no válido")}}} // Verificar que el id_pedido es el correcto
           getRowClassName={(params) =>
             params.indexRelativeToCurrentPage % 2 === 0 ? "alternate-row" : ""
           }

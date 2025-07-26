@@ -34,7 +34,7 @@ export const FiltersTable = ({
             { option: "Inactive", value: "Inactive" },
             { option: "Active", value: "Active" },
           ]}
-          placeholder={"Estado"}
+          placeholder={"Todos los estados"}
           defaultValue={stateFilter}
           onChangeCallback={(value) => setStateFilter(value)}
         />

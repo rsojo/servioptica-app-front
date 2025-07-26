@@ -13,8 +13,6 @@ const columns: GridColDef[] = [
     ...generalColumnProps,
     field: "pedido",
     headerName: "Pedido Nº",
-    minWidth: 200,
-    maxWidth: 200,
   },
   {
     ...generalColumnProps,
@@ -32,13 +30,15 @@ const columns: GridColDef[] = [
     ...generalColumnProps,
     field: "estado",
     headerName: "Estado",
+    minWidth: 200,
+    maxWidth: 200,
   },
   {
     ...generalColumnProps,
-    field: "fecha_actualizacion",
+    field: "fecha_estado",
     headerName: "Fecha",
     valueGetter: (value, row) => {
-      const splitDate = String(value).split('T')[0].split('-')
+      const splitDate = String(value).split(' ')[0].split('-')
       return `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`},
   },
   // {
