@@ -9,7 +9,7 @@ import columns from "./libs/columns";
 import { useTableOrdersAdmin } from "./hooks/useTableOrdersAdmin";
 import { useNavigate } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export interface RowTableData {
   id: number;
@@ -23,6 +23,7 @@ export interface RowTableData {
 const paginationModel = { page: 0, pageSize: 10 };
 
 export const TableMainAdmin = () => {
+
   const navetgate = useNavigate();
   const { 
     loading,
@@ -101,11 +102,18 @@ export const TableMainAdmin = () => {
           style={{ width: "100%" }}
           rows={filteredRows ?? undefined}
           columns={columns}
+          columnVisibilityModel={{ id: false }}
           initialState={{ pagination: { paginationModel } }}
           pageSizeOptions={[10, 20, 50, 100]}
           checkboxSelection={false}
           rowSelection={false}
-          onRowClick={(params) => {if(params.row.pedido_cliente?.startsWith("RX")){navetgate(`/order-tracking/${params.row.pedido_cliente}`)}else{alert("ID de pedido no válido")}}} // Verificar que el id_pedido es el correcto
+          onRowClick={(params) => {
+            if(params.row.pedido_cliente?.startsWith("RX")){
+              navetgate(`/order-tracking/${params.row.pedido_cliente}`);
+            }else{
+              alert("ID de pedido no válido");
+            }
+          }} // Verificar que el id_pedido es el correcto
           getRowClassName={(params) =>
             params.indexRelativeToCurrentPage % 2 === 0 ? "alternate-row" : ""
           }

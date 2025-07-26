@@ -16,7 +16,7 @@ const columns: GridColDef[] = [
   },
   {
     ...generalColumnProps,
-    field: "nit",
+    field: "cliente_contacto",
     headerName: "Sede",
   },
   {
@@ -35,8 +35,10 @@ const columns: GridColDef[] = [
   },
   {
     ...generalColumnProps,
-    field: "fecha_estado",
-    headerName: "Fecha",
+    field: "fecha_entrada",
+    headerName: "Fecha de Entrada",
+    minWidth: 200,
+    maxWidth: 200,
     valueGetter: (value, row) => {
       const splitDate = String(value).split(' ')[0].split('-')
       return `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`},

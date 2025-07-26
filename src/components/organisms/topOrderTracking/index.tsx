@@ -3,6 +3,7 @@ import { OrderData } from "../../../api/Orders/type";
 import { BASE_COLORS } from "../../../style/constants";
 import { ColumnAtom, RowAtom, TextAtom } from "../../atoms";
 import { appStoreAtom } from "../../../store/Auth";
+import { uxDateFormat } from "../../../utils";
 
 export const TopOrderTracking = ({data}:{data: OrderData | null}) => {
   const [appStore] = useAtom(appStoreAtom);
@@ -46,7 +47,7 @@ export const TopOrderTracking = ({data}:{data: OrderData | null}) => {
         <TextAtom
           style={{ color: BASE_COLORS.blue, textDecoration: "underline" }}
         >
-           {data?.fecha_estimada ? data?.fecha_estimada.split(' ')[0] : '---'}
+           {data?.fecha_estimada ? uxDateFormat(data?.fecha_estimada.split(' ')[0]) : '---'}
         </TextAtom>
       </ColumnAtom>
     </RowAtom>

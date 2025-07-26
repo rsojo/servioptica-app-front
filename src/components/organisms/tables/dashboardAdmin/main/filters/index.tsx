@@ -1,3 +1,5 @@
+import { IconButton, InputAdornment } from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
 import { ButtonAtom, ColumnAtom, InputTextAtom, RowAtom, SelectAtom } from "../../../../../atoms";
 
 interface FiltersTableProps {
@@ -39,14 +41,24 @@ export const FiltersTable = ({
           variant="small"
           field={{
             id: "date",
-            name: "fecha_estado",
+            name: "fecha_entrada",
             placeholder: "Fecha",
             default: dateFilter,
           }}
+          defaultValue={dateFilter}
           onChangeCallback={(value) => {
             setDateFilter(String(value));
             
           }}
+          InputProps={{
+    endAdornment: dateFilter && (
+      <InputAdornment position="end">
+        <IconButton onClick={() => setDateFilter("")}>
+          <ClearIcon />
+        </IconButton>
+      </InputAdornment>
+    ),
+  }}
         />
       </ColumnAtom>
       <ColumnAtom flex={2} style={{ minWidth: 130, maxWidth: 200 }}>

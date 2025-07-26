@@ -52,7 +52,7 @@ const DashboardAdmin: React.FC = () => {
     >
       <SpaceAtom v={40} />
       <RowAtom
-        gap={10}
+        gap={4}
         style={{
           minHeight: 400,
           flexFlow: "wrap",
@@ -81,7 +81,8 @@ const DashboardAdmin: React.FC = () => {
               style={{
                 width: "100%",
                 fontWeight: 900,
-                fontSize: 18,
+                fontSize: 16,
+                padding: "12px 16px",
                 textAlign: "left",
                 justifyContent: "flex-start",
               }}

@@ -22,6 +22,8 @@ export type InputAtomProps = {
   multiline?: boolean;
   rows?: number;
   variant?: "main" | "ghost" | "small";
+  InputProps?: any;
+  InputLabelProps?: any;
 };
 export const InputTextAtom = ({
   field,
@@ -34,6 +36,8 @@ export const InputTextAtom = ({
   style,
   multiline,
   variant,
+  InputProps,
+  InputLabelProps,
 }: InputAtomProps): ReactElement => {
   const [error, setError] = useState(false);
   const [value, setValue] = useState(defaultValue ?? "");
@@ -90,6 +94,11 @@ export const InputTextAtom = ({
       value={value}
       disabled={disabled ?? false}
       placeholder={placeholder ?? ""}
+      InputProps={{
+        ...InputProps,
+        endAdornment: InputProps?.endAdornment,
+      }}
+      InputLabelProps={InputLabelProps}
     />
   );
 };

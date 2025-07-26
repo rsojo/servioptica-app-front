@@ -156,7 +156,7 @@ export const DashHeaderAdmin = () => {
               fontWeight: 900,
             }}
           >
-            Consulta de Pedido
+            Consulta de NIT
           </TitleAtom>
           <RowAtom
             alignItems="center"

@@ -3,6 +3,7 @@ import { OrderData } from "../../../../api/Orders/type";
 import { BASE_COLORS } from "../../../../style/constants";
 import { ColumnAtom, GridAtom, TextAtom, TitleAtom } from "../../../atoms";
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
+import { uxDateFormat } from "../../../../utils";
 
 export const GeneralStep = ({ data }: { data: OrderData }) => {
   const active = data.estado.length > 0;
@@ -39,7 +40,7 @@ export const GeneralStep = ({ data }: { data: OrderData }) => {
               width: "100%",
             }}
           >
-            {data?.fecha_estado.split(" ")[0] ?? '---'}
+            {uxDateFormat(data?.fecha_estado.split(" ")[0]) ?? '---'}
           </TextAtom>
         </GridAtom>
       </GridAtom>

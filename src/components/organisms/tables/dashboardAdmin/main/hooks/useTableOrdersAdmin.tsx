@@ -23,7 +23,10 @@ export const useTableOrdersAdmin = () => {
     : null;
     const filteredRows = uniqueData?.filter((row) => {
         const matchesState = stateFilter ? row.estado.includes(stateFilter) : true;
-        const matchesDate = dateFilter ? row.fecha_estado.split(' ')[0] === dateFilter : true;
+        // const matchesDate = dateFilter ? (row.fecha_entrada.split(' ')[0] === dateFilter || new Date(row.fecha_entrada) >= new Date(dateFilter)) : true;
+        const matchesDate = dateFilter ? row.fecha_entrada.split(' ')[0] === dateFilter : true;
+
+
         return matchesState && matchesDate;
     });
 
@@ -60,14 +63,14 @@ export const useTableOrdersAdmin = () => {
         }
         downloadCSV(
         filteredRows,
-        ['id', 'pedido', 'nit', 'lote_num_laboratorio', 'estado', 'fecha_estado'],
+        ['id', 'pedido', 'nit', 'lote_num_laboratorio', 'estado', 'fecha_entrada'],
         {
             id: 'Nº',
             pedido: 'Pedido Nº',
             nit: 'Sede',
             lote_num_laboratorio: 'Lote',
             estado: 'Estado',
-            fecha_estado: 'Fecha'
+            fecha_entrada: 'Fecha Entrada'
         }
         );
     };
