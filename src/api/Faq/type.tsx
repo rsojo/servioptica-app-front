@@ -2,6 +2,7 @@ export interface GetFaqActivesResponse {
   data: Array<GetFaqActivesData>;
   error: boolean;
   message: string;
+  mensaje: string;
 }
 export interface GetFaqActivesData {
   answer: string;

@@ -2,6 +2,7 @@ export interface GetUsersActivesResponse {
   data: Array<GetUsersActivesData>;
   error: boolean;
   message: string;
+  mensaje: string;
 }
 export interface GetUsersActivesData {
   id: number;

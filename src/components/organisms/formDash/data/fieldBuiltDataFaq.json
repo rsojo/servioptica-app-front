@@ -13,7 +13,6 @@
         "options": null,
         "default": "",
         "placeholder": "",
-        "textError": "Este campo requerido",
         "minlength": 3,
         "maxlength": 160
       },
@@ -35,6 +34,7 @@
           }
         ],
         "placeholder": "",
+        "default": "Active",
         "textError": "Este campo requerido"
       },
       {
@@ -47,8 +47,7 @@
         "options": null,
         "default": "",
         "placeholder": "",
-        "textError": "¡La contraseña es muy débil!",
-        "minlength": 1,
+        "minlength": 3,
         "maxlength": 1440
       }
     ]

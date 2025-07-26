@@ -65,6 +65,22 @@ export const validateField = async ({
           };
         }
         return null;
+      case "textarea":
+        if (String(value).length! < minlength) {
+          return {
+            groupId: groupId!,
+            fieldId: field.id!,
+            errorMessage: field.textError ?? `Mínimo ${minlength} caracteres.`,
+          };
+        }
+        if (String(value).length! > maxlength) {
+          return {
+            groupId: groupId!,
+            fieldId: field.id!,
+            errorMessage: field.textError ?? `Máximo ${minlength} caracteres.`,
+          };
+        }
+        return null;
       case "select":
         if (String(value).length === 0 || value === "NA") {
           return {
@@ -112,24 +128,64 @@ export const validateField = async ({
         }
         return null;
       case "password":
-        if (String(value).length < minlength) {
+        const strVal = String(value);
+
+        if (strVal.length < minlength) {
           return {
             groupId: groupId!,
             fieldId: field.id!,
             errorMessage: field.textError ?? `Mínimo ${minlength} caracteres.`,
           };
         }
-        
-        const passwordRegex =
-          /^(?=.*[A-Z])(?=.*[\W_])(?!.*[a-z]{2})(?!.*\d{2}).{8,}$/;
-        // if (!passwordRegex.test(String(value))) {
-          if (!passwordRegex) {
+
+        const hasUpperCase = /[A-Z]/.test(strVal);
+        const hasSpecialChar = /[\W_]/.test(strVal);
+        const hasConsecutiveLower = /[a-z]{2}/.test(strVal);
+        const hasConsecutiveDigits = /\d{2}/.test(strVal);
+
+        // if (!hasUpperCase || !hasSpecialChar) {
+          // return {
+            // groupId: groupId!,
+            // fieldId: field.id!,
+            // errorMessage:
+              // field.textError ??
+              // `Debe contar con numeros, letras mayúsculas y caracteres especiales.`,
+          // };
+        // }
+
+        return null;
+
+
+      case "date":
+        if (!value || isNaN(Date.parse(String(value)))) {
+          return {
+            groupId: groupId!,
+            fieldId: field.id!,
+            errorMessage: field.textError ?? `Fecha inválida o no seleccionada.`,
+          };
+        }
+        return null;
+
+      case "file":
+        const isValidImage = (typeof File !== "undefined" && value instanceof File);
+        console.log('isValidImage', {isValidImage, value});
+        if (!isValidImage) {
+          return {
+            groupId: groupId!,
+            fieldId: field.id!,
+            errorMessage: field.textError ?? `Debe subir una imagen válida.`,
+          };
+        }
+        return null;
+
+      case "url":
+        const urlRegex = /^(https?:\/\/)([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/i;
+        if (typeof value !== "string" || !urlRegex.test(value)) {
           return {
             groupId: groupId!,
             fieldId: field.id!,
             errorMessage:
-              field.textError ??
-              `Debe tener al menos una letra mayúscula, un carácter especial, sin números ni letras consecutivas.`,
+              field.textError ?? `Debe ingresar una URL válida (https://...)`,
           };
         }
         return null;

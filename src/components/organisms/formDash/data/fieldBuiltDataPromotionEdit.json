@@ -74,7 +74,7 @@
         "name": "image",
         "type": "file",
         "columnSize": 12,
-        "important": true,
+        "important": false,
         "options": null,
         "default": "",
         "placeholder": "Adjuntar Imágen",

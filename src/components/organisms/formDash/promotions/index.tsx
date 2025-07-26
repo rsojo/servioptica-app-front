@@ -2,6 +2,7 @@ import { BASE_COLORS } from "../../../../style/constants";
 import { GridAtom, TitleAtom } from "../../../atoms";
 import { FormModule } from "../../../molecules/form";
 import FieldBuiltData from "../data/fieldBuiltDataPromotion.json";
+import FieldBuiltDataEdit from "../data/fieldBuiltDataPromotionEdit.json";
 import { PreDataType } from "../../../molecules/form/type";
 import { updateDefaultsValues } from "../../formLogin/libs";
 
@@ -49,7 +50,7 @@ export const PromotionsForm = ({
             !editData
               ? FieldBuiltData
               : updateDefaultsValues({
-                  data: FieldBuiltData,
+                  data: FieldBuiltDataEdit,
                   updates: editData,
                 })
           }

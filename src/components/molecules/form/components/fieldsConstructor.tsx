@@ -338,6 +338,28 @@ export const FieldsConstructor = ({
                 />
               </FieldConstructor>
             );
+          case "url":
+            return (
+              <FieldConstructor
+                key={`${field.id}_${index + 1}`}
+                field={field}
+                index={index}
+              >
+                <InputTextAtom
+                  field={{
+                    ...field,
+                    id: `${field.id}_${field.name}_${index + 1}`,
+                  }}
+                  type={'text'}
+                  disabled={false}
+                  defaultValue={defaultTextValue}
+                  erroForm={field.important && errorForm?.fieldId === field.id}
+                  onChangeCallback={(value) => {
+                    handleFieldChange(field.name!, value);
+                  }}
+                />
+              </FieldConstructor>
+            );
           default:
             return <></>;
         }

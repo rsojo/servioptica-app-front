@@ -2,6 +2,7 @@ export interface GetPromotionsActivesResponse {
   data: Array<GetPromotionsActivesData>;
   error: boolean;
   message: string;
+  mensaje: string;
 }
 export interface GetPromotionsActivesData {
   id: number;

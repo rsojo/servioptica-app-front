@@ -118,6 +118,7 @@ export const TableUserAdmin = () => {
               localeText={localeText}
               style={{ width: "100%" }}
               rows={filteredRows}
+              columnVisibilityModel={{ id: false }}
               columns={columns(handleEdit, handleDelete)}
               initialState={{ pagination: { paginationModel } }}
               pageSizeOptions={[10, 20, 50, 100]}

@@ -47,10 +47,12 @@ export async function addFaqAdmin({
   token,
   question,
   answer,
+  state,
 }: {
   token: string;
   question: string;
   answer: string;
+  state: string;
 }): Promise<GetFaqActivesResponse> {
   const url = `${devUrl}/api/faqs`;
   // console.log("[addFaqAdmin] [PREV]", { question, answer });
@@ -63,7 +65,7 @@ export async function addFaqAdmin({
         Accept: "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ question: question, answer: answer }),
+      body: JSON.stringify({ question: question, answer: answer, status: state === "Active" ? 1 : 0  }),
     });
 
     const responseData: GetFaqActivesResponse = await response.json();

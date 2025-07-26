@@ -23,6 +23,6 @@
     min-width: 120px !important;
 }
 .Variant_form p.MuiFormHelperText-root.Mui-error {
-    top: 48px;
+    top: calc(100% + 1px);
     text-align: left;
 }

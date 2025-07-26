@@ -81,7 +81,7 @@ export const InputTextAtom = ({
       error={error}
       helperText={helperText}
       multiline={multiline}
-      rows={multiline && variant !== "ghost" ? 4 : undefined}
+      rows={multiline ? 4 : undefined}
       type={type ?? "text"}
       id={id?.toString() ?? ""}
       name={name ?? ""}

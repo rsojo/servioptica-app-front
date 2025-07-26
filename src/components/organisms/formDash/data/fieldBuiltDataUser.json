@@ -13,7 +13,6 @@
         "options": null,
         "default": "",
         "placeholder": "Óptica txt 01",
-        "textError": "Este campo requerido",
         "minlength": 3,
         "maxlength": 60
       },
@@ -53,8 +52,7 @@
         "options": null,
         "default": "",
         "placeholder": "",
-        "textError": "Este campo requerido",
-        "minlength": 3,
+        "minlength": 8,
         "maxlength": 60
       },
       {
@@ -67,8 +65,7 @@
         "options": null,
         "default": "",
         "placeholder": "",
-        "textError": "Este campo requerido",
-        "minlength": 3,
+        "minlength": 8,
         "maxlength": 60
       }
     ]

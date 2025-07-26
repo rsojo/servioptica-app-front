@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import {
   addPromotionsAdmin,
   getPromotionsAdmin,
@@ -12,9 +12,12 @@ import { appStoreAtom } from "../../../../../../store/Auth";
 import { TablePromotionsAdminView } from "..";
 import { GetPromotionsActivesData } from "../../../../../../api/Promotions/type";
 import { fileToBase64 } from "../../../../../../utils";
+import { useMessage } from "../../../../../../hooks/useMessage";
 
 export const useTablePromotionsAdmin = () => {
   const [open, setOpen] = useState(false);
+    const { errorSnackMessage, successSnackMessage } = useMessage();
+
 
   const handleClickOpenDialog = () => {
     setOpen(true);
@@ -83,24 +86,39 @@ export const useTablePromotionsAdmin = () => {
         ...setData,
       });
       console.log( '[handleAddPromotionsData] [response]',{response})
+      if (response.error) {
+        console.error("Error updating Promotions:", response.error);
+        errorSnackMessage(response.mensaje);
+        setLoading(false);
+        return;
+      }
 
       if (response) {
         await fetchPromotionsData();
         setEditData(null);
       }
-      setLoading(false)
-      return
+      successSnackMessage('Promocion actualizada con éxito');
+      setLoading(false);
+      return;
     } else {
       // CREATE
       const response = await addPromotionsAdmin({
         token: appStore.auth?.access_token!,
         ...setData,
       });
+      if(response.error) 
+      {
+        errorSnackMessage(response.mensaje);
+
+        setLoading(false);
+        return;
+      }
       if (!response.error) {
         await fetchPromotionsData();
       }
-      setLoading(false)
-      return
+      successSnackMessage('Promocion actualizada con éxito');
+      setLoading(false);
+      return;
     }
   };
 
@@ -162,11 +180,19 @@ export const useTablePromotionsAdmin = () => {
       token: appStore.auth?.access_token!,
       id: id,
     });
+    if (response.error) {
+      console.error("Error al eliminar la promoción:", response.error);
+      errorSnackMessage(response.mensaje);
+      setLoading(false);
+      return;
+    }
     if (response) {
       await fetchPromotionsData();
       handleCloseDialog();
       setIdDelete(null);
+      successSnackMessage('Promocion eliminada con éxito');
     }
+    return response;
   };
   return {
     promotionsData,
