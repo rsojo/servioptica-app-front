@@ -21,9 +21,14 @@ import { useState } from "react";
 import { Button, Menu, MenuItem } from "@mui/material";
 import { appStoreAtom } from "../../../store/Auth";
 import { useAtom } from "jotai";
+import { useLocation } from "react-router-dom";
+
 
 export const DashHeader = () => {
     const {id: idPedido} = useParams()
+    const location = useLocation();
+const isDashboardView = location.pathname.includes("/dashboard");
+
   
   const [appStore, setAppStore] = useAtom(appStoreAtom);
 
@@ -162,12 +167,13 @@ export const DashHeader = () => {
             gap={2}
             style={{ width: "100%", maxWidth: 600 }}
           >
-            <ColumnAtom style={{ flex: "none" }}>
-              <ButtonAtom
-                onClick={() => {
-                  if (!access_token) return navetgate("/");
-                  if (idAdmin) return navetgate("/dashboard-admin");
-                  return navetgate("/dashboard");
+            {!isDashboardView && 
+              <ColumnAtom style={{ flex: "none" }}>
+                <ButtonAtom
+                  onClick={() => {
+                    if (!access_token) return navetgate("/");
+                    if (idAdmin) return navetgate("/dashboard-admin");
+                    return navetgate("/dashboard");
                 }}
                 style={{
                   padding: 0,
@@ -186,7 +192,7 @@ export const DashHeader = () => {
               >
                 <HomeIcon style={{ color: BASE_COLORS.blue, fontSize: 16 }} />
               </ButtonAtom>
-            </ColumnAtom>
+            </ColumnAtom>}
             <ColumnAtom flex={10}>
               <InputTextAtom
                 field={{ id: "search_orders", placeholder: "Nº de Pedido" }}

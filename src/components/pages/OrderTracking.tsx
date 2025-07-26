@@ -10,6 +10,8 @@ import { Orders } from "../../api/Orders";
 import { OrderData } from "../../api/Orders/type";
 import { CircularProgress } from "@mui/material";
 import { useMessage } from "../../hooks/useMessage";
+import { Alert } from "@mui/material";
+
 
 const OrderTracking: React.FC = () => {
   const {id: idPedido} = useParams()
@@ -17,7 +19,9 @@ const OrderTracking: React.FC = () => {
   const [data, setData] = useState<OrderData[] | null>(null);
   const [currentData, setCurrentData] = useState<OrderData | null>(null);
   const [loading, setLoading] = useState(false)
-  const {errorSnackMessage} = useMessage() 
+  const {errorSnackMessage} = useMessage()
+  const [invalidOrder, setInvalidOrder] = useState(false);
+ 
   const isFetchingRef = useRef(false);
 
   // useEffect(()=>{fetchTableData(idPedido!)}, [idPedido])
@@ -54,6 +58,8 @@ const OrderTracking: React.FC = () => {
         const response = await Orders({...data});
         if(response.data.length === 0) {
           errorSnackMessage("¡Número de orden inválido!")
+          setInvalidOrder(true); // Marcar error para mostrar alerta
+
           return};
         const newData = response.data.map((item, index)=>({...item, id: index + 1}))
         setData(newData);
@@ -84,6 +90,21 @@ if (loading) {
     </GridAtom>
   );
 }
+
+if (invalidOrder) {
+  return (
+    <GridAtom
+      style={{ minHeight: 320, width: "100%" }}
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Alert severity="error" variant="filled">
+        El número de pedido no es válido. Por favor, introduce un número correcto.
+      </Alert>
+    </GridAtom>
+  );
+}
+
 
   return (
     <ContainerAtom
