@@ -12,6 +12,8 @@ import {
 } from "../../atoms/";
 
 import LogoServioptica from "../../../assets/img/logo_servioptica@2x.webp";
+import HomeIcon from "@mui/icons-material/Home";
+
 import bkDash from "../../../assets/img/bkDash-01.webp";
 import PersonIcon from "@mui/icons-material/Person";
 import { BASE_COLORS } from "../../../style/constants";
@@ -24,6 +26,9 @@ export const DashHeader = () => {
     const {id: idPedido} = useParams()
   
   const [appStore, setAppStore] = useAtom(appStoreAtom);
+
+  const access_token = appStore.auth?.access_token || null;
+  const idAdmin = appStore.auth?.admin || false;
   const navetgate = useNavigate();
   const [searchValue, setSearchValue] = useState<string | null>(idPedido || null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -157,6 +162,31 @@ export const DashHeader = () => {
             gap={2}
             style={{ width: "100%", maxWidth: 600 }}
           >
+            <ColumnAtom style={{ flex: "none" }}>
+              <ButtonAtom
+                onClick={() => {
+                  if (!access_token) return navetgate("/");
+                  if (idAdmin) return navetgate("/dashboard-admin");
+                  return navetgate("/dashboard");
+                }}
+                style={{
+                  padding: 0,
+                  minWidth: 40,
+                  height: 40,
+                  maxHeight: 40,
+                  minHeight: 40,
+                  width: 40,
+                  backgroundColor: "#fff",
+                  border: `1px solid ${BASE_COLORS.blue}`,
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <HomeIcon style={{ color: BASE_COLORS.blue, fontSize: 16 }} />
+              </ButtonAtom>
+            </ColumnAtom>
             <ColumnAtom flex={10}>
               <InputTextAtom
                 field={{ id: "search_orders", placeholder: "Nº de Pedido" }}

@@ -10,7 +10,6 @@ import LogoServioptica from "../../../assets/img/logo_servioptica@2x.webp";
 import BkGeneral from "../../../assets/img/bkGeneral.webp";
 import bkGeneralVideo from "../../../assets/videos/bkGeneral.mp4";
 
-import PersonIcon from "@mui/icons-material/Person";
 import { ButtonAtom, InputTextAtom, SpaceAtom, TitleAtom } from "../../atoms";
 import { BASE_COLORS } from "../../../style/constants";
 import { useState } from "react";
