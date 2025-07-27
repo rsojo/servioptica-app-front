@@ -1,5 +1,5 @@
 import { SwiperSlide, Swiper } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper/modules";
 import GridAtom from "../grid";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -24,12 +24,16 @@ export const SwiperAtom = ({
   return (
     <Swiper
       style={{ width: "100%" }}
-      modules={[Navigation, Pagination, Scrollbar, A11y]}
+      modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
       spaceBetween={spaceBetween || 50}
       slidesPerView={slidesPerView || 1}
       navigation
       pagination={pagination} // Activar paginación por puntos clicables
       scrollbar={{ draggable: true }}
+      autoplay={{
+        delay: 3000, // milisegundos entre slides
+        disableOnInteraction: false, // sigue reproduciendo aunque el usuario interactúe
+      }}
       onSwiper={(swiper: any) => {}}
       onSlideChange={() => {}}
     >
