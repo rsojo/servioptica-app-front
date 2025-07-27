@@ -60,7 +60,9 @@ const OrderTracking: React.FC = () => {
           errorSnackMessage("¡Número de orden inválido!")
           setInvalidOrder(true); // Marcar error para mostrar alerta
 
-          return};
+          return
+        };
+        setInvalidOrder(false);
         const newData = response.data.map((item, index)=>({...item, id: index + 1}))
         setData(newData);
     } catch (error) {

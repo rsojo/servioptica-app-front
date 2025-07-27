@@ -23,7 +23,11 @@ export const updateDefaultsValues = ({data, updates}:{
         );
 
         if (fieldUpdate) {
-          return { ...field, default: fieldUpdate.newValue };
+          if (field.type === "select" && field.options) {
+          return { ...field, default: fieldUpdate.newValue.toString() };
+          } else {
+            return { ...field, default: fieldUpdate.newValue };
+          }
         }
         return field;
       });

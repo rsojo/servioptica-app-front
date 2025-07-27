@@ -124,6 +124,7 @@ export const useTableUsersAdmin = () => {
       { groupName: "user", fieldName: "name", newValue: rowData.name ?? "" },
       { groupName: "user", fieldName: "document", newValue: rowData.document ?? "" },
       { groupName: "user", fieldName: "email", newValue: rowData.email ?? "" },
+      { groupName: "user", fieldName: "status", newValue: rowData.status.toString() ?? "" },
     ];
 
     setEditData({ data: defaultData, id: rowData.id });
