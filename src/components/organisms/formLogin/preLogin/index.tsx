@@ -81,6 +81,7 @@ export const PreLoginForm = ({
               }}
             />
           )}
+          {/*"Recuperar contraseña"*/}
           {step === 2 && (
             <FormModule
               actionBtnLabel="Enviar código de validación"
