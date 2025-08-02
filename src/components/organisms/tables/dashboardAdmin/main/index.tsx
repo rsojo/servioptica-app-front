@@ -9,7 +9,6 @@ import columns from "./libs/columns";
 import { useTableOrdersAdmin } from "./hooks/useTableOrdersAdmin";
 import { useNavigate } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
-import { useEffect, useState } from "react";
 
 export interface RowTableData {
   id: number;
@@ -34,8 +33,6 @@ export const TableMainAdmin = () => {
     dateFilter,
     filteredRows
   } = useTableOrdersAdmin();
-
-  useEffect(() => {if(filteredRows){console.log("filteredRows", filteredRows)}}, [filteredRows, dateFilter]);
 
   if (loading) {
     return (

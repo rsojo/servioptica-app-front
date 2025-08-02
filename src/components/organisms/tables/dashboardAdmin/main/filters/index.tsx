@@ -51,14 +51,14 @@ export const FiltersTable = ({
             
           }}
           InputProps={{
-    endAdornment: dateFilter && (
-      <InputAdornment position="end">
-        <IconButton onClick={() => setDateFilter("")}>
-          <ClearIcon />
-        </IconButton>
-      </InputAdornment>
-    ),
-  }}
+            endAdornment: dateFilter && (
+              <InputAdornment position="end">
+                <IconButton onClick={() => setDateFilter("")}>
+                  <ClearIcon />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
         />
       </ColumnAtom>
       <ColumnAtom flex={2} style={{ minWidth: 130, maxWidth: 200 }}>

@@ -31,6 +31,7 @@ export const useOrderTracking = () => {
         try {
             const data = {
                 token: appStore.auth?.access_token!,
+                nit: appStore.auth?.document || "",
                 pageSize: 10,
                 pageNumber: 1,
                 status: null,

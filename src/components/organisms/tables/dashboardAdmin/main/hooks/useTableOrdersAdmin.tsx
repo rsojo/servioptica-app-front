@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { ExportCsv, Orders } from "../../../../../../api/Orders";
+import { Orders } from "../../../../../../api/Orders";
 import { appStoreAtom } from "../../../../../../store/Auth";
 import { useAtom } from "jotai";
 import { searchOrder } from "../../../../../../store/searchOrder";
 import { OrderData } from "../../../../../../api/Orders/type";
-import { downloadFile } from "../../../../../../utils";
 import { useDownloadCSV } from "./useDownloadCSV";
 
 export const useTableOrdersAdmin = () => {
@@ -35,6 +34,7 @@ export const useTableOrdersAdmin = () => {
         try {
             const data = {
                 token: appStore.auth?.access_token!,
+                nit: appStore.auth?.document || "",
                 pageSize: 100,
                 pageNumber: 1,
                 status: null,
@@ -63,11 +63,10 @@ export const useTableOrdersAdmin = () => {
         }
         downloadCSV(
         filteredRows,
-        ['id', 'pedido', 'nit', 'lote_num_laboratorio', 'estado', 'fecha_entrada'],
+        ['document_no', 'cliente_contacto', 'lote_num_laboratorio', 'estado', 'fecha_entrada'],
         {
-            id: 'Nº',
-            pedido: 'Pedido Nº',
-            nit: 'Sede',
+            document_no: 'Pedido Nº',
+            cliente_contacto: 'Sede',
             lote_num_laboratorio: 'Lote',
             estado: 'Estado',
             fecha_entrada: 'Fecha Entrada'

@@ -6,6 +6,8 @@ import {
   SelectAtom,
 } from "../../../../../atoms";
 import { TablePromotionsAdminView } from "..";
+import { IconButton, InputAdornment } from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
 
 interface FiltersTableProps {
   stateFilter: string;
@@ -43,8 +45,18 @@ export const FiltersTable = ({
                 placeholder: "Fecha",
                 default: dateFilter,
               }}
+              defaultValue={dateFilter}
               onChangeCallback={(value) => {
                 setDateFilter(String(value));
+              }}
+              InputProps={{
+                endAdornment: dateFilter && (
+                  <InputAdornment position="end">
+                    <IconButton onClick={() => setDateFilter("")}>
+                      <ClearIcon />
+                    </IconButton>
+                  </InputAdornment>
+                ),
               }}
             />
           </ColumnAtom>

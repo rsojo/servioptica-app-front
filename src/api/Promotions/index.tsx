@@ -47,7 +47,7 @@ export async function addPromotionsAdmin(
   props: AddPromotionsRequest
 ): Promise<GetPromotionsActivesResponse> {
   const url = `${devUrl}/api/promotions`;
-  //console.log("[addPromotionsAdmin] [PREV]", props);
+  console.log("[addPromotionsAdmin] [PREV]", props);
 
   try {
     const response = await fetch(url, {
@@ -61,7 +61,7 @@ export async function addPromotionsAdmin(
     });
 
     const responseData: GetPromotionsActivesResponse = await response.json();
-   // console.log("[addPromotionsAdmin] [responseData]", responseData);
+  console.log("[addPromotionsAdmin] [responseData]", responseData);
 
     return responseData;
   } catch (error: any) {

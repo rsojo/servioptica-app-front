@@ -50,7 +50,7 @@ export const useTablePromotionsAdmin = () => {
         const response = await getPromotionsAdmin(appStore.auth?.access_token);
         const formatingData = response.data.map((item) => ({
           ...item,
-          date: item.updated_at.split("T")[0], //"2024-10-16T18:13:59.000000Z"
+          date: item.end_date.split("T")[0], //"2024-10-16T18:13:59.000000Z"
         }));
         setPromotionsData(formatingData);
 
@@ -65,8 +65,7 @@ export const useTablePromotionsAdmin = () => {
     }
   };
 
-  const handleAddPromotionsData = async (data: PreDataType) => {
-    
+  const handleAddPromotionsData = async (data: PreDataType) => {    
     const setData = {
       description: data?.description as string,
       title: data?.title as string,
@@ -85,7 +84,6 @@ export const useTablePromotionsAdmin = () => {
         id: editData.id,
         ...setData,
       });
-      console.log( '[handleAddPromotionsData] [response]',{response})
       if (response.error) {
         console.error("Error updating Promotions:", response.error);
         errorSnackMessage(response.mensaje);

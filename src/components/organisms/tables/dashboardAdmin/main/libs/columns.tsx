@@ -11,7 +11,7 @@ const columns: GridColDef[] = [
   },
   {
     ...generalColumnProps,
-    field: "pedido",
+    field: "document_no",
     headerName: "Pedido Nº",
   },
   {

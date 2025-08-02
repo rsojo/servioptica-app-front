@@ -23,7 +23,7 @@ const columns = (handleEdit: (id: number) => void, handleDelete: (id: number) =>
     {
       ...generalColumnProps,
       field: "date",
-      headerName: "Fecha de publicación",
+      headerName: "Fecha de finalización",
       minWidth: 200,
       maxWidth: 200,
       valueGetter: (value, row) =>
