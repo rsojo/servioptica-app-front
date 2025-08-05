@@ -89,7 +89,8 @@ export async function register(
 }
 
 export async function sendOtp(data: {
-  email: string;
+  email?: string;
+  document?: string;
 }): Promise<any> {
   const url = `${devUrl}/api/auth/otp/send`;
   console.log("[sendOtp] [PREV]", data, url);
@@ -114,7 +115,8 @@ export async function sendOtp(data: {
 }
 
 export async function verifyOtp(data: {
-  email: string;
+  email?: string;
+  document?: string;
   otp: string;
 }): Promise<any> {
   const url = `${devUrl}/api/auth/otp/verify`;

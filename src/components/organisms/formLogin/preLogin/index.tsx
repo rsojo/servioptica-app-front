@@ -7,20 +7,16 @@ import {
 } from "../../../atoms";
 import { FormModule } from "../../../molecules/form";
 import BkLogin from "../../../../assets/img/bkLogin.webp";
-import { updateDefaultValues, updateSelectFieldOptions } from "../libs";
-
 import FieldBuiltData from "../data/fieldBuiltDataNit.json";
-import FieldBuiltDataSede from "../data/fieldBuiltDataNitSede.json";
 import fieldBuiltDataNewPassw from "../data/fieldBuiltDataNewPassw.json";
 import { PreDataType } from "../../../molecules/form/type";
 
 export const PreLoginForm = ({
   setNit,
-  setFormData,
   onCallBack,
   step,
-  nit,
   sede,
+  isLoading
 }: {
   setNit: React.Dispatch<React.SetStateAction<string>>;
   setFormData?: React.Dispatch<React.SetStateAction<any>>;
@@ -28,6 +24,7 @@ export const PreLoginForm = ({
   step: number;
   nit: string;
   sede: OptionsSelectAtomIt[] | null;
+  isLoading: boolean;
 }) => {
   return (
     <>
@@ -75,26 +72,38 @@ export const PreLoginForm = ({
             <FormModule
               actionBtnLabel="Validar"
               groupsFields={FieldBuiltData}
+              loading={isLoading}
               onCallBack={(value) => {
                 setNit(String((value as any).login_nit));
                 onCallBack(value);
               }}
             />
           )}
-          {/*"Recuperar contraseña"*/}
-          {step === 2 && (
+          {/*"Selección de Sede"*/}
+          {step === 2 && sede?.length! > 0 && (
             <FormModule
-              actionBtnLabel="Enviar código de validación"
-              groupsFields={updateDefaultValues(
-                updateSelectFieldOptions(
-                  FieldBuiltDataSede,
-                  "login_sede",
-                  sede
-                ),
-                "login",
-                "document",
-                nit
-              )}
+              actionBtnLabel="Seleccionar sede"
+              loading={isLoading}
+              groupsFields={[
+                {
+                  id: 1,
+                  groupName: "login",
+                  fields: [
+                    {
+                      id: 1,
+                      label: "",
+                      name: "login_sede",
+                      type: "select",
+                      columnSize: 12,
+                      important: true,
+                      options: sede,
+                      placeholder: "Sede",
+                      textError: "Seleccione una sede",
+                      minlength: 1,
+                    },
+                  ],
+                },
+              ]}
               onCallBack={(value) => {
                 // setFormData!(value);
                 onCallBack(value);
@@ -104,6 +113,7 @@ export const PreLoginForm = ({
           {step === 4 && (
             <FormModule
               actionBtnLabel="Validar"
+              loading={isLoading}
               groupsFields={fieldBuiltDataNewPassw}
               onCallBack={(value) => {
                 // setFormData!(value);

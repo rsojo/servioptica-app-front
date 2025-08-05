@@ -16,6 +16,20 @@
         "textError": "Campo requerido",
         "minlength": 3,
         "maxlength": 60
+      },
+      {
+        "id": 2,
+        "label": "",
+        "name": "login_sede",
+        "type": "select",
+        "columnSize": 12,
+        "important": true,
+        "options": null,
+        "default": "",
+        "placeholder": "Sede",
+        "textError": "Seleccione una sede",
+        "minlength": 3,
+        "maxlength": 60
       }
     ]
   }

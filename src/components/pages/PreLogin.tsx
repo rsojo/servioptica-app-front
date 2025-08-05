@@ -18,9 +18,11 @@ import { CheckClientData, CheckClientResponse } from "../../api/Auth/type";
 import { useAtom } from "jotai";
 import { persistAppStoreAtom } from "../../store/Auth";
 import { LoginForm } from "../organisms/formLogin/main";
+import { RecoverPasswordForm } from "../organisms/formLogin/recoverPassword";
 
 const PreLogin: React.FC = () => {
   const [, setAppStore] = useAtom(persistAppStoreAtom);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [step, setStep] = useState(1);
   const [nit, setNit] = useState<string>("");
@@ -34,14 +36,14 @@ const PreLogin: React.FC = () => {
   const { errorSnackMessage, successSnackMessage } = useMessage();
 
   const handleLogin = (value: any) => {
+    setIsLoading(true);
     setAppStore({
       auth: null,
       user: null,
-    })
+    });
 
     if (value && step === 1) {
       // Form tipo A (NIT)
-      console.log('[document]',document)
       setNit(value.document);
       handleCheckClient(value);
     }
@@ -52,11 +54,11 @@ const PreLogin: React.FC = () => {
       );
       handleRegister(findSede);
     }
-    if (value && step === 3) {
+    if (value && (step === 3 || step === 7)) {
       // Form Tipo C (OTP)
-      handkeVerifyOtp(value);
+      handkeVerifyOtp(value, step);
     }
-    if (value && step === 4) {
+    if (value && (step === 4 || step === 6)) {
       // Form Tipo D (PASSWORD)
       const { password_1, password_2 } = value;
       if (password_1 === password_2) {
@@ -73,6 +75,8 @@ const PreLogin: React.FC = () => {
             //navetgate("/login");
             setStep(5);
           }
+        }).finally(() => {
+          setIsLoading(false);
         });
       } else {
         errorSnackMessage("Las contraseñas no coinciden");
@@ -90,7 +94,7 @@ const PreLogin: React.FC = () => {
               access_token: response.data.access_token,
               rol: response.data.admin ? "admin" : "user",
               admin: response.data.admin,
-              document :nit,
+              document: nit,
             };
             // console.log("[handleLogin] [authData]", authData);
             setAppStore({
@@ -107,38 +111,49 @@ const PreLogin: React.FC = () => {
         }
       );
     }
+    // recovery password
+    if (value && step === 6 && nit) {
+      setStep(5);
+    }
   };
 
-  const handkeVerifyOtp = (value: string) => {
-    verifyOtp({ otp: value, email: email })
+  const handkeVerifyOtp = (value: string, step: number) => {
+    let data: { otp: string; email?: string; document?: string } = { otp: value, email: email };
+    if (step === 7) {
+      data = { otp: value, document: nit };
+    }
+    verifyOtp(data)
       .then((response) => {
         if (response.error || response.data === null) {
           errorSnackMessage(response.message);
+          return;
         }
         if (!response.error && response.data) {
           setTokenPass(response.data.assignToken);
           successSnackMessage(String(response.message));
-          setStep(4);
+          setStep(()=>(step === 7 ? 6 : 4));
+          return;
         }
       })
-      .catch((error) => errorSnackMessage(String(error.message)));
+      .catch((error) => errorSnackMessage(String(error.message))).finally(() => {
+        setIsLoading(false);
+      })
   };
 
   const handleCheckClient = (value: { document: string }) => {
     checkClient({ document: value.document })
       .then((response) => {
-        console.log("[handleCheckClient] [response]", response);
-        if (response.error || response.code === 500) {
+        if (response.error || response.code === 500 || response.code === 404) {
           errorSnackMessage(response.message);
-          return
+          return;
         }
         successSnackMessage(String(response.message));
         setCheckClientData(response);
 
         if (response.code === 302) {
-            setStep(5); 
-            return;
-          };
+          setStep(5);
+          return;
+        }
 
         if (response.code === 202) {
           const data = response.data as CheckClientData[];
@@ -156,7 +171,7 @@ const PreLogin: React.FC = () => {
               successSnackMessage(String(otpr.message))
             );
             setStep(3);
-            return
+            return;
           }
         }
         if (response.code === 208) {
@@ -167,17 +182,19 @@ const PreLogin: React.FC = () => {
               successSnackMessage(String(otpr.message))
             );
             setStep(3);
-          } else
-          if (data[0].status === "Active") {
+          } else if (data[0].status === "Active") {
             //navetgate("/login");
             setStep(5);
           }
-          return
+          return;
         }
       })
       .catch((error) => {
         errorSnackMessage(String(error.message));
-      });
+      }).finally(() => {
+        setIsLoading(false);
+      })
+    ;
   };
 
   const handleRegister = (findSede?: CheckClientData) => {
@@ -194,22 +211,50 @@ const PreLogin: React.FC = () => {
       })
       .catch((error) => {
         errorSnackMessage(String(error.message));
-      });
+      }).finally(() => {
+        setIsLoading(false);
+      })
+    ;
   };
 
-  if(step === 5 && nit) {
+  if (step === 5 && nit) {
     return (
-    <ContainerAtom
-      style={{
-        position: "relative",
-        overflow: "hidden",
-        minHeight: 500,
-        height: "calc(100vh - 260px)",
-      }}
-    >    
-      <LoginForm document={nit} onCallBack={handleLogin} step={1} setStep={setStep} /> 
-    </ContainerAtom>
-    )
+      <ContainerAtom
+        style={{
+          position: "relative",
+          overflow: "hidden",
+          minHeight: 500,
+          height: "calc(100vh - 260px)",
+        }}
+      >
+        <LoginForm
+          document={nit}
+          onCallBack={handleLogin}
+          step={1}
+          setStep={setStep}
+          externalEmail={email}
+        />
+      </ContainerAtom>
+    );
+  }
+
+  if (step === 6 && nit && tokenPass) {
+    return (
+      <ContainerAtom
+        style={{
+          position: "relative",
+          overflow: "hidden",
+          minHeight: 500,
+          height: "calc(100vh - 260px)",
+        }}
+      >
+        <RecoverPasswordForm
+          nit={nit}
+          onCallBack={handleLogin}
+          tokenPass={tokenPass}
+        />
+      </ContainerAtom>
+    );
   }
 
   return (
@@ -227,8 +272,18 @@ const PreLogin: React.FC = () => {
         step={step}
         nit={nit}
         sede={sede}
+        isLoading={isLoading}
       />
-      {step === 3 && (
+      {(step === 7) && (
+        <OtpCodeLightBox
+          document={nit}
+          onCancelBack={() => setStep(5)}
+          onCallBack={(value) => {
+            handleLogin(value);
+          }}
+        />
+      )}
+      {(step === 3) && (
         <OtpCodeLightBox
           email={email}
           onCancelBack={() => setStep(1)}

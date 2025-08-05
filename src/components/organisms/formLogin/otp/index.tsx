@@ -10,10 +10,12 @@ import { useMessage } from "../../../../hooks/useMessage";
 
 export const OtpCodeLightBox = ({
   email,
+  document,
   onCallBack,
   onCancelBack,
 }: {
-  email: string;
+  email?: string;
+  document?: string;
   onCallBack: (value: string) => void;
   onCancelBack: () => void;
 }) => {
@@ -23,7 +25,7 @@ export const OtpCodeLightBox = ({
 
   const handleReSendOtp = () => {
     // console.log('[OtpCodeLightBox, handleReSendOtp]')
-    sendOtp({ email: email })
+    sendOtp({ email: email, document: document })
       .then(
         (otpr) => successSnackMessage(String(otpr.message))
         // TODO: Cambiar a correo del cliente data[0].email

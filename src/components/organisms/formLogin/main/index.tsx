@@ -13,29 +13,32 @@ import fieldBuiltDataGetEmail from "../data/fieldBuiltDataGetEmail.json";
 import { ButtonAtom } from "../../../atoms";
 import { OtpCodeLightBox } from "../otp";
 import { useMemo, useState } from "react";
+import { sendOtp } from "../../../../api/Auth";
 
 export const LoginForm = ({
   step,
   onCallBack,
   setStep,
   isAdmin = false,
-  document
+  document,
+  externalEmail = null,
 }: {
   step: number;
   onCallBack: (value: PreDataType) => void;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   isAdmin?: boolean;
   document?: string;
+  externalEmail?: string | null;
 }) => {
-  const [email, setEmail] = useState<string | null>(null)
+  const [email, setEmail] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleBuildData = useMemo(() => {
     if (isAdmin) {
       return fieldBuiltDataOptAdmin;
     } else {
-      if(document) {
-        console.log("[handleBuildData] [document]", document)
-        return fieldBuiltDataLoginPassword
+      if (document) {
+        return fieldBuiltDataLoginPassword;
       }
       return fieldBuiltDataOpt.map((i) => {
         return {
@@ -47,7 +50,7 @@ export const LoginForm = ({
       });
     }
   }, [document, isAdmin]);
-  
+
   return (
     <>
       <GridAtom
@@ -87,7 +90,7 @@ export const LoginForm = ({
               fontWeight: 600,
             }}
           >
-            Inicio de sesión {isAdmin?"administrador":"ópticas"}
+            Inicio de sesión {isAdmin ? "administrador" : "ópticas"}
           </TextAtom>
           <SpaceAtom v={8} />
           {step === 1 && (
@@ -97,14 +100,22 @@ export const LoginForm = ({
                 document={document}
                 actionBtnLabel="Entrar"
                 groupsFields={handleBuildData}
+                loading={isLoading}
                 onCallBack={(value) => {
                   onCallBack(value);
                 }}
               />
               <ButtonAtom
                 variant="outlined"
+                disabled={isLoading}
                 adVariant="linkStyle"
-                onClick={() => setStep(2)}
+                onClick={() => {
+                  
+                 if(document) {
+                  setIsLoading(true)
+                  sendOtp({ document: document }).then(() => setStep(7)).finally(() => setIsLoading(false));
+                };
+                }}
                 style={{ color: BASE_COLORS.blue }}
               >
                 Recordar contraseña
@@ -117,8 +128,9 @@ export const LoginForm = ({
               <FormModule
                 actionBtnLabel="Validar"
                 groupsFields={fieldBuiltDataGetEmail}
+                loading={isLoading}
                 onCallBack={(value: any) => {
-                  setEmail(value.email)
+                  setEmail(value.email);
                   onCallBack(value);
                 }}
               />
@@ -146,15 +158,17 @@ export const LoginForm = ({
               <FormModule
                 actionBtnLabel="Validar"
                 groupsFields={fieldBuiltDataNewPassw}
+                loading={isLoading}
                 additionalFields={
                   <TextAtom style={{ color: BASE_COLORS.blue }} type="small">
-                    <span style={{ color: "#ff0000" }}>***</span> La contraseña debe
-                    contener al menos una letra mayúscula, un carácter especial, no
-                    llevar números consecutivos, no tener letras consecutivas
+                    <span style={{ color: "#ff0000" }}>***</span> La contraseña
+                    debe contener al menos una letra mayúscula, un carácter
+                    especial, no llevar números consecutivos, no tener letras
+                    consecutivas
                   </TextAtom>
                 }
                 onCallBack={(value: any) => {
-                  onCallBack({...value, email: email! });
+                  onCallBack({ ...value, email: email! });
                 }}
               />
               <ButtonAtom

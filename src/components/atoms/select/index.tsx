@@ -90,7 +90,6 @@ export const SelectAtom = ({
         disabled={disabled ?? false}
         onChange={handleChange}
         IconComponent={KeyboardArrowDownIcon}
-        placeholder={placeholder}
       >
         {placeholder && (
           <MenuItem selected={true} value="NA" style={{ opacity: 0.5 }}>
