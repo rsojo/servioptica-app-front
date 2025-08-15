@@ -86,6 +86,7 @@ export const useTableUsersAdmin = () => {
           document: data?.document as string,
           email: data?.email as string,
           password: data?.password as string,
+          type: data?.type ? parseInt(data?.type as string) : 2,
         };
 
         const response = await addUsersAdmin({

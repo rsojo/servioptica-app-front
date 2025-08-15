@@ -198,7 +198,7 @@ const PreLogin: React.FC = () => {
   };
 
   const handleRegister = (findSede?: CheckClientData) => {
-    register({ ...findSede! })
+    register({ ...findSede!, document: nit, email: findSede?.email || email })
       .then((response) => {
         if (response.error) {
           errorSnackMessage(response.message);

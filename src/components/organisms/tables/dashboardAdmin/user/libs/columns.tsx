@@ -21,6 +21,15 @@ const columns = (handleEdit: (id: number) => void, handleDelete: (id: number) =>
     },
     {
       ...generalColumnProps,
+      field: "type",
+      headerName: "Tipo",
+      renderCell: (params) => {
+        return params.row.type === 1 ? "Administrador" : "Cliente";
+      },
+      minWidth: 120,
+    },
+    {
+      ...generalColumnProps,
       field: "document",
       headerName: "NIT",
       minWidth: 120,

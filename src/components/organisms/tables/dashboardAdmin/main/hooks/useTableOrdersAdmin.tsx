@@ -3,7 +3,7 @@ import { Orders } from "../../../../../../api/Orders";
 import { appStoreAtom } from "../../../../../../store/Auth";
 import { useAtom } from "jotai";
 import { searchOrder } from "../../../../../../store/searchOrder";
-import { OrderData } from "../../../../../../api/Orders/type";
+import { OrderData, OrderRequest, OrdersResponse } from "../../../../../../api/Orders/type";
 import { useDownloadCSV } from "./useDownloadCSV";
 
 export const useTableOrdersAdmin = () => {
@@ -32,7 +32,7 @@ export const useTableOrdersAdmin = () => {
     const fetchTableData = async (document: string) => {
         setLoading(true)
         try {
-            const data = {
+            let data:OrderRequest = {
                 token: appStore.auth?.access_token!,
                 nit: appStore.auth?.document || "",
                 pageSize: 100,
@@ -42,6 +42,18 @@ export const useTableOrdersAdmin = () => {
                 orderCode: null,
                 site: null,
                 date: null,
+            }
+            if(appStore.auth?.admin){
+                data = {
+                    token: appStore.auth?.access_token!,
+                    pageSize: 100,
+                    pageNumber: 1,
+                    status: null,
+                    document: document,
+                    orderCode: null,
+                    site: null,
+                    date: null,
+                }
             }
             const response = await Orders({...data});
             const newData = response.data.map((item, index)=>({...item, id: index + 1}))

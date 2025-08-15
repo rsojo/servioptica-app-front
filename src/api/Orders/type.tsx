@@ -48,7 +48,7 @@ export interface OrderData {
 
 export interface OrderRequest {
   token: string;
-  nit: string
+  nit?: string
   pageSize: number,
   pageNumber: number,
   status: string | null,

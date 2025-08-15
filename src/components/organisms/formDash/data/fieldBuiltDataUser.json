@@ -44,6 +44,28 @@
       },
       {
         "id": 4,
+        "label": "Tipo:",
+        "name": "type",
+        "type": "select",
+        "columnSize": 12,
+        "important": true,
+        "options": [
+          {
+            "option": "Administrador",
+            "value": "1"
+          },
+          {
+            "option": "Cliente",
+            "value": "2"
+          }
+        ],
+        "default": "2",
+        "placeholder": "Seleccione un tipo",
+        "minlength": 1,
+        "maxlength": 15
+      },
+      {
+        "id": 4,
         "label": "Clave:",
         "name": "password",
         "type": "password",
