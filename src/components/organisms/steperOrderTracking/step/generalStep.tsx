@@ -6,7 +6,8 @@ import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import { uxDateFormat } from "../../../../utils";
 
 export const GeneralStep = ({ data }: { data: OrderData }) => {
-  const active = data.estado.length > 0;
+  const active = !!data.estado && data.estado.length > 0;
+  
   useEffect(() => {console.log('[data]', data)}, [data]);
   return (
     <ColumnAtom className="StepOrder_Box" alignItems="center" gap={2}>

@@ -45,27 +45,28 @@ const OrderTracking: React.FC = () => {
     isFetchingRef.current = true;
     setLoading(true);
     try {
-        const data = {
-            token: appStore.auth?.access_token!,
-            nit: appStore.auth?.document || "",
-            pageSize: 10,
-            pageNumber: 1,
-            status: null,
-            document: null,
-            orderCode: orderCode,
-            site: null,
-            date: null,
-        }
-        const response = await Orders({...data});
-        if(response.data.length === 0) {
-          errorSnackMessage("¡Número de orden inválido!")
-          setInvalidOrder(true); // Marcar error para mostrar alerta
+      const isAdmin = appStore.auth?.admin || false;
+      const data = {
+          token: appStore.auth?.access_token!,
+          nit: isAdmin ? "" : appStore.auth?.document || "",
+          pageSize: 10,
+          pageNumber: 1,
+          status: null,
+          document: isAdmin ? null : appStore.auth?.document || null,
+          orderCode: orderCode,
+          site: null,
+          date: null,
+      }
+      const response = await Orders({...data});
+      if(response.data.length === 0) {
+        errorSnackMessage("¡Número de orden inválido!")
+        setInvalidOrder(true); // Marcar error para mostrar alerta
 
-          return
-        };
-        setInvalidOrder(false);
-        const newData = response.data.map((item, index)=>({...item, id: index + 1}))
-        setData(newData);
+        return
+      };
+      setInvalidOrder(false);
+      const newData = response.data.map((item, index)=>({...item, id: index + 1}))
+      setData(newData);
     } catch (error) {
         console.error("Error fetching Table Data:", error);
     } finally {

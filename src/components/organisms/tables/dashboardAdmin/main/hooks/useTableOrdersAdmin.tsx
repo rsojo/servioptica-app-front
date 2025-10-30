@@ -31,10 +31,11 @@ export const useTableOrdersAdmin = () => {
 
     const fetchTableData = async (document: string) => {
         setLoading(true)
+        const isAdmin = appStore.auth?.admin || false;
         try {
             let data:OrderRequest = {
                 token: appStore.auth?.access_token!,
-                nit: appStore.auth?.document || "",
+                nit: isAdmin ? "" : appStore.auth?.document || "",
                 pageSize: 100,
                 pageNumber: 1,
                 status: null,
@@ -43,18 +44,18 @@ export const useTableOrdersAdmin = () => {
                 site: null,
                 date: null,
             }
-            if(appStore.auth?.admin){
-                data = {
-                    token: appStore.auth?.access_token!,
-                    pageSize: 100,
-                    pageNumber: 1,
-                    status: null,
-                    document: document,
-                    orderCode: null,
-                    site: null,
-                    date: null,
-                }
-            }
+            // if(appStore.auth?.admin){
+            //     data = {
+            //         token: appStore.auth?.access_token!,
+            //         pageSize: 100,
+            //         pageNumber: 1,
+            //         status: null,
+            //         document: document,
+            //         orderCode: null,
+            //         site: null,
+            //         date: null,
+            //     }
+            // }
             const response = await Orders({...data});
             const newData = response.data.map((item, index)=>({...item, id: index + 1}))
             setTableData(newData);

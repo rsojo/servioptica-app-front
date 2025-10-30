@@ -28,14 +28,15 @@ export const useOrderTracking = () => {
 
     const fetchTableData = async (orderCode: string) => {
         setLoading(true);
+        const isAdmin = appStore.auth?.admin || false;
         try {
             const data = {
                 token: appStore.auth?.access_token!,
-                nit: appStore.auth?.document || "",
+                nit: isAdmin ? "" : appStore.auth?.document || "",
                 pageSize: 10,
                 pageNumber: 1,
                 status: null,
-                document: null,
+                document: isAdmin ? null : appStore.auth?.document || null,
                 orderCode: orderCode,
                 site: null,
                 date: null,
