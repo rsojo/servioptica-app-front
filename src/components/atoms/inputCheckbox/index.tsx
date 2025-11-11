@@ -18,17 +18,15 @@ export const InputCheckBoxAtom = ({
       acc[item.value] = defaultValue === item.value;
       return acc;
     }, {} as { [key: string]: boolean });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultValue]);
 
   const [checkedState, setCheckedState] = useState(initialCheckedState);
 
   useEffect(() => {
     setCheckedState(initialCheckedState);
-  }, [defaultValue]);
+  }, [initialCheckedState]);
 
-  // useEffect(() => {
-  //   onChangeCallback(checkedState);
-  // }, [checkedState]);
 
   const handleChange = (value: string) => {
     onChangeCallback({

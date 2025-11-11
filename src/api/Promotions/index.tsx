@@ -14,7 +14,7 @@ export async function getPromotionsActives(): Promise<GetPromotionsActivesRespon
       },
     });
     const responseData: GetPromotionsActivesResponse = await response.json();
-   console.log("[getPromotionsActives] [responseData]", responseData);
+   // console.log("[getPromotionsActives] [responseData]", responseData);
     return responseData;
   } catch (error: any) {
     return error as any;
@@ -47,7 +47,7 @@ export async function addPromotionsAdmin(
   props: AddPromotionsRequest
 ): Promise<GetPromotionsActivesResponse> {
   const url = `${devUrl}/api/promotions`;
-  console.log("[addPromotionsAdmin] [PREV]", props);
+  // console.log("[addPromotionsAdmin] [PREV]", props);
 
   try {
     const response = await fetch(url, {
@@ -61,7 +61,7 @@ export async function addPromotionsAdmin(
     });
 
     const responseData: GetPromotionsActivesResponse = await response.json();
-  console.log("[addPromotionsAdmin] [responseData]", responseData);
+  // console.log("[addPromotionsAdmin] [responseData]", responseData);
 
     return responseData;
   } catch (error: any) {
@@ -74,7 +74,7 @@ export async function updatePromotionsAdmin(props: Partial<AddPromotionsRequest>
   id: number;
 }): Promise<any> {
   const url = `${devUrl}/api/promotions/${props.id}`;
-  console.log("[updatePromotionsAdmin] [PREV]", props);
+  // console.log("[updatePromotionsAdmin] [PREV]", props);
 
   try {
     const response = await fetch(url, {
@@ -86,7 +86,7 @@ export async function updatePromotionsAdmin(props: Partial<AddPromotionsRequest>
       },
       body: JSON.stringify({...props}),
     });
-    console.log("[updatePromotionsAdmin] [response]", response);
+    // console.log("[updatePromotionsAdmin] [response]", response);
     if (response.status === 422) {
       console.error("[updatePromotionsAdmin] [error]", response);
       return response;
@@ -121,7 +121,7 @@ export async function removePromotionsAdmin({
       },
       body: JSON.stringify({ id: id }),
     });
-    //console.log("[removePromotionsAdmin] [response]", response);
+    // console.log("[removePromotionsAdmin] [response]", response);
     if (response.status !== 204) {
       return false;
     }

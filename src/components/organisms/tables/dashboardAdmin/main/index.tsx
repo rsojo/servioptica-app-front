@@ -105,11 +105,8 @@ export const TableMainAdmin = () => {
           checkboxSelection={false}
           rowSelection={false}
           onRowClick={(params) => {
-            if(params.row.pedido_cliente?.startsWith("RX")){
-              navetgate(`/order-tracking/${params.row.pedido_cliente}`);
-            }else{
-              alert("ID de pedido no válido");
-            }
+          navetgate(`/order-tracking/${params.row.document_no}`);
+           
           }} // Verificar que el id_pedido es el correcto
           getRowClassName={(params) =>
             params.indexRelativeToCurrentPage % 2 === 0 ? "alternate-row" : ""

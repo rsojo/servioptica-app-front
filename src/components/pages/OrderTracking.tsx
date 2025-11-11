@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ContainerAtom, GridAtom, SpaceAtom } from "../atoms";
 import { SteperOrderTracking } from "../organisms/steperOrderTracking";
 import { BottomOrderTracking } from "../organisms/bottomOrderTracking";
@@ -24,8 +24,6 @@ const OrderTracking: React.FC = () => {
  
   const isFetchingRef = useRef(false);
 
-  // useEffect(()=>{fetchTableData(idPedido!)}, [idPedido])
-
   useEffect(() => {
     if (data) {
       const priorities = ['9','8','7','6','5', '4', '3', '2', '1'];
@@ -37,6 +35,7 @@ const OrderTracking: React.FC = () => {
         setCurrentData(currentData);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
   
 
@@ -81,6 +80,7 @@ useEffect(() => {
   if (idPedido) {
     fetchTableData(idPedido);
   }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [idPedido]);
 
 if (loading) {

@@ -3,7 +3,6 @@ import {
   ColumnAtom,
   InputTextAtom,
   RowAtom,
-  SelectAtom,
 } from "../../../../../atoms";
 import { TablePromotionsAdminView } from "..";
 import { IconButton, InputAdornment } from "@mui/material";
@@ -17,8 +16,6 @@ interface FiltersTableProps {
   setView: React.Dispatch<React.SetStateAction<TablePromotionsAdminView>>;
 }
 export const FiltersTable = ({
-  stateFilter,
-  setStateFilter,
   dateFilter,
   setDateFilter,
   setView,

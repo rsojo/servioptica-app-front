@@ -206,11 +206,7 @@ const isDashboardView = location.pathname.includes("/dashboard");
               <ButtonAtom
                 disabled={!searchValue}
                 onClick={() => {
-                  console.log('onClick', 
-                    searchValue,
-                    idPedido,
-                    idPedido === searchValue
-                  )
+                  
                   if(idPedido === searchValue) {
                     window.location.replace(`/order-tracking/${searchValue}`);
                   }else{

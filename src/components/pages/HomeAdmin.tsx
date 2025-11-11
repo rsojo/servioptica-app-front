@@ -1,5 +1,5 @@
 // src/components/Home.tsx
-import React, { useEffect } from "react";
+import React from "react";
 import ContainerAtom from "../atoms/container";
 import { BannerHomeAdmin } from "../organisms/bannerHomeAdmin";
 import { useAtom } from "jotai";
@@ -9,7 +9,6 @@ import { Navigate } from "react-router-dom";
 const HomeAdmin: React.FC = () => {
   const [appStore] = useAtom(appStoreAtom);
 
-  useEffect(()=>{console.log('[appStore]', appStore)},[appStore])
 
   if (!appStore.auth?.access_token) {
     return <Navigate to="/login" replace />;

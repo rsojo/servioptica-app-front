@@ -88,7 +88,7 @@ export async function updateFaqAdmin(props: {
   const { token, id, state, ...data } = props;
   const newData = { ...data, status: state === "Active" ? 1 : 0 }
   const url = `${devUrl}/api/faqs/${id}`;
-  console.log("[updateFaqAdmin] [PREV]", newData);
+  // console.log("[updateFaqAdmin] [PREV]", newData);
 
   try {
     const response = await fetch(url, {

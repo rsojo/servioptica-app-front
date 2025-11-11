@@ -5,7 +5,7 @@ const devUrl = process.env.REACT_APP_BASE_URL
 
 export async function Orders(props: OrderRequest): Promise<OrdersResponse> {
   const url = `${devUrl}/api/orders`;
-  console.log("[Orders] [PREV]", props, url); // TODO: Eliminar console.log en producción
+  // console.log("[Orders] [PREV]", props, url); // TODO: Eliminar // console.log en producción
 
   try {
     const response = await fetch(url, {
@@ -18,7 +18,7 @@ export async function Orders(props: OrderRequest): Promise<OrdersResponse> {
       body: JSON.stringify({ ...props })
     });
     const responseData: OrdersResponse = await response.json();
-    console.log("[Orders] [responseData]", responseData); // TODO: Eliminar console.log en producción
+    // console.log("[Orders] [responseData]", responseData); // TODO: Eliminar // console.log en producción
     return responseData;
   } catch (error: any) {
     console.error("[Orders] [Error]", error);
@@ -55,7 +55,7 @@ export async function ExportCsv(props: OrderRequest): Promise<void> {
     a.click();
     document.body.removeChild(a);
 
-   //  console.log("[ExportCsv] Archivo descargado correctamente.");
+   // console.log("[ExportCsv] Archivo descargado correctamente.");
   } catch (error: any) {
     console.error("[ExportCsv] [Error]", error);
     throw error; // Lanza el error para manejo externo si es necesario

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { OrderData } from "../../../../api/Orders/type";
 import { BASE_COLORS } from "../../../../style/constants";
 import { ColumnAtom, GridAtom, TextAtom, TitleAtom } from "../../../atoms";
@@ -8,7 +7,6 @@ import { uxDateFormat } from "../../../../utils";
 export const GeneralStep = ({ data }: { data: OrderData }) => {
   const active = !!data.estado && data.estado.length > 0;
   
-  useEffect(() => {console.log('[data]', data)}, [data]);
   return (
     <ColumnAtom className="StepOrder_Box" alignItems="center" gap={2}>
       <GridAtom

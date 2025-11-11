@@ -3,7 +3,7 @@ import { Orders } from "../../../../../../api/Orders";
 import { appStoreAtom } from "../../../../../../store/Auth";
 import { useAtom } from "jotai";
 import { searchOrder } from "../../../../../../store/searchOrder";
-import { OrderData, OrderRequest, OrdersResponse } from "../../../../../../api/Orders/type";
+import { OrderData, OrderRequest } from "../../../../../../api/Orders/type";
 import { useDownloadCSV } from "./useDownloadCSV";
 
 export const useTableOrdersAdmin = () => {
@@ -14,12 +14,15 @@ export const useTableOrdersAdmin = () => {
     const [dateFilter, setDateFilter] = useState("");
     const [loading, setLoading] = useState(false)
 
+    // eliminamos los duplicados
     const uniqueData = tableData
     ? tableData.filter(
           (item, index, self) =>
               self.findIndex((t) => t.pedido === item.pedido) === index
       )
     : null;
+
+    // aplicamos los filtros
     const filteredRows = uniqueData?.filter((row) => {
         const matchesState = stateFilter ? row.estado.includes(stateFilter) : true;
         // const matchesDate = dateFilter ? (row.fecha_entrada.split(' ')[0] === dateFilter || new Date(row.fecha_entrada) >= new Date(dateFilter)) : true;
@@ -93,12 +96,14 @@ export const useTableOrdersAdmin = () => {
         if(!tableData && !appStore.auth?.admin!){
             fetchTableData(appStore.auth?.document!)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tableData]);
 
     useEffect(() => {
         if(searchOrderAtom.document && appStore.auth?.admin){
             fetchTableData(searchOrderAtom.document);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchOrderAtom]);
     
     return {

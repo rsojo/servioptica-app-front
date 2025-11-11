@@ -138,10 +138,10 @@ export const validateField = async ({
           };
         }
 
-        const hasUpperCase = /[A-Z]/.test(strVal);
-        const hasSpecialChar = /[\W_]/.test(strVal);
-        const hasConsecutiveLower = /[a-z]{2}/.test(strVal);
-        const hasConsecutiveDigits = /\d{2}/.test(strVal);
+        // const hasUpperCase = /[A-Z]/.test(strVal);
+        // const hasSpecialChar = /[\W_]/.test(strVal);
+        // const hasConsecutiveLower = /[a-z]{2}/.test(strVal);
+        // const hasConsecutiveDigits = /\d{2}/.test(strVal);
 
         // if (!hasUpperCase || !hasSpecialChar) {
           // return {
@@ -168,7 +168,7 @@ export const validateField = async ({
 
       case "file":
         const isValidImage = (typeof File !== "undefined" && value instanceof File);
-        console.log('isValidImage', {isValidImage, value});
+        // console.log('isValidImage', {isValidImage, value});
         if (!isValidImage) {
           return {
             groupId: groupId!,

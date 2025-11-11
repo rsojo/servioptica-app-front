@@ -25,10 +25,11 @@ export const FiltersTable = ({
           name="state"
           variant='small'
           options={[
-            { option: "Productivo AGENCIA", value: "Pedido en proceso Productivo AGENCIA" },
-            { option: "Productivo LABORATORIO", value: "Pedido en proceso Productivo LABORATORIO" },
-            { option: "Envío a AGENCIA", value: "Pedido en proceso de envio DEL LABORATORIO a LA AGENCIA" },
-            { option: "Pedido Recibido", value: "Pedido Recibido" }
+            { option: "Recibido", value: "Recibido" },
+            { option: "Pendiente de informacion", value: "Pendiente de informacion o montura cliente" },
+            { option: "En proceso productivo", value: "En proceso productivo" },
+            { option: "En alistamiento para entrega", value: "En alistamiento para entrega" },
+            { option: "Pedido Entregado", value: "Pedido Entregado" }
           ]}
           placeholder={"Todos los estados"}
           defaultValue={stateFilter}
