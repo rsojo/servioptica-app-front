@@ -143,20 +143,22 @@ const PreLogin: React.FC = () => {
   const handleCheckClient = (value: { document: string }) => {
     checkClient({ document: value.document })
       .then((response) => {
+        // Handle various response codes
         if (response.error || response.code === 500 || response.code === 404) {
           errorSnackMessage(response.message);
           return;
         }
         successSnackMessage(String(response.message));
         setCheckClientData(response);
-
+        
         if (response.code === 302) {
           setStep(5);
           return;
         }
-
+        const data = response.data as CheckClientData[];
+        setEmail(data[0].email);
+        
         if (response.code === 202) {
-          const data = response.data as CheckClientData[];
           if (data.length > 1) {
             const preData = data.map((item: any) => ({
               option: item.email,
@@ -166,7 +168,7 @@ const PreLogin: React.FC = () => {
             setStep(2);
             return;
           } else if (data.length === 1) {
-            setEmail(data[0].email);
+            // Auto register and send OTP
             sendOtp({ document: data[0].document }).then((otpr) =>
               successSnackMessage(String(otpr.message))
             );
@@ -175,9 +177,7 @@ const PreLogin: React.FC = () => {
           }
         }
         if (response.code === 208) {
-          const data = response.data as CheckClientData[];
           if (data[0].status === "Inactive") {
-            setEmail(data[0].email);
             sendOtp({ document: data[0].document }).then((otpr) =>
               successSnackMessage(String(otpr.message))
             );
@@ -276,6 +276,7 @@ const PreLogin: React.FC = () => {
       />
       {(step === 7) && (
         <OtpCodeLightBox
+          email={email}
           document={nit}
           onCancelBack={() => setStep(5)}
           onCallBack={(value) => {

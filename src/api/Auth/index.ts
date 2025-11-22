@@ -88,10 +88,20 @@ export async function register(
   }
 }
 
+export interface SendOtpResponse {
+  message: string;
+  data?: {
+    email?: string;
+    document?: string;
+  };
+  error: boolean;
+  
+}
+
 export async function sendOtp(data: {
   email?: string;
   document?: string;
-}): Promise<any> {
+}): Promise<SendOtpResponse> {
   const url = `${devUrl}/api/auth/otp/send`;
   // console.log("[sendOtp] [PREV]", data, url);
 

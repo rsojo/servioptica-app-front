@@ -9,10 +9,12 @@ import { sendOtp } from "../../../../api/Auth";
 import { useMessage } from "../../../../hooks/useMessage";
 
 export const OtpCodeLightBox = ({
+  email: emailValue,
   document: documentValue,
   onCallBack,
   onCancelBack,
 }: {
+  email?: string;
   document: string;
   onCallBack: (value: string) => void;
   onCancelBack: () => void;
@@ -21,13 +23,18 @@ export const OtpCodeLightBox = ({
   const [email, setEmail] = useState("");
   const { errorSnackMessage, successSnackMessage } = useMessage();
 
-  const handleReSendOtp = () => {
-    sendOtp({ document: documentValue })
-      .then((resp) => {
-        setEmail(resp.data?.email || "");
-        successSnackMessage(String(resp.message));
-      })
-      .catch((error) => errorSnackMessage(String(error)));
+  const handleReSendOtp = async () => {
+    console.log("Resend OTP to document:", documentValue);
+    try {
+      const res = await sendOtp({ document: documentValue });
+      if (res.error) {
+        errorSnackMessage(String(res.message));
+      }
+      setEmail(res.data?.email || "");
+      successSnackMessage(String(res.message));
+    } catch (error) {
+      errorSnackMessage(String(error))
+    }
   };
 
   return (

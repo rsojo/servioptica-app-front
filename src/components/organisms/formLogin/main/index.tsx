@@ -51,6 +51,10 @@ export const LoginForm = ({
     }
   }, [document, isAdmin]);
 
+  function errorSnackMessage(arg0: string) {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <>
       <GridAtom
@@ -113,7 +117,13 @@ export const LoginForm = ({
                   
                  if(document) {
                   setIsLoading(true)
-                  sendOtp({ document: document }).then(() => setStep(7)).finally(() => setIsLoading(false));
+                  sendOtp({ document: document }).then((r) => {
+                    if (r.error) {
+                      errorSnackMessage(String(r.message));
+                    } else {
+                      setStep(7);
+                    }
+                  }).finally(() => setIsLoading(false));
                 };
                 }}
                 style={{ color: BASE_COLORS.blue }}
