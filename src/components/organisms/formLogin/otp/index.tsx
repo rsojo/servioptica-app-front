@@ -20,16 +20,18 @@ export const OtpCodeLightBox = ({
   onCancelBack: () => void;
 }) => {
   const [otp, setOtp] = useState("");
+  const [userEmail, setUserEmail] = useState(email || "");
   const { errorSnackMessage, successSnackMessage } = useMessage();
 
 
   const handleReSendOtp = () => {
-    // console.log('[OtpCodeLightBox, handleReSendOtp]')
     sendOtp({ email: email, document: document })
-      .then(
-        (otpr) => successSnackMessage(String(otpr.message))
-        // TODO: Cambiar a correo del cliente data[0].email
-      )
+      .then((otpr) => {
+        if (otpr.data?.email) {
+          setUserEmail(otpr.data.email);
+        }
+        successSnackMessage(String(otpr.message));
+      })
       .catch((error) => errorSnackMessage(String(error)));
   };
 
@@ -57,8 +59,7 @@ export const OtpCodeLightBox = ({
             color: BASE_COLORS.blue,
           }}
         >
-          El código de validación se envía al correo registrado en nuestra
-          plataforma y tiene una validez de 5 min.
+          El código de validación se envía al correo {userEmail && <strong>{userEmail}</strong>} y tiene una validez de 5 min.
         </TextAtom>
         <GridAtom style={{ marginBottom: -105 }} alignItems="center" gap={4}>
           <ButtonAtom onClick={() => onCallBack(otp)}>

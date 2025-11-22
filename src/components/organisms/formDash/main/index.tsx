@@ -102,7 +102,7 @@ export const LoginForm = ({
           )}
           {step === 3 && (
             <OtpCodeLightBox
-              email={""}
+              document={""}
               onCancelBack={() => setStep(2)}
               onCallBack={(value) => {
                 onCallBack({ opt: value });

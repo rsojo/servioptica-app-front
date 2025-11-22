@@ -9,25 +9,24 @@ import { sendOtp } from "../../../../api/Auth";
 import { useMessage } from "../../../../hooks/useMessage";
 
 export const OtpCodeLightBox = ({
-  email,
+  document: documentValue,
   onCallBack,
   onCancelBack,
 }: {
-  email: string;
+  document: string;
   onCallBack: (value: string) => void;
   onCancelBack: () => void;
 }) => {
   const [otp, setOtp] = useState("");
+  const [email, setEmail] = useState("");
   const { errorSnackMessage, successSnackMessage } = useMessage();
 
-
   const handleReSendOtp = () => {
-    // console.log('[OtpCodeLightBox, handleReSendOtp]')
-    sendOtp({ email: email })
-      .then(
-        (otpr) => successSnackMessage(String(otpr.message))
-        // TODO: Cambiar a correo del cliente data[0].email
-      )
+    sendOtp({ document: documentValue })
+      .then((resp) => {
+        setEmail(resp.data?.email || "");
+        successSnackMessage(String(resp.message));
+      })
       .catch((error) => errorSnackMessage(String(error)));
   };
 
@@ -55,19 +54,15 @@ export const OtpCodeLightBox = ({
             color: BASE_COLORS.blue,
           }}
         >
-          El código de validación se envía al correo registrado en nuestra
-          plataforma y tiene una validez de 5 min
+          El código de validación se envía al correo{" "}
+          {email && <strong>{email}</strong>} y tiene una validez de 5 min
         </TextAtom>
         <GridAtom style={{ marginBottom: -105 }} alignItems="center" gap={1}>
-          <ButtonAtom onClick={() => onCallBack(otp)}>
-            Validar código
-          </ButtonAtom>
+          <ButtonAtom onClick={() => onCallBack(otp)}>Validar código</ButtonAtom>
           <ButtonAtom
             variant="outlined"
             adVariant="linkStyle"
-            onClick={() => {
-              handleReSendOtp();
-            }}
+            onClick={handleReSendOtp}
           >
             Enviar código nuevamente
           </ButtonAtom>

@@ -118,7 +118,7 @@ const PreLogin: React.FC = () => {
   };
 
   const handkeVerifyOtp = (value: string, step: number) => {
-    let data: { otp: string; email?: string; document?: string } = { otp: value, email: email };
+    let data: { otp: string; email?: string; document?: string } = { otp: value, document: nit };
     if (step === 7) {
       data = { otp: value, document: nit };
     }
@@ -167,7 +167,7 @@ const PreLogin: React.FC = () => {
             return;
           } else if (data.length === 1) {
             setEmail(data[0].email);
-            sendOtp({ email: data[0].email }).then((otpr) =>
+            sendOtp({ document: data[0].document }).then((otpr) =>
               successSnackMessage(String(otpr.message))
             );
             setStep(3);
@@ -178,7 +178,7 @@ const PreLogin: React.FC = () => {
           const data = response.data as CheckClientData[];
           if (data[0].status === "Inactive") {
             setEmail(data[0].email);
-            sendOtp({ email: data[0].email }).then((otpr) =>
+            sendOtp({ document: data[0].document }).then((otpr) =>
               successSnackMessage(String(otpr.message))
             );
             setStep(3);

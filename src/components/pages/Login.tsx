@@ -4,7 +4,7 @@ import ContainerAtom from "../atoms/container";
 import { LoginForm } from "../organisms/formLogin/main";
 import { Navigate, useNavigate } from "react-router-dom";
 import {
-  assignPasswordByEmail,
+  assignPassword,
   loginUser,
   sendOtp,
   verifyOtp,
@@ -55,7 +55,7 @@ const Login: React.FC = () => {
     }
     if (value && step === 2) {
       // value: {email}
-      sendOtp({ email: value.email }).then((response) => {
+      sendOtp({ document: value.document }).then((response) => {
         if (response.error) {
           errorSnackMessage(response.message);
         }
@@ -66,8 +66,8 @@ const Login: React.FC = () => {
       });
     }
     if (value && step === 3) {
-      // value: {email & otp}
-      verifyOtp({ otp: value.otp, email: value.email }).then((response) => {
+      // value: {document & otp}
+      verifyOtp({ otp: value.otp, document: value.document }).then((response) => {
         if (response.error) {
           errorSnackMessage(response.message);
         }
@@ -79,15 +79,15 @@ const Login: React.FC = () => {
       });
     }
     if (value && step === 4) {
-      // New Passbord | value: {password_1, password_2, email}
+      // New Passbord | value: {password_1, password_2, document}
       if (value.password_1 !== value.password_2) {
         errorSnackMessage("!Las claves no coinciden!");
       } else {
-        assignPasswordByEmail({
+        assignPassword({
           assignToken: tokenPass,
-          email: value.email,
+          document: value.document,
           password: value.password_1,
-        }).then((response) => {
+        }).then((response: any) => {
           if (response.error) {
             errorSnackMessage(response.message);
           }
