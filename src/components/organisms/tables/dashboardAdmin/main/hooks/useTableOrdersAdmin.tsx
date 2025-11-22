@@ -14,13 +14,30 @@ export const useTableOrdersAdmin = () => {
     const [dateFilter, setDateFilter] = useState("");
     const [loading, setLoading] = useState(false)
 
-    // eliminamos los duplicados
     const uniqueData = tableData
-    ? tableData.filter(
-          (item, index, self) =>
-              self.findIndex((t) => t.pedido === item.pedido) === index
-      )
+    ? Object.values(
+        tableData.reduce((acc: Record<string, OrderData>, item) => {
+            const key = item.pedido;
+            const currentSeq = Number(item.seq_no) || 0;
+
+            if (!acc[key]) {
+            // Primer registro que vemos de este pedido
+            acc[key] = item;
+            } else {
+            const savedSeq = Number(acc[key].seq_no) || 0;
+
+            // Si este tiene un seq_no mayor, reemplazamos
+            if (currentSeq > savedSeq) {
+                acc[key] = item;
+            }
+            }
+
+            return acc;
+        }, {})
+        )
     : null;
+
+
 
     // aplicamos los filtros
     const filteredRows = uniqueData?.filter((row) => {
