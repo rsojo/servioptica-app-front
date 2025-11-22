@@ -1,12 +1,14 @@
 import { IconButton, InputAdornment } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import { ButtonAtom, ColumnAtom, InputTextAtom, RowAtom, SelectAtom } from "../../../../../atoms";
+import { DateFilter } from "../hooks/useTableOrdersAdmin";
+import { DateRangeAtomV2 } from "../../../../../atoms/dateRangeAtom";
 
 interface FiltersTableProps {
   stateFilter: string;
   setStateFilter: React.Dispatch<React.SetStateAction<string>>;
-  dateFilter: string;
-  setDateFilter: React.Dispatch<React.SetStateAction<string>>;
+  dateFilter: DateFilter;
+  setDateFilter: React.Dispatch<React.SetStateAction<DateFilter>>;
   onDownloadAction: () => void
 }
 export const FiltersTable = ({
@@ -19,7 +21,7 @@ export const FiltersTable = ({
   return (
     <RowAtom style={{ width: "100%", flexFlow: "wrap" }} gap={1}>
       
-      <ColumnAtom flex={2} style={{ minWidth: 100, maxWidth: 320 }}>
+      <ColumnAtom flex={2} style={{ minWidth: 100, maxWidth: 180 }}>
         <SelectAtom
           id="state"
           name="state"
@@ -36,33 +38,25 @@ export const FiltersTable = ({
           onChangeCallback={(value) => setStateFilter(value)}
         />
       </ColumnAtom>
+      
       <ColumnAtom flex={2} style={{ minWidth: 160, maxWidth: 320 }}>
-        <InputTextAtom
-          type="date"
-          variant="small"
+        <DateRangeAtomV2
           field={{
-            id: "date",
+            id: "dateRange",
             name: "fecha_entrada",
             placeholder: "Fecha",
             default: dateFilter,
           }}
+          variant="small"
           defaultValue={dateFilter}
           onChangeCallback={(value) => {
-            setDateFilter(String(value));
-            
+            setDateFilter(value);
           }}
-          InputProps={{
-            endAdornment: dateFilter && (
-              <InputAdornment position="end">
-                <IconButton onClick={() => setDateFilter("")}>
-                  <ClearIcon />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
+          style={{ width: "100%" }}
+          
         />
       </ColumnAtom>
-      <ColumnAtom flex={2} style={{ minWidth: 130, maxWidth: 200 }}>
+      <ColumnAtom flex={2} style={{ minWidth: 130, maxWidth: 180 }}>
         <ButtonAtom
           variant="outlined"
           adVariant="small"

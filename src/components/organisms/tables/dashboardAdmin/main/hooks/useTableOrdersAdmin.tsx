@@ -6,12 +6,17 @@ import { searchOrder } from "../../../../../../store/searchOrder";
 import { OrderData, OrderRequest } from "../../../../../../api/Orders/type";
 import { useDownloadCSV } from "./useDownloadCSV";
 
+export type DateFilter = {
+  from: string; // fecha desde (YYYY-MM-DD)
+  to: string;   // fecha hasta (YYYY-MM-DD)
+};
+
 export const useTableOrdersAdmin = () => {
     const [appStore] = useAtom(appStoreAtom);
     const [searchOrderAtom] = useAtom(searchOrder);
     const [tableData, setTableData] = useState<OrderData[] | null>(null);
     const [stateFilter, setStateFilter] = useState("");
-    const [dateFilter, setDateFilter] = useState("");
+  const [dateFilter, setDateFilter] = useState<DateFilter>({ from: "", to: "" });
     const [loading, setLoading] = useState(false)
 
     const uniqueData = tableData
@@ -37,14 +42,51 @@ export const useTableOrdersAdmin = () => {
         )
     : null;
 
-
-
     // aplicamos los filtros
     const filteredRows = uniqueData?.filter((row) => {
         const matchesState = stateFilter ? row.estado.includes(stateFilter) : true;
-        // const matchesDate = dateFilter ? (row.fecha_entrada.split(' ')[0] === dateFilter || new Date(row.fecha_entrada) >= new Date(dateFilter)) : true;
-        const matchesDate = dateFilter ? row.fecha_entrada.split(' ')[0] === dateFilter : true;
 
+        // ----- Filtro por rango de fechas -----
+        const { from, to } = dateFilter;
+
+        // Si no hay ningún filtro de fecha, no filtramos
+        if (!from && !to) {
+        return matchesState;
+        }
+
+        // Fecha del registro (YYYY-MM-DD)
+        const rowDateStr = row.fecha_entrada.split(" ")[0];
+
+        // Normalizamos fechas a Date para comparar
+        const rowDate = new Date(rowDateStr);
+
+        // Si por lo que sea no se puede parsear, lo excluimos
+        if (isNaN(rowDate.getTime())) {
+        return false;
+        }
+
+        // Fecha desde (puede ser null si viene vacío)
+        const fromDate = from ? new Date(from) : null;
+
+        // Si TO está vacío, usamos HOY como límite superior
+        const todayStr = new Date().toISOString().split("T")[0];
+        const toStr = to || todayStr;
+        const toDate = new Date(toStr);
+
+        if (isNaN(toDate.getTime())) {
+        return false;
+        }
+
+        // Comparación inclusiva: from <= rowDate <= to
+        let matchesDate = true;
+
+        if (fromDate && rowDate < fromDate) {
+        matchesDate = false;
+        }
+
+        if (rowDate > toDate) {
+        matchesDate = false;
+        }
 
         return matchesState && matchesDate;
     });
