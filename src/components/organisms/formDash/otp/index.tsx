@@ -61,8 +61,7 @@ export const OtpCodeLightBox = ({
             color: BASE_COLORS.blue,
           }}
         >
-          El código de validación se envía al correo{" "}
-          {email && <strong>{email}</strong>} y tiene una validez de 5 min
+          El código de validación se envía al correo {email && <strong>{email}</strong>} y tiene una validez de 5 min.
         </TextAtom>
         <GridAtom style={{ marginBottom: -105 }} alignItems="center" gap={1}>
           <ButtonAtom onClick={() => onCallBack(otp)}>Validar código</ButtonAtom>

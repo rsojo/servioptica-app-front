@@ -10,6 +10,26 @@
   align-items: center;
   justify-content: center;
 }
+.MuiGrid-root.OtpCodeLightBox {
+  background-color: #02114191;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  width: 100vw;
+  left: 0;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.MuiGrid-root.OtpCodeLightBox_Card {
+  background: #ffffff;
+  border: 1px solid #024f8f;
+  padding: 80px 40px 0;
+  max-width: 747px;
+  max-height: 417px;
+  width: 100%;
+}
 .MuiGrid2-root.OtpCodeLightBox_Card {
   background: #ffffff;
   border: 1px solid #024f8f;
