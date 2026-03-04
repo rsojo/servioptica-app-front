@@ -6,13 +6,13 @@
       {
         "id": 1,
         "label": "",
-        "name": "email",
-        "type": "email",
+        "name": "document",
+        "type": "number",
         "columnSize": 12,
         "important": true,
         "options": null,
         "default": "",
-        "placeholder": "Agrega tu E-mail",
+        "placeholder": "Agrega tu Documento de Identidad",
         "textError": "Mínimo 8 caracteres",
         "minlength": 8,
         "maxlength": 60

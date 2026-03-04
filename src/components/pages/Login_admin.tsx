@@ -18,8 +18,10 @@ const LoginAdmin: React.FC = () => {
   const [appStore, setAppStore] = useAtom(persistAppStoreAtom);
   const { errorSnackMessage, successSnackMessage } = useMessage();
   const [tokenPass, setTokenPass] = useState<string>("");
-
+  const [externalEmail, setExternalEmail] = useState<string | null>(null);
+  const [document, setDocument] = useState<string | null>(null);
   const [step, setStep] = useState(1);
+  
 
   const navetgate = useNavigate();
 
@@ -62,14 +64,20 @@ const LoginAdmin: React.FC = () => {
         if (!response.error) {
           successSnackMessage(String(response.message));
           setStep(3);
+          const email = response.data?.email;
+          const document = response.data?.document;
+          setExternalEmail(email || null);
+          setDocument(document || null);
         }
       });
     }
     if (value && step === 3) {
       // value: {document & otp}
-      verifyOtp({ otp: value.otp, document: value.document }).then((response) => {
+      verifyOtp({ otp: value.otp, document: document || value.document }).then((response) => {
         if (response.error) {
+          
           errorSnackMessage(response.message);
+          return;
         }
         if (!response.error && response.data) {
           setTokenPass(response.data.assignToken);
@@ -116,7 +124,7 @@ const LoginAdmin: React.FC = () => {
         height: "calc(100vh - 260px)",
       }}
     >
-      <LoginForm isAdmin onCallBack={handleLogin} step={step} setStep={setStep} />
+      <LoginForm isAdmin onCallBack={handleLogin} step={step} setStep={setStep} externalEmail={externalEmail} />
     </ContainerAtom>
   );
 };

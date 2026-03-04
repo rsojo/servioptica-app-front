@@ -187,12 +187,18 @@ export const DateRangeAtomV2 = ({
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Box sx={{ display: "flex", p: 2, gap: 2 }}>
             <Box>
+              <p className="text-sm">
+                Seleccione Desde:
+              </p>
               <DateCalendar
                 value={fromDate}
                 onChange={(newDate) => handleChangeFrom(newDate)}
               />
             </Box>
             <Box>
+              <p className="text-sm">
+                Hasta:
+              </p>
               <DateCalendar
                 value={toDate}
                 onChange={(newDate) => handleChangeTo(newDate)}

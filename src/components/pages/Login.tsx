@@ -18,6 +18,7 @@ const Login: React.FC = () => {
   const [appStore, setAppStore] = useAtom(persistAppStoreAtom);
   const { errorSnackMessage, successSnackMessage } = useMessage();
   const [tokenPass, setTokenPass] = useState<string>("");
+  const [externalEmail, setExternalEmail] = useState<string | null>(null);
 
   const [step, setStep] = useState(1);
 
@@ -60,6 +61,8 @@ const Login: React.FC = () => {
           errorSnackMessage(response.message);
         }
         if (!response.error) {
+          const email = response.data?.email;
+          setExternalEmail(email || null);
           successSnackMessage(String(response.message));
           setStep(3);
         }
@@ -116,7 +119,7 @@ const Login: React.FC = () => {
         height: "calc(100vh - 260px)",
       }}
     >
-      <LoginForm  onCallBack={handleLogin} step={step} setStep={setStep} />
+      <LoginForm  onCallBack={handleLogin} step={step} setStep={setStep} externalEmail={externalEmail} />
     </ContainerAtom>
   );
 };

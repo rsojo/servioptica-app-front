@@ -12,8 +12,9 @@ import fieldBuiltDataNewPassw from "../data/fieldBuiltDataNewPassw.json";
 import fieldBuiltDataGetEmail from "../data/fieldBuiltDataGetEmail.json";
 import { ButtonAtom } from "../../../atoms";
 import { OtpCodeLightBox } from "../otp";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { sendOtp } from "../../../../api/Auth";
+import { useMessage } from "../../../../hooks/useMessage";
 
 export const LoginForm = ({
   step,
@@ -30,8 +31,16 @@ export const LoginForm = ({
   document?: string;
   externalEmail?: string | null;
 }) => {
-  const [email, setEmail] = useState<string | null>(null);
+  const [email, setEmail] = useState<string | null>(externalEmail);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+    const { errorSnackMessage, successSnackMessage } = useMessage();
+
+
+  useEffect(() => {
+    if (externalEmail) {
+      setEmail(externalEmail);
+    }
+  }, [externalEmail]);
 
   const handleBuildData = useMemo(() => {
     if (isAdmin) {
@@ -50,10 +59,6 @@ export const LoginForm = ({
       });
     }
   }, [document, isAdmin]);
-
-  function errorSnackMessage(arg0: string) {
-    throw new Error("Function not implemented.");
-  }
 
   return (
     <>
@@ -114,7 +119,6 @@ export const LoginForm = ({
                 disabled={isLoading}
                 adVariant="linkStyle"
                 onClick={() => {
-                  
                  if(document) {
                   setIsLoading(true)
                   sendOtp({ document: document }).then((r) => {
@@ -124,7 +128,8 @@ export const LoginForm = ({
                       setStep(7);
                     }
                   }).finally(() => setIsLoading(false));
-                };
+                } else {
+                    setStep(2);                 }
                 }}
                 style={{ color: BASE_COLORS.blue }}
               >

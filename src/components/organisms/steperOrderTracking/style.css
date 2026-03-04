@@ -5,13 +5,13 @@
   position: relative;
 }
 
-.MuiGrid2-root .SteperOrderTracking_Box {
+.MuiGrid-root .SteperOrderTracking_Box {
   width: 100%;
   overflow-x: auto;
   align-items: center;
 }
 
-.MuiGrid2-root .StepOrder {
+.MuiGrid-root .StepOrder {
   --size: 140px;
   border: 1px solid #ffffff;
   width: var(--size);
@@ -32,14 +32,14 @@
   z-index: -1;
 }
 
-.MuiGrid2-root .SteperOrderTracking_Box h3 {
+.MuiGrid-root .SteperOrderTracking_Box h3 {
   font-size: 20px;
 }
 @media screen and (max-width: 1440px) {
-  .MuiGrid2-root .SteperOrderTracking_Box h3 {
+  .MuiGrid-root .SteperOrderTracking_Box h3 {
     font-size: 18px;
   }
-  .MuiGrid2-root .StepOrder {
+  .MuiGrid-root .StepOrder {
     --size: 120px;
   }
   .SteperOrderTracking_Bar {
@@ -47,20 +47,20 @@
   }
 }
 @media screen and (max-width: 1336px) {
-  .MuiGrid2-root .StepOrder {
+  .MuiGrid-root .StepOrder {
     --size: 90px;
   }
-  .MuiGrid2-root .StepOrder svg {
+  .MuiGrid-root .StepOrder svg {
     max-width: 48px;
     max-height: 48px;
   }
   .SteperOrderTracking_Bar {
     top: 38px;
   }
-  .MuiGrid2-root .SteperOrderTracking_Box h3 {
+  .MuiGrid-root .SteperOrderTracking_Box h3 {
     font-size: 16px;
   }
-  .MuiGrid2-root .SteperOrderTracking_Box p {
+  .MuiGrid-root .SteperOrderTracking_Box p {
     font-size: 14px;
   }
 }
@@ -68,13 +68,13 @@
   .SteperOrderTracking_Row {
     flex-flow: wrap;
   }
-  .MuiGrid2-root .StepOrder {
+  .MuiGrid-root .StepOrder {
     --size: 80px;
   }
-  .MuiGrid2-root .SteperOrderTracking_Bar {
+  .MuiGrid-root .SteperOrderTracking_Bar {
     display: none;
   }
-  .MuiGrid2-root .StepOrder_Box {
+  .MuiGrid-root .StepOrder_Box {
     min-width: 160px;
   }
 }

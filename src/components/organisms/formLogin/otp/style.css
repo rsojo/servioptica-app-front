@@ -1,4 +1,4 @@
-.MuiGrid2-root.OtpCodeLightBox {
+.MuiGrid-root.OtpCodeLightBox {
   background-color: #02114191;
   position: fixed;
   top: 0;
@@ -30,7 +30,7 @@
   max-height: 417px;
   width: 100%;
 }
-.MuiGrid2-root.OtpCodeLightBox_Card {
+.MuiGrid-root.OtpCodeLightBox_Card {
   background: #ffffff;
   border: 1px solid #024f8f;
   padding: 80px 40px 0;
