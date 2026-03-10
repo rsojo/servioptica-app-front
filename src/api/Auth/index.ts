@@ -6,9 +6,10 @@ import {
   RegisterRequest,
   RegisterResponse,
 } from "./type";
+import { getApiBaseUrl } from "../../utils/apiBaseUrl";
 
 //const devUrl = "https://apitrazabilidadco.essilorluxottica.com";
-const devUrl = process.env.REACT_APP_BASE_URL
+const devUrl = getApiBaseUrl();
 
 export async function loginUser(data: LoginRequest): Promise<LoginResponse> {
   // console.log('[process.env.REACT_APP_BASE_URL]', process.env.REACT_APP_BASE_URL)
@@ -30,8 +31,14 @@ export async function loginUser(data: LoginRequest): Promise<LoginResponse> {
 
     return responseData;
   } catch (error: any) {
-     console.error("[loginUser] [error]", error);
-    return error as LoginResponse;
+    console.error("[loginUser] [error]", error);
+    return {
+      data: null,
+      error: true,
+      message:
+        error?.message ||
+        "No fue posible conectar con el servidor. Verifica la URL de API y CORS.",
+    };
   }
 }
 

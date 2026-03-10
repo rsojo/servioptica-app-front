@@ -1,7 +1,8 @@
 import { OrderRequest, OrdersResponse } from "./type";
+import { getApiBaseUrl } from "../../utils/apiBaseUrl";
 
 //const devUrl = "http://127.0.0.1:8000";
-const devUrl = process.env.REACT_APP_BASE_URL
+const devUrl = getApiBaseUrl();
 
 export async function Orders(props: OrderRequest): Promise<OrdersResponse> {
   const url = `${devUrl}/api/orders`;

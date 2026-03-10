@@ -1,7 +1,8 @@
 import { GetFaqActivesResponse } from "./type";
+import { getApiBaseUrl } from "../../utils/apiBaseUrl";
 
 //const devUrl = "https://apitrazabilidadco.essilorluxottica.com";
-const devUrl = process.env.REACT_APP_BASE_URL
+const devUrl = getApiBaseUrl();
 
 export async function getFaqActives(): Promise<GetFaqActivesResponse> {
   const url = `${devUrl}/api/faqs/getActives`;
