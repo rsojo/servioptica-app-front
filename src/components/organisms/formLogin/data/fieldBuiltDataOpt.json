@@ -12,7 +12,7 @@
         "important": true,
         "options": null,
         "default": "",
-        "placeholder": "Nit",
+        "placeholder": "Usuario",
         "textError": "Este campo requerido",
         "minlength": 3,
         "maxlength": 60

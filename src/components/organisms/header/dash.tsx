@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   ButtonAtom,
   ColumnAtom,
@@ -22,6 +22,7 @@ import { Button, Menu, MenuItem } from "@mui/material";
 import { appStoreAtom } from "../../../store/Auth";
 import { useAtom } from "jotai";
 import { useLocation } from "react-router-dom";
+import { oidcLogout } from "../../../api/Auth";
 
 
 export const DashHeader = () => {
@@ -43,6 +44,24 @@ const isDashboardView = location.pathname.includes("/dashboard");
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = async () => {
+    const endSessionUrl =
+      appStore.auth?.auth_source === "oidc_client" && appStore.auth?.access_token
+        ? (await oidcLogout(appStore.auth.access_token)).data?.end_session_url
+        : null;
+
+    setAppStore({ auth: null, user: null });
+    localStorage.removeItem("appStoreAtom");
+    handleClose();
+
+    if (endSessionUrl) {
+      window.location.assign(endSessionUrl);
+      return;
+    }
+
+    navetgate("/");
   };
 
   return (
@@ -133,11 +152,7 @@ const isDashboardView = location.pathname.includes("/dashboard");
                 }}
               >
                 <MenuItem
-                  onClick={() => {
-                    setAppStore({ auth: null, user: null });
-                    localStorage.removeItem('appStoreAtom');
-                    handleClose();
-                  }}
+                  onClick={handleLogout}
                 >
                   Logout
                 </MenuItem>

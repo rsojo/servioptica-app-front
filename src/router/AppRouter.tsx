@@ -12,6 +12,8 @@ import DashboardPromo from "../components/pages/DashboardPromo";
 import { Faq } from "../components/pages/faq";
 import PreLogin from "../components/pages/PreLogin";
 import LoginAdmin from "../components/pages/Login_admin";
+import OidcCallback from "../components/pages/OidcCallback";
+import OidcLogoutCallback from "../components/pages/OidcLogoutCallback";
 
 const AppRouter: React.FC = () => {
   return (
@@ -23,6 +25,10 @@ const AppRouter: React.FC = () => {
           <Route path="/pre-login" element={<PreLogin />} />
           <Route path="/login" element={<Login />} />          
           <Route path="/login_admin" element={<LoginAdmin />} />
+          <Route path="/oidc/callback" element={<OidcCallback />} />
+          <Route path="/api/auth/oidc/callback" element={<OidcCallback />} />
+          <Route path="/oidc/logout/callback" element={<OidcLogoutCallback />} />
+          <Route path="/api/auth/oidc/logout/callback" element={<OidcLogoutCallback />} />
 
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard-promo" element={<DashboardPromo />} />

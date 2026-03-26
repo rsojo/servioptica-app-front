@@ -23,6 +23,8 @@ export const LoginForm = ({
   isAdmin = false,
   document,
   externalEmail = null,
+  onOpenIdLogin,
+  oidcOnly = false,
 }: {
   step: number;
   onCallBack: (value: PreDataType) => void;
@@ -30,10 +32,12 @@ export const LoginForm = ({
   isAdmin?: boolean;
   document?: string;
   externalEmail?: string | null;
+  onOpenIdLogin?: () => void;
+  oidcOnly?: boolean;
 }) => {
   const [email, setEmail] = useState<string | null>(externalEmail);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-    const { errorSnackMessage, successSnackMessage } = useMessage();
+    const { errorSnackMessage } = useMessage();
 
 
   useEffect(() => {
@@ -104,37 +108,60 @@ export const LoginForm = ({
           <SpaceAtom v={8} />
           {step === 1 && (
             <GridAtom style={{ width: "100%" }} alignItems="center" gap={4}>
-              <FormModule
-                key={document}
-                document={document}
-                actionBtnLabel="Entrar"
-                groupsFields={handleBuildData}
-                loading={isLoading}
-                onCallBack={(value) => {
-                  onCallBack(value);
-                }}
-              />
-              <ButtonAtom
-                variant="outlined"
-                disabled={isLoading}
-                adVariant="linkStyle"
-                onClick={() => {
-                 if(document) {
-                  setIsLoading(true)
-                  sendOtp({ document: document }).then((r) => {
-                    if (r.error) {
-                      errorSnackMessage(String(r.message));
+              {oidcOnly && !isAdmin && onOpenIdLogin ? (
+                <ButtonAtom
+                  variant="contained"
+                  disabled={isLoading}
+                  onClick={onOpenIdLogin}
+                  style={{ width: "100%" }}
+                >
+                  Ingresar con Now
+                </ButtonAtom>
+              ) : (
+                <>
+                  <FormModule
+                    key={document}
+                    document={document}
+                    actionBtnLabel="Entrar"
+                    groupsFields={handleBuildData}
+                    loading={isLoading}
+                    onCallBack={(value) => {
+                      onCallBack(value);
+                    }}
+                  />
+                  <ButtonAtom
+                    variant="outlined"
+                    disabled={isLoading}
+                    adVariant="linkStyle"
+                    onClick={() => {
+                     if(document) {
+                      setIsLoading(true)
+                      sendOtp({ document: document }).then((r) => {
+                        if (r.error) {
+                          errorSnackMessage(String(r.message));
+                        } else {
+                          setStep(7);
+                        }
+                      }).finally(() => setIsLoading(false));
                     } else {
-                      setStep(7);
-                    }
-                  }).finally(() => setIsLoading(false));
-                } else {
-                    setStep(2);                 }
-                }}
-                style={{ color: BASE_COLORS.blue }}
-              >
-                Recordar contraseña
-              </ButtonAtom>
+                        setStep(2);                 }
+                    }}
+                    style={{ color: BASE_COLORS.blue }}
+                  >
+                    Recordar contraseña
+                  </ButtonAtom>
+                  {!isAdmin && onOpenIdLogin && (
+                    <ButtonAtom
+                      variant="outlined"
+                      disabled={isLoading}
+                      onClick={onOpenIdLogin}
+                      style={{ width: "100%" }}
+                    >
+                      Ingresar con Now
+                    </ButtonAtom>
+                  )}
+                </>
+              )}
             </GridAtom>
           )}
 

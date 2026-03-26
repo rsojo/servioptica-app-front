@@ -5,7 +5,7 @@ import { LoginForm } from "../organisms/formLogin/main";
 import { Navigate, useNavigate } from "react-router-dom";
 import {
   assignPassword,
-  loginUser,
+  loginAdminUser,
   sendOtp,
   verifyOtp,
 } from "../../api/Auth";
@@ -28,7 +28,7 @@ const LoginAdmin: React.FC = () => {
   const handleLogin = (value: any) => {
     if (value && step === 1) {
       // value: {document, password}
-      loginUser({ document: value.document, password: value.password }).then(
+      loginAdminUser({ document: value.document, password: value.password }).then(
         (response) => {
           if (response.error) {
             errorSnackMessage(response.message);
@@ -39,6 +39,7 @@ const LoginAdmin: React.FC = () => {
               rol: response.data.admin ? "admin" : "user",
               admin: response.data.admin,
               document: value.document,
+              auth_source: "local_admin",
             };
             // console.log("[handleLogin] [authData]", authData);
             setAppStore({
