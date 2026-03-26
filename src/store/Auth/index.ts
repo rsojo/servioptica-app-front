@@ -1,18 +1,30 @@
 import { atom } from "jotai";
 
-interface Auth {
+export interface Auth {
   access_token: string;
   admin: boolean;
   rol: string;
   document: string;
+  auth_source?: "oidc_client" | "local_admin" | string;
+  user_type?: string;
 }
 
-interface UserData {
+export interface UserData {
+  id?: number;
   name: string;
   email: string;
+  document?: string;
+  oidc?: {
+    id_contacto?: string;
+    nit?: string;
+    nombre?: string;
+    razon_social?: string;
+    punto?: string;
+    grupo_empresarial?: string;
+  };
 }
 
-interface AppStoreAtom {
+export interface AppStoreAtom {
   auth: Auth | null;
   user: UserData | null;
 }

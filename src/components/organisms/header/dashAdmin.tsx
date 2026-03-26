@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   ButtonAtom,
   ColumnAtom,
@@ -21,11 +21,12 @@ import { appStoreAtom } from "../../../store/Auth";
 import { useAtom } from "jotai";
 import { searchOrder } from "../../../store/searchOrder";
 import { hideSearchAtom } from "../../../store/searchOrder/hideSearchAtom";
+import { oidcLogout } from "../../../api/Auth";
 
 export const DashHeaderAdmin = () => {
   const [hideSearch] = useAtom(hideSearchAtom);
   const [, setSearchOrderAtom] = useAtom(searchOrder)
-  const [, setAppStore] = useAtom(appStoreAtom);
+  const [appStore, setAppStore] = useAtom(appStoreAtom);
   const navetgate = useNavigate();
   const [searchValue, setSearchValue] = useState<string | null>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -41,6 +42,24 @@ export const DashHeaderAdmin = () => {
     // console.log("searchValue", searchValue);
     setSearchOrderAtom((prev)=>({...prev, document: searchValue}))
   }
+
+  const handleLogout = async () => {
+    const endSessionUrl =
+      appStore.auth?.auth_source === "oidc_client" && appStore.auth?.access_token
+        ? (await oidcLogout(appStore.auth.access_token)).data?.end_session_url
+        : null;
+
+    setAppStore({ auth: null, user: null });
+    localStorage.removeItem("appStoreAtom");
+    handleClose();
+
+    if (endSessionUrl) {
+      window.location.assign(endSessionUrl);
+      return;
+    }
+
+    navetgate("/");
+  };
 
   return (
     <header style={{ position: "relative", display: "flex" }}>
@@ -129,11 +148,7 @@ export const DashHeaderAdmin = () => {
                 }}
               >
                 <MenuItem
-                  onClick={() => {
-                    setAppStore({ auth: null, user: null });
-                    localStorage.removeItem('appStoreAtom');
-                    handleClose();
-                  }}
+                  onClick={handleLogout}
                 >
                   Logout
                 </MenuItem>

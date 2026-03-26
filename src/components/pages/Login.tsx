@@ -6,6 +6,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import {
   assignPassword,
   loginUser,
+  oidcStart,
   sendOtp,
   verifyOtp,
 } from "../../api/Auth";
@@ -17,45 +18,59 @@ import { useMessage } from "../../hooks/useMessage";
 const Login: React.FC = () => {
   const [appStore, setAppStore] = useAtom(persistAppStoreAtom);
   const { errorSnackMessage, successSnackMessage } = useMessage();
+
   const [tokenPass, setTokenPass] = useState<string>("");
   const [externalEmail, setExternalEmail] = useState<string | null>(null);
 
   const [step, setStep] = useState(1);
-
   const navetgate = useNavigate();
+
+  const handleOidcLogin = async () => {
+    const returnTo = `${window.location.origin}/oidc/callback`;
+    const response = await oidcStart(returnTo);
+
+    if (response.error || !response.data?.authorization_url) {
+      errorSnackMessage(response.message || "No fue posible iniciar OpenID.");
+      return;
+    }
+
+    window.location.assign(response.data.authorization_url);
+  };
 
   const handleLogin = (value: any) => {
     if (value && step === 1) {
-      // value: {document, password}
       loginUser({ document: value.document, password: value.password }).then(
         (response) => {
           if (response.error) {
             errorSnackMessage(response.message);
+            if (response.code === 403 || response.code === 405) {
+              handleOidcLogin();
+            }
+            return;
           }
+
           if (response.data?.access_token) {
             const authData = {
               access_token: response.data.access_token,
-              rol: response.data.admin ? "admin" : "user",
-              admin: response.data.admin,
+              rol: "user",
+              admin: false,
               document: value.document,
+              auth_source: "local_client",
             };
-            // console.log("[handleLogin] [authData]", authData);
+
             setAppStore({
               auth: authData,
               user: null,
             });
+
             successSnackMessage(String(response.message));
-            if (response.data.admin) {
-              navetgate("/dashboard-admin");
-            } else {
-              navetgate("/dashboard");
-            }
+            navetgate("/dashboard");
           }
         }
       );
     }
+
     if (value && step === 2) {
-      // value: {email}
       sendOtp({ document: value.document }).then((response) => {
         if (response.error) {
           errorSnackMessage(response.message);
@@ -68,11 +83,12 @@ const Login: React.FC = () => {
         }
       });
     }
+
     if (value && step === 3) {
-      // value: {document & otp}
       verifyOtp({ otp: value.otp, document: value.document }).then((response) => {
         if (response.error) {
           errorSnackMessage(response.message);
+          return;
         }
         if (!response.error && response.data) {
           setTokenPass(response.data.assignToken);
@@ -81,8 +97,8 @@ const Login: React.FC = () => {
         }
       });
     }
+
     if (value && step === 4) {
-      // New Passbord | value: {password_1, password_2, document}
       if (value.password_1 !== value.password_2) {
         errorSnackMessage("!Las claves no coinciden!");
       } else {
@@ -114,12 +130,20 @@ const Login: React.FC = () => {
     <ContainerAtom
       style={{
         position: "relative",
-        overflow: "hidden",
-        minHeight: 500,
-        height: "calc(100vh - 260px)",
+        overflowY: "auto",
+        minHeight: "calc(100vh - 260px)",
+        height: "auto",
+        paddingBottom: 24,
       }}
     >
-      <LoginForm  onCallBack={handleLogin} step={step} setStep={setStep} externalEmail={externalEmail} />
+      <LoginForm
+        onCallBack={handleLogin}
+        step={step}
+        setStep={setStep}
+        externalEmail={externalEmail}
+        onOpenIdLogin={handleOidcLogin}
+      />
+
     </ContainerAtom>
   );
 };

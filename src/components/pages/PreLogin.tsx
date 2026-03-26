@@ -9,6 +9,7 @@ import {
   assignPassword,
   checkClient,
   loginUser,
+  oidcStart,
   register,
   sendOtp,
   verifyOtp,
@@ -19,6 +20,8 @@ import { useAtom } from "jotai";
 import { persistAppStoreAtom } from "../../store/Auth";
 import { LoginForm } from "../organisms/formLogin/main";
 import { RecoverPasswordForm } from "../organisms/formLogin/recoverPassword";
+
+const USE_CHECKCLIENT_FLOW = false;
 
 const PreLogin: React.FC = () => {
   const [, setAppStore] = useAtom(persistAppStoreAtom);
@@ -35,7 +38,61 @@ const PreLogin: React.FC = () => {
 
   const { errorSnackMessage, successSnackMessage } = useMessage();
 
+  const handleOidcLogin = async () => {
+    const returnTo = `${window.location.origin}/oidc/callback`;
+    const response = await oidcStart(returnTo);
+
+    if (response.error || !response.data?.authorization_url) {
+      errorSnackMessage(response.message || "No fue posible iniciar OpenID.");
+      return;
+    }
+
+    window.location.assign(response.data.authorization_url);
+  };
+
   const handleLogin = (value: any) => {
+    if (!USE_CHECKCLIENT_FLOW && value && step === 1) {
+      setIsLoading(true);
+      setAppStore({
+        auth: null,
+        user: null,
+      });
+
+      loginUser({ document: value.document, password: value.password })
+        .then((response) => {
+          if (response.error) {
+            errorSnackMessage(response.message);
+            if (response.code === 403 || response.code === 405) {
+              handleOidcLogin();
+            }
+            return;
+          }
+
+          if (response.data?.access_token) {
+            const authData = {
+              access_token: response.data.access_token,
+              rol: "user",
+              admin: false,
+              document: value.document,
+              auth_source: "local_client",
+            };
+
+            setAppStore({
+              auth: authData,
+              user: null,
+            });
+
+            successSnackMessage(String(response.message));
+            navetgate("/dashboard");
+          }
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+
+      return;
+    }
+
     setIsLoading(true);
     setAppStore({
       auth: null,
@@ -88,13 +145,18 @@ const PreLogin: React.FC = () => {
         (response) => {
           if (response.error) {
             errorSnackMessage(response.message);
+            if (response.code === 403 || response.code === 405) {
+              handleOidcLogin();
+            }
+            return;
           }
           if (response.data?.access_token) {
             const authData = {
               access_token: response.data.access_token,
-              rol: response.data.admin ? "admin" : "user",
-              admin: response.data.admin,
+              rol: "user",
+              admin: false,
               document: nit,
+              auth_source: "local_client",
             };
             // console.log("[handleLogin] [authData]", authData);
             setAppStore({
@@ -102,11 +164,7 @@ const PreLogin: React.FC = () => {
               user: null,
             });
             successSnackMessage(String(response.message));
-            if (response.data.admin) {
-              navetgate("/dashboard-admin");
-            } else {
-              navetgate("/dashboard");
-            }
+            navetgate("/dashboard");
           }
         }
       );
@@ -116,6 +174,28 @@ const PreLogin: React.FC = () => {
       setStep(5);
     }
   };
+
+  if (!USE_CHECKCLIENT_FLOW) {
+    return (
+      <ContainerAtom
+        style={{
+          position: "relative",
+          overflowY: "auto",
+          minHeight: "calc(100vh - 260px)",
+          height: "auto",
+          paddingBottom: 24,
+        }}
+      >
+        <LoginForm
+          onCallBack={handleLogin}
+          step={step}
+          setStep={setStep}
+          externalEmail={email}
+          onOpenIdLogin={handleOidcLogin}
+        />
+      </ContainerAtom>
+    );
+  }
 
   const handkeVerifyOtp = (value: string, step: number) => {
     let data: { otp: string; email?: string; document?: string } = { otp: value, document: nit };
@@ -222,9 +302,10 @@ const PreLogin: React.FC = () => {
       <ContainerAtom
         style={{
           position: "relative",
-          overflow: "hidden",
-          minHeight: 500,
-          height: "calc(100vh - 260px)",
+          overflowY: "auto",
+          minHeight: "calc(100vh - 260px)",
+          height: "auto",
+          paddingBottom: 24,
         }}
       >
         <LoginForm
@@ -233,6 +314,7 @@ const PreLogin: React.FC = () => {
           step={1}
           setStep={setStep}
           externalEmail={email}
+          onOpenIdLogin={handleOidcLogin}
         />
       </ContainerAtom>
     );
@@ -243,9 +325,10 @@ const PreLogin: React.FC = () => {
       <ContainerAtom
         style={{
           position: "relative",
-          overflow: "hidden",
-          minHeight: 500,
-          height: "calc(100vh - 260px)",
+          overflowY: "auto",
+          minHeight: "calc(100vh - 260px)",
+          height: "auto",
+          paddingBottom: 24,
         }}
       >
         <RecoverPasswordForm
@@ -261,9 +344,10 @@ const PreLogin: React.FC = () => {
     <ContainerAtom
       style={{
         position: "relative",
-        overflow: "hidden",
-        minHeight: 500,
-        height: "calc(100vh - 260px)",
+        overflowY: "auto",
+        minHeight: "calc(100vh - 260px)",
+        height: "auto",
+        paddingBottom: 24,
       }}
     >
       <PreLoginForm
