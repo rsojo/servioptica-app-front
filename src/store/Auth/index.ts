@@ -5,7 +5,7 @@ export interface Auth {
   admin: boolean;
   rol: string;
   document: string;
-  auth_source?: "oidc_client" | "local_admin" | string;
+  auth_source?: "oidc_client" | "local_admin" | "local_client" | string;
   user_type?: string;
 }
 

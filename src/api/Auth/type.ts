@@ -49,7 +49,7 @@ export interface OidcLogoutResponse {
 
 export interface MeResponse {
   data: {
-    auth_source?: "oidc_client" | "local_admin" | string;
+    auth_source?: "oidc_client" | "local_admin" | "local_client" | string;
     type?: string;
     admin?: boolean;
     user?: OidcUser;

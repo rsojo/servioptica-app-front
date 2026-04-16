@@ -37,28 +37,42 @@ const OidcCallback: React.FC = () => {
   }) => {
     try {
       const meResponse = await getMe(props.accessToken);
-      const profile = meResponse.data;
+      const profile: any = meResponse.data;
+      const authSourceValue = String(profile?.auth_source || "").toLowerCase();
+      const typeValue = String(profile?.type || "").toLowerCase();
+      const authSourceIsLocalAdmin = authSourceValue === "local_admin";
+      const typeIsAdmin = typeValue === "admin";
+      const normalizedUser = profile?.user || {
+        id: profile?.id,
+        name: profile?.name,
+        email: profile?.email,
+        document: profile?.document,
+      };
+      const isAdmin =
+        typeof profile?.admin === "boolean"
+          ? profile.admin
+          : (typeof props.admin === "boolean" ? props.admin : authSourceIsLocalAdmin || typeIsAdmin);
 
       setAppStore({
         auth: {
           access_token: props.accessToken,
-          rol: profile?.admin ? "admin" : "user",
-          admin: Boolean(profile?.admin),
-          document: profile?.user?.document || props.document || "",
+          rol: isAdmin ? "admin" : "user",
+          admin: isAdmin,
+          document: normalizedUser?.document || props.document || "",
           auth_source: profile?.auth_source || "oidc_client",
           user_type: profile?.type,
         },
         user: {
-          id: profile?.user?.id || props.id,
-          name: profile?.user?.name || props.name || "",
-          email: profile?.user?.email || props.email || "",
-          document: profile?.user?.document || props.document,
+          id: normalizedUser?.id || props.id,
+          name: normalizedUser?.name || props.name || "",
+          email: normalizedUser?.email || props.email || "",
+          document: normalizedUser?.document || props.document,
           oidc: profile?.oidc,
         },
       });
 
       successSnackMessage("Inicio de sesión OpenID exitoso.");
-      navigate(profile?.admin ? "/dashboard-admin" : "/dashboard", { replace: true });
+      navigate(isAdmin ? "/dashboard-admin" : "/dashboard", { replace: true });
     } catch (error: any) {
       const message = error?.message || "No fue posible finalizar el login OIDC.";
       setErrorText(message);
