@@ -1,4 +1,4 @@
-# ServiOptica Frontend Application
+# ServiOptica Frontend Application.
 
 Este proyecto es una aplicación frontend desarrollada en React, diseñada para gestionar distintas funcionalidades administrativas y de usuario final. Utiliza tecnologías modernas como Material UI (MUI), React Router, Jotai para manejo de estado, y una arquitectura modular para garantizar escalabilidad y mantenibilidad.
 
