@@ -205,12 +205,12 @@ export default function OTPInput({
 }
 
 const blue = {
-  100: "#DAECFF",
-  200: "#80BFFF",
-  400: "#3399FF",
-  500: "#007FFF",
-  600: "#0072E5",
-  700: "#0059B2",
+  100: "#f5f5f5",
+  200: "#e0e0e0",
+  400: "#000000",
+  500: "#000000",
+  600: "#333333",
+  700: "#000000",
 };
 
 const grey = {
@@ -239,7 +239,7 @@ const InputElement = styled("input")(
   text-align: center;
   color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
   background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
-  border: 1px solid #024F8F;
+  border: 1px solid #000000;
 
   &:hover {
     border-color: ${blue[400]};

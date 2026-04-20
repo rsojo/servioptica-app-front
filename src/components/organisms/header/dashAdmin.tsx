@@ -7,11 +7,10 @@ import {
   InputTextAtom,
   RowAtom,
   SpaceAtom,
-  TextAtom,
   TitleAtom,
 } from "../../atoms";
 
-import LogoServioptica from "../../../assets/img/logo_servioptica@2x.webp";
+import LogoServioptica from "../../../assets/img/logo_servioptica_2026.png";
 import bkDash from "../../../assets/img/bkDashAdmin.webp";
 import PersonIcon from "@mui/icons-material/Person";
 import { BASE_COLORS } from "../../../style/constants";
@@ -97,18 +96,8 @@ export const DashHeaderAdmin = () => {
                 src={LogoServioptica}
                 alt={"Logo Servioptica"}
                 width={215}
-                height={91}
+                height={121}
               />
-            <TextAtom
-              type="small"
-              style={{
-                color: BASE_COLORS.blue,
-                textAlign: "center",
-                fontSize: 10,
-              }}
-            >
-              UN LABORATORIO DEL GRUPO ESSILORLUXOTTICA
-            </TextAtom>
           </ColumnAtom>
           <ColumnAtom
             flex={3}

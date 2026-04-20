@@ -10,8 +10,8 @@ export const BASE_COLORS = {
   violet: '#ee82ee',
   lightgreen: '#89dca0',
   pink: '#ffc0cb',
-  blue: '#024F8F',
-  skyblue: '#35a0dc',
+  blue: '#000000',
+  skyblue: '#000000',
   red: '#ff5252',
 } as const;
 

@@ -3,13 +3,11 @@ import ColumnAtom from "../../atoms/column";
 import ContainerAtom from "../../atoms/container";
 import GridAtom from "../../atoms/grid";
 import RowAtom from "../../atoms/row";
-import TextAtom from "../../atoms/text";
 import BackgroundVideo from "../../atoms/video";
 
-import LogoServioptica from "../../../assets/img/logo_servioptica@2x.webp";
+import LogoServioptica from "../../../assets/img/logo_servioptica_2026.png";
 import BkGeneral from "../../../assets/img/bkGeneral.webp";
 import bkGeneralVideo from "../../../assets/videos/bkGeneral.mp4";
-import { BASE_COLORS } from "../../../style/constants";
 
 export const LoginHeader = () => {
   return (
@@ -51,15 +49,9 @@ export const LoginHeader = () => {
                 src={LogoServioptica}
                 alt={"Logo Servioptica"}
                 width={294}
-                height={124}
+                height={165}
               />
             </Link>
-            <TextAtom
-              type="small"
-              style={{ color: BASE_COLORS.blue, textAlign: "center" }}
-            >
-              UN LABORATORIO DEL GRUPO ESSILORLUXOTTICA
-            </TextAtom>
           </ColumnAtom>
         </RowAtom>
       </ContainerAtom>
