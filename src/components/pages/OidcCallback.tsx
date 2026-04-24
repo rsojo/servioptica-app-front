@@ -108,8 +108,20 @@ const OidcCallback: React.FC = () => {
 
     const response = await oidcCallback(payload);
     setBackendResponse(response);
+    const callbackData = response.data;
 
-    if (response.error || !response.data?.access_token) {
+    if (callbackData?.status === "no_idp_session") {
+      setAppStore({ auth: null, user: null });
+      navigate("/login", { replace: true });
+      setIsLoading(false);
+      return;
+    }
+
+    const hasAuthenticatedStatus = callbackData?.status === "authenticated";
+    const hasAccessToken = Boolean(callbackData?.access_token);
+    const canContinue = hasAccessToken && (!callbackData?.status || hasAuthenticatedStatus);
+
+    if (response.error || !canContinue) {
       const message = response.message || "No fue posible completar el callback OIDC.";
       setErrorText(message);
       errorSnackMessage(message);
@@ -117,18 +129,24 @@ const OidcCallback: React.FC = () => {
       return;
     }
 
+    if (!callbackData?.access_token) {
+      setErrorText("No fue posible completar el callback OIDC.");
+      setIsLoading(false);
+      return;
+    }
+
     await persistSessionAndGo({
-      accessToken: response.data.access_token,
-      tokenType: response.data.token_type,
-      admin: response.data.admin,
-      document: response.data.user?.document,
-      name: response.data.user?.name,
-      email: response.data.user?.email,
-      id: response.data.user?.id,
+      accessToken: callbackData.access_token,
+      tokenType: callbackData.token_type,
+      admin: callbackData.admin,
+      document: callbackData.user?.document,
+      name: callbackData.user?.name,
+      email: callbackData.user?.email,
+      id: callbackData.user?.id,
     });
 
     setIsLoading(false);
-  }, [errorSnackMessage, getCallbackPayload, persistSessionAndGo]);
+  }, [errorSnackMessage, getCallbackPayload, navigate, persistSessionAndGo, setAppStore]);
 
   useEffect(() => {
     if (OIDC_DEBUG_MODE) {
@@ -179,24 +197,43 @@ const OidcCallback: React.FC = () => {
     }
 
     oidcCallback({ code, state }).then((response) => {
-      if (response.error || !response.data?.access_token) {
+      const callbackData = response.data;
+
+      if (callbackData?.status === "no_idp_session") {
+        setAppStore({ auth: null, user: null });
+        navigate("/login", { replace: true });
+        setIsLoading(false);
+        return;
+      }
+
+      const hasAuthenticatedStatus = callbackData?.status === "authenticated";
+      const hasAccessToken = Boolean(callbackData?.access_token);
+      const canContinue = hasAccessToken && (!callbackData?.status || hasAuthenticatedStatus);
+
+      if (response.error || !canContinue) {
         setErrorText(response.message || "No fue posible completar el login OpenID.");
         errorSnackMessage(response.message || "No fue posible completar el login OpenID.");
         setIsLoading(false);
         return;
       }
 
+      if (!callbackData?.access_token) {
+        setErrorText("No fue posible completar el login OpenID.");
+        setIsLoading(false);
+        return;
+      }
+
       void persistSessionAndGo({
-        accessToken: response.data.access_token,
-        tokenType: response.data.token_type,
-        admin: response.data.admin,
-        document: response.data.user?.document,
-        name: response.data.user?.name,
-        email: response.data.user?.email,
-        id: response.data.user?.id,
+        accessToken: callbackData.access_token,
+        tokenType: callbackData.token_type,
+        admin: callbackData.admin,
+        document: callbackData.user?.document,
+        name: callbackData.user?.name,
+        email: callbackData.user?.email,
+        id: callbackData.user?.id,
       });
     });
-  }, [errorSnackMessage, hashParams, persistSessionAndGo, searchParams]);
+  }, [errorSnackMessage, hashParams, navigate, persistSessionAndGo, searchParams, setAppStore]);
 
   const retryOpenId = async () => {
     setIsLoading(true);

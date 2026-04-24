@@ -28,9 +28,10 @@ export interface OidcStartResponse {
 
 export interface OidcCallbackResponse {
   data: {
-    access_token: string;
-    token_type: string;
-    admin: boolean;
+    status?: "authenticated" | "no_idp_session" | string;
+    access_token?: string;
+    token_type?: string;
+    admin?: boolean;
     user?: OidcUser;
   } | null;
   message: string;
