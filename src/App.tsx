@@ -26,7 +26,12 @@ const SessionBootstrap: React.FC = () => {
     validatedTokenRef.current = token;
 
     getMe(token).then((response) => {
-      if (response.code === 401 || response.error) {
+      if (response.code === 401) {
+        setAppStore({ auth: null, user: null });
+        return;
+      }
+
+      if (response.error) {
         setAppStore({ auth: null, user: null });
         return;
       }
@@ -74,7 +79,14 @@ const SessionBootstrap: React.FC = () => {
         });
       }
     });
-  }, [appStore.auth?.access_token, appStore.auth?.admin, appStore.auth?.document, setAppStore]);
+  }, [
+    appStore.auth?.access_token,
+    appStore.auth?.admin,
+    appStore.auth?.auth_source,
+    appStore.auth?.document,
+    appStore.auth?.user_type,
+    setAppStore,
+  ]);
 
   return null;
 };

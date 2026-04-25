@@ -84,8 +84,14 @@ export async function loginAdminUser(
   return fallback.code === 404 || fallback.code === 405 ? primary : fallback;
 }
 
-export async function oidcStart(returnTo?: string): Promise<OidcStartResponse> {
-  const query = returnTo ? `?return_to=${encodeURIComponent(returnTo)}` : "";
+export async function oidcStart(
+  returnTo?: string,
+  options?: { silent?: boolean }
+): Promise<OidcStartResponse> {
+  const params = new URLSearchParams();
+  if (returnTo) params.set("return_to", returnTo);
+  if (options?.silent) params.set("silent", "1");
+  const query = params.toString() ? `?${params.toString()}` : "";
   const url = `${devUrl}/api/auth/oidc/start${query}`;
 
   try {
@@ -215,18 +221,34 @@ export async function oidcLogoutCallback(): Promise<{
   }
 }
 
-export async function getMe(token: string): Promise<MeResponse> {
+export async function getMe(token?: string | null): Promise<MeResponse> {
   const url = `${devUrl}/api/auth/me`;
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  };
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
 
   try {
     const response = await fetch(url, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+      headers,
     });
+
+    const contentType = response.headers.get("content-type") || "";
+    const isJson = contentType.includes("application/json");
+
+    if (!isJson) {
+      return {
+        data: null,
+        error: true,
+        code: response.status,
+        message: `Respuesta no válida al validar sesión (${response.status}).`,
+      };
+    }
 
     const responseData: MeResponse = await response.json();
     return { ...responseData, code: response.status };

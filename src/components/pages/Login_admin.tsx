@@ -21,6 +21,12 @@ const LoginAdmin: React.FC = () => {
   const [externalEmail, setExternalEmail] = useState<string | null>(null);
   const [document, setDocument] = useState<string | null>(null);
   const [step, setStep] = useState(1);
+
+  const isNullPassword403 = (response: { code?: number; message?: string }) => {
+    if (response.code !== 403) return false;
+    const message = String(response.message || "").toLowerCase();
+    return message.includes("password") && message.includes("null");
+  };
   
 
   const navetgate = useNavigate();
@@ -31,7 +37,14 @@ const LoginAdmin: React.FC = () => {
       loginAdminUser({ document: value.document, password: value.password }).then(
         (response) => {
           if (response.error) {
+            if (isNullPassword403(response)) {
+              errorSnackMessage(
+                "Debes usar ‘Recuperar contraseña’ para generar una contraseña local"
+              );
+              return;
+            }
             errorSnackMessage(response.message);
+            return;
           }
           if (response.data?.access_token) {
             const authData = {
