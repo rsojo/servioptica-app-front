@@ -25,6 +25,12 @@ const Login: React.FC = () => {
   const [step, setStep] = useState(1);
   const navetgate = useNavigate();
 
+  const isNullPassword403 = (response: { code?: number; message?: string }) => {
+    if (response.code !== 403) return false;
+    const message = String(response.message || "").toLowerCase();
+    return message.includes("password") && message.includes("null");
+  };
+
   const handleOidcLogin = async () => {
     const returnTo = `${window.location.origin}/oidc/callback`;
     const response = await oidcStart(returnTo);
@@ -42,8 +48,15 @@ const Login: React.FC = () => {
       loginUser({ document: value.document, password: value.password }).then(
         (response) => {
           if (response.error) {
+            if (isNullPassword403(response)) {
+              errorSnackMessage(
+                "Debes usar ‘Recuperar contraseña’ para generar una contraseña local"
+              );
+              return;
+            }
+
             errorSnackMessage(response.message);
-            if (response.code === 403 || response.code === 405) {
+            if (response.code === 405) {
               handleOidcLogin();
             }
             return;

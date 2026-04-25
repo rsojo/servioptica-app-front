@@ -14,6 +14,7 @@ import PreLogin from "../components/pages/PreLogin";
 import LoginAdmin from "../components/pages/Login_admin";
 import OidcCallback from "../components/pages/OidcCallback";
 import OidcLogoutCallback from "../components/pages/OidcLogoutCallback";
+import OidcLanding from "../components/pages/OidcLanding";
 
 const AppRouter: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const AppRouter: React.FC = () => {
           <Route path="/pre-login" element={<PreLogin />} />
           <Route path="/login" element={<Login />} />          
           <Route path="/login_admin" element={<LoginAdmin />} />
+          <Route path="/oidc/landing" element={<OidcLanding />} />
           <Route path="/oidc/callback" element={<OidcCallback />} />
           <Route path="/api/auth/oidc/callback" element={<OidcCallback />} />
           <Route path="/oidc/logout/callback" element={<OidcLogoutCallback />} />
