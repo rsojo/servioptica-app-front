@@ -112,7 +112,7 @@ const OidcCallback: React.FC = () => {
 
     if (callbackData?.status === "no_idp_session") {
       setAppStore({ auth: null, user: null });
-      navigate("/login", { replace: true });
+      navigate("/", { replace: true });
       setIsLoading(false);
       return;
     }
@@ -201,7 +201,7 @@ const OidcCallback: React.FC = () => {
 
       if (callbackData?.status === "no_idp_session") {
         setAppStore({ auth: null, user: null });
-        navigate("/login", { replace: true });
+        navigate("/", { replace: true });
         setIsLoading(false);
         return;
       }

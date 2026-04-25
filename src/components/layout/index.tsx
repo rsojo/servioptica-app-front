@@ -8,7 +8,6 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import { Footer, Header } from "../organisms";
 import { useLayout } from "../../hooks/layout/useLayout";
-import PortalMenuWidget from "../organisms/header/PortalMenuWidget";
 
 const Layout: React.FC = () => {
   const {
@@ -47,7 +46,6 @@ const Layout: React.FC = () => {
 
   return (
     <div>
-      <PortalMenuWidget />
       <Header variant={getPageType(currentLink)} />
       <main style={{ position: "relative" }}>
         <div>
